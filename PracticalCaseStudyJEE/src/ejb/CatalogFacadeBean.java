@@ -1,6 +1,7 @@
 /*
  * Copyright FUOC.  All rights reserved.
  * @author Vicenç Font Sagristà, 2012
+ * 
  */
 package ejb;
 
