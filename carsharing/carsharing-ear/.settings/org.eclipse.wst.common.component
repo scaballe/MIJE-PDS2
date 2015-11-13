@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="carsharing-ear-0.0.1-SNAPSHOT">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
+        <dependent-module archiveName="carsharing-business-0.0.1-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/carsharing-business/carsharing-business">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ejb-api-3.0.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/javax/ejb/ejb-api/3.0/ejb-api-3.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="carsharing-integration-0.0.1-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/carsharing-integration/carsharing-integration">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="persistence-api-1.0.2.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/javax/persistence/persistence-api/1.0.2/persistence-api-1.0.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="carsharing-jsf-0.0.1-SNAPSHOT.war" deploy-path="/" handle="module:/resource/carsharing-jsf/carsharing-jsf">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
