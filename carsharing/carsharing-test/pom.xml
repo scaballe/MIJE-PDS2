@@ -105,7 +105,7 @@
 		<profile>
 			<id>h2-embedded</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<build>
 				<testResources>
@@ -121,7 +121,7 @@
 		<profile>
 			<id>postgresql-embedded</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<build>
 				<testResources>

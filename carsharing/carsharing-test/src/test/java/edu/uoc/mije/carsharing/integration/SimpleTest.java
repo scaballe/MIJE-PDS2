@@ -17,8 +17,10 @@ public class SimpleTest extends AbstractJPATest{
     }
 
     protected void insertDataIntoTransaction(EntityManager em) throws Exception {
-        CarJPA car1 = new CarJPA("1","brand","model","color");
+        CarJPA car1 = new CarJPA("1","marca","modelo","rojo");
         em.persist(car1);
+        CarJPA car2 = new CarJPA("2","AlfaRomeo","cupe","pink");
+        em.persist(car2);
     }
     
     @Test
@@ -32,6 +34,6 @@ public class SimpleTest extends AbstractJPATest{
 
         // then
         System.out.println("Found  games (using JPQL):");
-        Assert.assertTrue( list.size() == 1);
+        Assert.assertTrue( list.size() == 2);
     }
 }
