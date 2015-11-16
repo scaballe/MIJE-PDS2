@@ -4,18 +4,14 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-    extends TestCase
-{
+public class CarJPATest extends TestCase{
+
     /**
      * Create the test case
      *
      * @param testName name of the test case
      */
-    public AppTest( String testName )
+    public CarJPATest( String testName )
     {
         super( testName );
     }
@@ -25,7 +21,7 @@ public class AppTest
      */
     public static Test suite()
     {
-        return new TestSuite( AppTest.class );
+        return new TestSuite( CarJPATest.class );
     }
 
     /**
@@ -35,4 +31,5 @@ public class AppTest
     {
         assertTrue( true );
     }
+
 }
