@@ -19,6 +19,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import edu.uoc.mije.carsharing.business.comms.CommunicationFacadeBean;
+
 @RunWith(Arquillian.class)
 public abstract class AbstractJPATest {
 
@@ -26,6 +28,7 @@ public abstract class AbstractJPATest {
     public static Archive<?> createDeployment() {		
 		JavaArchive jar = ShrinkWrap.create(JavaArchive.class)
 	            .addPackage(CarJPA.class.getPackage())
+	            .addPackage(CommunicationFacadeBean.class.getPackage())
 	            .addAsManifestResource("test-persistence.xml", "persistence.xml")
 	            .addAsManifestResource("jbossas-ds.xml")
 	            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
