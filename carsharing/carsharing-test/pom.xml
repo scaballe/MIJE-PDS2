@@ -78,6 +78,12 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>
+		<dependency>
+			<groupId>edu.uoc.mije</groupId>
+			<artifactId>carsharing-business</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>ejb</type>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -100,40 +106,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>h2-embedded</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<testResources>
-					<testResource>
-						<directory>src/test/resources</directory>
-					</testResource>
-					<testResource>
-						<directory>src/test/h2-resources</directory>
-					</testResource>
-				</testResources>
-			</build>
-		</profile>
-		<profile>
-			<id>postgresql-embedded</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>
-				<testResources>
-					<testResource>
-						<directory>src/test/resources</directory>
-					</testResource>
-					<testResource>
-						<directory>src/test/postgresql-resources</directory>
-					</testResource>
-				</testResources>
-			</build>
-		</profile>
-	</profiles>
 
 </project>
