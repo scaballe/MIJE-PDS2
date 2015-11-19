@@ -38,7 +38,7 @@ public class CommunicationTest extends AbstractJPATest {
 	
 	@Test
 	public void testNone() throws Exception {
-		boolean ok = communicationFacadeRemote==null;		
+		boolean ok = communicationFacadeRemote!=null;		
 		Assert.assertTrue(ok);
 	}
 }
