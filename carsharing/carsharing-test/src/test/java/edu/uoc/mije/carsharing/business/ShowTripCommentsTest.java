@@ -1,5 +1,7 @@
 package edu.uoc.mije.carsharing.business;
 
+import java.util.Collection;
+
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -37,9 +39,10 @@ public class ShowTripCommentsTest extends AbstractJPATest {
 	@EJB
 	private CommunicationFacadeRemote communicationFacadeRemote; 
 	
+	
 	@Test
-	public void testNone() throws Exception {
-		boolean ok = communicationFacadeRemote!=null;		
-		Assert.assertTrue(ok);
+	public void testShowTripCommentsEmpty() throws Exception {	
+		Collection<MessageJPA> test = communicationFacadeRemote.showTripComments(-1);
+		Assert.assertTrue(test.size()==0);
 	}
 }

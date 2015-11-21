@@ -44,10 +44,5 @@ public class CommunicationTest extends AbstractJPATest {
 		boolean ok = communicationFacadeRemote!=null;		
 		Assert.assertTrue(ok);
 	}
-	
-	@Test
-	public void testShowTripCommentsEmpty() throws Exception {	
-		Collection<MessageJPA> test = communicationFacadeRemote.showTripComments(-1);
-		Assert.assertTrue(test.size()==0);
-	}
+		
 }
