@@ -22,7 +22,10 @@ public class CommunicationFacadeBean implements CommunicationFacadeRemote {
 	@Override
 	public Collection<MessageJPA> showTripComments(int tripId) {
 		@SuppressWarnings("unchecked")
-		Collection<MessageJPA> allMessages = entman.createQuery("from MessageJPA").getResultList();
+		Collection<MessageJPA> allMessages = entman.
+			createQuery("from MessageJPA m where m.id=:tripId").
+			setParameter("tripId", tripId).
+			getResultList();
 		return allMessages;
 
 	}

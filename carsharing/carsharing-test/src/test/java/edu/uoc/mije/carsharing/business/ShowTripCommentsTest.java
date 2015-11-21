@@ -32,8 +32,9 @@ public class ShowTripCommentsTest extends AbstractJPATest {
 	@Override
 	protected void insertDataIntoTransaction(EntityManager em) throws Exception {
 		// TODO Auto-generated method stub
-		MessageJPA msg1 = new MessageJPA();
+		MessageJPA msg1 = new MessageJPA("test body","test content");
         em.persist(msg1);
+        System.out.println("**************** "+msg1.getId());
 	}
 	
 	@EJB
@@ -42,7 +43,7 @@ public class ShowTripCommentsTest extends AbstractJPATest {
 	
 	@Test
 	public void testShowTripCommentsEmpty() throws Exception {	
-		Collection<MessageJPA> test = communicationFacadeRemote.showTripComments(-1);
-		Assert.assertTrue(test.size()==0);
+		Collection<MessageJPA> test = communicationFacadeRemote.showTripComments(1);
+		Assert.assertTrue(test.size()==1);
 	}
 }

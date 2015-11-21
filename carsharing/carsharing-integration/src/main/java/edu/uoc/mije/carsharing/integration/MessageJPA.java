@@ -11,17 +11,22 @@ public class MessageJPA implements Serializable{
 		super();
 	}
 	
-	int id;
+	public MessageJPA(String subject, String body){		
+		this.subject=subject;
+		this.body=body;
+	}
+	
+	Integer id;
 	String subject;	
 	String body;
 	
 	@Id	
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
