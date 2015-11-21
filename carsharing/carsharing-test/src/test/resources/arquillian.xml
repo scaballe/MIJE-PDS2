@@ -7,10 +7,10 @@
 	
 
     <container qualifier="jboss" default="true">
-        <!-- configuration>
-            <property name="jbossHome">${JBOSS_HOME}</property>
+        <configuration>
             <property name="outputToConsole">true</property>
-        </configuration -->
+            <property name="javaVmArguments">-Xrunjdwp:transport=dt_socket,address=8086,server=y,suspend=n</property>            
+        </configuration>
     </container>
  
 </arquillian>

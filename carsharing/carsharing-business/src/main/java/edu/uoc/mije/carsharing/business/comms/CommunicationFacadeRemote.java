@@ -11,4 +11,11 @@ public interface CommunicationFacadeRemote {
 
 	public Collection<MessageJPA> showTripComments( int tripId) ;
 	
+	public Collection<MessageJPA> showDriverComments( String driver);
+	
+	public void askQuestion( int tripId, String passenger, String subject, String body);
+	
+	public void replyQuestion(int tripId, int questionId, String driver, String subject, String body);
+	
+	public void rateDriver( String driver, String passenger, String comment, int rate);
 }

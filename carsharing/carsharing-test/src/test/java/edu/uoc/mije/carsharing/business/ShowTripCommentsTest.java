@@ -1,7 +1,5 @@
 package edu.uoc.mije.carsharing.business;
 
-import java.util.Collection;
-
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -14,26 +12,26 @@ import org.junit.runner.RunWith;
 import edu.uoc.mije.carsharing.business.comms.CommunicationFacadeBean;
 import edu.uoc.mije.carsharing.business.comms.CommunicationFacadeRemote;
 import edu.uoc.mije.carsharing.integration.AbstractJPATest;
+import edu.uoc.mije.carsharing.integration.CarJPA;
 import edu.uoc.mije.carsharing.integration.MessageJPA;
 import junit.framework.Assert;
 
 @RunWith(Arquillian.class)
-public class CommunicationTest extends AbstractJPATest {
+public class ShowTripCommentsTest extends AbstractJPATest {
 	
-	public CommunicationTest() {
-		// TODO Auto-generated constructor stub
+	public ShowTripCommentsTest() {
 	}
 
 	@Override
 	protected void clearDataIntoTransaction(EntityManager em) throws Exception {
-		// TODO Auto-generated method stub
-		
+		em.createQuery("delete from MessageJPA").executeUpdate();
 	}
 	
 	@Override
 	protected void insertDataIntoTransaction(EntityManager em) throws Exception {
 		// TODO Auto-generated method stub
-		
+		MessageJPA msg1 = new MessageJPA();
+        em.persist(msg1);
 	}
 	
 	@EJB
@@ -43,11 +41,5 @@ public class CommunicationTest extends AbstractJPATest {
 	public void testNone() throws Exception {
 		boolean ok = communicationFacadeRemote!=null;		
 		Assert.assertTrue(ok);
-	}
-	
-	@Test
-	public void testShowTripCommentsEmpty() throws Exception {	
-		Collection<MessageJPA> test = communicationFacadeRemote.showTripComments(-1);
-		Assert.assertTrue(test.size()==0);
 	}
 }
