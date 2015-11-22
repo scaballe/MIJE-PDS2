@@ -1,5 +1,5 @@
 package edu.uoc.mije.carsharing.business.trip;
 
-public class TripFacadeBean {
+public class TripFacadeBean implements TripFacadeRemote{
 
 }
