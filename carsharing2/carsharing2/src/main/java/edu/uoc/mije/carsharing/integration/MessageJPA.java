@@ -45,4 +45,32 @@ public class MessageJPA implements Serializable{
 	public void setBody(String body) {
 		this.body = body;
 	}
+	
+	@OneToOne
+	DriverJPA driver;
+	public DriverJPA getDriver() {
+		return driver;
+	}
+	public void setDriver(DriverJPA driver) {
+		this.driver = driver;
+	}
+	
+	@OneToOne
+	PassengerJPA passenger;
+	public PassengerJPA getPassenger() {
+		return passenger;
+	}
+	public void setPassenger(PassengerJPA passenger) {
+		this.passenger = passenger;
+	}
+	
+	@OneToOne
+	TripJPA trip;
+	public TripJPA getTrip() {
+		return trip;
+	}
+	public void setTrip(TripJPA trip) {
+		this.trip = trip;
+	}
+
 }
