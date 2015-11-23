@@ -28,6 +28,7 @@ public abstract class AbstractJPATest {
     public static Archive<?> createDeployment() {		
 		JavaArchive jar = ShrinkWrap.create(JavaArchive.class)
 	            .addPackage(CarJPA.class.getPackage())
+	            //.addPackage(CityJPA.class.getPackage())
 	            .addPackage(CommunicationFacadeBean.class.getPackage())
 	            .addAsManifestResource("test-persistence.xml", "persistence.xml")
 	            .addAsManifestResource("jbossas-ds.xml")
