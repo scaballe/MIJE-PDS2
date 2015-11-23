@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
+@Table(name="driver_comment")
 public class DriverCommentJPA implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -22,6 +23,7 @@ public class DriverCommentJPA implements Serializable{
 		this.id = id;
 	}
 
+	/*
 	@OneToOne
 	DriverJPA driver;
 	public DriverJPA getDriver() {
@@ -54,5 +56,5 @@ public class DriverCommentJPA implements Serializable{
 	}
 	public void setRatting(int ratting) {
 		this.ratting = ratting;
-	}
+	}*/
 }

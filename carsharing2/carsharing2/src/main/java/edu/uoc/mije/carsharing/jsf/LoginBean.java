@@ -14,6 +14,8 @@ import javax.naming.InitialContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 
+import edu.uoc.mije.carsharing.business.UtilFacadeRemote;
+
 @ManagedBean(name = "login")
 @SessionScoped
 public class LoginBean {
@@ -45,8 +47,10 @@ public class LoginBean {
 
 	public void login() {
 
-		if ( "test".equalsIgnoreCase(getEmail()) && "test".equalsIgnoreCase(getPassword()) ) {
+		if ( getEmail().equalsIgnoreCase(getPassword()) ) {
 			user = getEmail();
+			//esto hay que sacarlo de aqui. es para tener datos cargados
+			prepareDatabase();
 		}
 	}
 
@@ -60,4 +64,9 @@ public class LoginBean {
 		return user != null;
 	}
 
+	@EJB
+	UtilFacadeRemote utilFacadeRemote;
+	public void prepareDatabase(){
+		utilFacadeRemote.loadModel();
+	}
 }

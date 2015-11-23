@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
+@Table(name="message")
 public class MessageJPA implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -11,9 +12,12 @@ public class MessageJPA implements Serializable{
 		super();
 	}
 	
-	public MessageJPA(String subject, String body){		
+	public MessageJPA(String subject, String body, DriverJPA driver, PassengerJPA passenger, TripJPA trip){		
 		this.subject=subject;
 		this.body=body;
+		//this.driver=driver;
+		//this.passenger=passenger;
+		//this.trip=trip;
 	}
 	
 	Integer id;
@@ -45,8 +49,7 @@ public class MessageJPA implements Serializable{
 	public void setBody(String body) {
 		this.body = body;
 	}
-	
-	@OneToOne
+	/*
 	DriverJPA driver;
 	public DriverJPA getDriver() {
 		return driver;
@@ -55,7 +58,6 @@ public class MessageJPA implements Serializable{
 		this.driver = driver;
 	}
 	
-	@OneToOne
 	PassengerJPA passenger;
 	public PassengerJPA getPassenger() {
 		return passenger;
@@ -64,7 +66,6 @@ public class MessageJPA implements Serializable{
 		this.passenger = passenger;
 	}
 	
-	@OneToOne
 	TripJPA trip;
 	public TripJPA getTrip() {
 		return trip;
@@ -72,5 +73,5 @@ public class MessageJPA implements Serializable{
 	public void setTrip(TripJPA trip) {
 		this.trip = trip;
 	}
-
+*/
 }

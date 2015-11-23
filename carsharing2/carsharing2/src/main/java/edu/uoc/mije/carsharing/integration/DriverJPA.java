@@ -1,25 +1,44 @@
 package edu.uoc.mije.carsharing.integration;
 
 import java.io.Serializable;
+import java.util.Collection;
+
 import javax.persistence.*;
 
 @Entity
-public class DriverJPA implements Serializable{
+@DiscriminatorValue("D")
+public class DriverJPA extends UserJPA{
 	
 	private static final long serialVersionUID = 1L;
+
+	private Collection<CarJPA>cars;
+	private Collection<TripJPA>trips;
 	
 	public DriverJPA() {
 		// TODO Auto-generated constructor stub
 	}
+		
+	@Transient
+	public int getGlobalRating(){
+		return 0;
+	}
 	
-	Integer id;
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public Integer getId() {
-		return id;
+	@OneToMany(cascade = CascadeType.ALL )
+	@JoinColumn(name = "driver") 
+	public Collection<CarJPA> getCars() {
+		return cars;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setCars(Collection<CarJPA> cars) {
+		this.cars = cars;
 	}
-
+	
+	@OneToMany(cascade = CascadeType.ALL )
+	@JoinColumn(name = "driver") 
+	public Collection<TripJPA> getTrips() {
+		return trips;
+	}
+	public void setTrips(Collection<TripJPA> trips) {
+		this.trips=trips;
+	}
+	
 }
