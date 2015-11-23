@@ -1,38 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+
+	<!-- Bootstrap Core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet"></link>
+	<!-- Custom CSS -->
+	<link href="css/logo-nav.css" rel="stylesheet"></link>
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 	<title>CarSharing. MIJE</title>
 </h:head>
 
 <h:body>
- <div id="layout">
-	<div id="top" class="top">
-		<ui:insert name="top">
-			<table width="100%" cellspacing="0" border="0"
-			  background="#{resource['images:bkg-topbar.gif']}">
-			  <tr>
-			    <td width="26"><img border="0" src="#{resource['images:petstore.gif']}"/></td>  
-			  </tr>
-			</table>
-			<f:view>				
-			 <h:form>
-			  <p align="right">
-	  			<h:panelGrid columns="4"> 			
-	  				<h:outputText value="CarSharing MIJE:  "/>
-				</h:panelGrid>	
-			  </p>
-			 </h:form>			
-			</f:view>
-		</ui:insert>
-	</div>	
-	<div id="content">
-		<ui:insert name="content">Content</ui:insert>
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#"> <img src="images/logo.png"
+				alt="MIJE"></img>
+			</a>
+		</div>
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-1">
+
+			<ul class="nav navbar-nav">
+				<c:if test="#{login.loggedIn}">
+
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Viajes <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Buscar</a></li>
+							<li><a href="#">Nuevo</a></li>
+						</ul></li>
+
+				</c:if>
+				<!-- if condition -->
+			</ul>
+
+			<h:form>
+			<ul class="nav navbar-nav navbar-right">
+				<c:choose>
+					<c:when test="#{login.loggedIn == false}">
+						<li><a data-toggle="modal" data-target="#loginModal" href="#">Login</a></li>
+					</c:when>
+					<!-- if condition -->
+					<c:otherwise>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Perfil <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><h:commandLink action="#{login.logout}">Salir</h:commandLink></li>
+								<li><a href="#">Mis datos</a></li>
+								<li><a href="#">Mis coches</a></li>
+							</ul></li>
+					</c:otherwise>
+					<!-- else condition -->
+				</c:choose>
+				<li><a data-toggle="modal" data-target="#aboutModal" href="#">About</a></li>
+			</ul>
+			</h:form>
+		</div>
+		<!-- /.navbar-collapse -->
 	</div>
- </div>
+	<!-- /.container --> </nav>
+
+	<!-- Page Content -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<ui:insert name="content">Content</ui:insert>
+			</div>
+		</div>
+	</div>
+	<!-- /.container -->
+
+	<div class="modal" id="aboutModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">x</button>
+					<h3>About CarSharing MIJE</h3>
+				</div>
+				<div class="modal-body">Practica Desarrollo en Grupo UOC
+					2015-16</div>
+				<div class="modal-footer">Grupo MIJE (Mercedes, Ivan, Jorge y
+					Emilio)</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="loginModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">x</button>
+					<h3>Identificacion</h3>
+				</div>
+				<div class="modal-body">
+					<h:form method="post" name="login_form">
+						<f:validateBean>
+							<p>
+								<h:inputText id="email" value="#{login.email}" />
+							</p>
+							<p>
+								<h:inputSecret id="password" value="#{login.password}" />
+							</p>
+							<p>
+								<h:commandButton value="Login" action="#{login.login}" />
+							</p>
+						</f:validateBean>
+					</h:form>
+				</div>
+				<div class="modal-footer">Grupo MIJE (Mercedes, Ivan, Jorge y
+					Emilio)</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- /. dialogs -->
+
+	<!-- jQuery -->
+	<script src="js/jquery.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.min.js"></script>
+
 </h:body>
 </html>

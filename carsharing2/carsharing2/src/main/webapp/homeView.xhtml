@@ -1,17 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 
 <ui:composition template="./layout.xhtml">
 	<ui:define name="content">
-		
-		<table width="100%" >
+
+		<table width="100%">
 			<td rowspan="1" colspan="1">
 				<div class="content" align="center">
-					<h1>Welcome</h1>
-					<h2><h:outputText align="center" value="ShowTripComments, say hello : #{showTripComments.hello}" />	</h2>
+					<h1>Welcome to CarSharing</h1>
+
+					<c:choose>
+						<c:when test="#{login.loggedIn == false}">
+
+							<p>Si ya está registrado, acceda al sistema identificandose
+								en el menú superior</p>
+							<p>
+								Si se quiere registrar como un conductor, por favor, rellene
+								este <a href="#">Formulario</a>
+							</p>
+							<p>
+								Si, por el contrario, se quiere registrar como un pasajero, por
+								favor, rellene este otro <a href="#">Formulario</a>
+							</p>
+
+						</c:when>
+
+						<c:otherwise>
+						
+						
+						</c:otherwise>
+					</c:choose>
+
 				</div>
 			</td>
 		</table>
