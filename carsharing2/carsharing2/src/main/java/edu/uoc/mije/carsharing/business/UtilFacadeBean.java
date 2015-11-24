@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
 import edu.uoc.mije.carsharing.integration.MessageJPA;
+import edu.uoc.mije.carsharing.integration.util.ExampleModel;
 import edu.uoc.mije.carsharing.integration.util.ExampleModel1;
 
 @Stateless
@@ -20,14 +21,14 @@ public class UtilFacadeBean implements UtilFacadeRemote{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void loadModel(){
+	public void loadModel( int exampleId ){
 		
 		ExampleModel1 model = new ExampleModel1();
 		
 		runModel(model);
 	}
 	
-	private void runModel( ExampleModel1 model){
+	private void runModel( ExampleModel model){
 		model.loadExampleModel(entman);
 	}
 	

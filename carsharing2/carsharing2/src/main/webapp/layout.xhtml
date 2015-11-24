@@ -67,26 +67,39 @@
 			</ul>
 
 			<h:form>
-			<ul class="nav navbar-nav navbar-right">
-				<c:choose>
-					<c:when test="#{login.loggedIn == false}">
-						<li><a data-toggle="modal" data-target="#loginModal" href="#">Login</a></li>
-					</c:when>
-					<!-- if condition -->
-					<c:otherwise>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">Perfil <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><h:commandLink action="#{login.logout}">Salir</h:commandLink></li>
-								<li><a href="#">Mis datos</a></li>
-								<li><a href="#">Mis coches</a></li>
-							</ul></li>
-					</c:otherwise>
-					<!-- else condition -->
-				</c:choose>
-				<li><a data-toggle="modal" data-target="#aboutModal" href="#">About</a></li>
-			</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<c:choose>
+						<c:when test="#{login.loggedIn == false}">
+							<li><a data-toggle="modal" data-target="#loginModal"
+								href="#">Login</a></li>
+						</c:when>
+						<!-- if condition -->
+						<c:otherwise>
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false">Perfil <span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><h:commandLink action="#{login.logout}">Salir</h:commandLink></li>
+									<li><a href="#">Mis datos</a></li>
+									<li><a href="#">Mis coches</a></li>
+								</ul></li>
+						</c:otherwise>
+						<!-- else condition -->
+					</c:choose>
+					<li><a data-toggle="modal" data-target="#aboutModal" href="#">About</a></li>
+				</ul>
+			</h:form>
+
+
+			<h:form>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Util <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><h:commandLink action="#{util.loadModel1}">Cargar Modelo1</h:commandLink></li>
+						</ul></li>
+				</ul>
 			</h:form>
 		</div>
 		<!-- /.navbar-collapse -->

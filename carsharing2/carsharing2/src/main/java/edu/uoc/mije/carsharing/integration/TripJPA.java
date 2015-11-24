@@ -14,6 +14,17 @@ public class TripJPA implements Serializable {
 	public TripJPA() {
 		// TODO Auto-generated constructor stub
 	}
+
+	public TripJPA(	String description, CityJPA departureCity, String fromPlace,Date departureDate,CityJPA arrivalCity,String toPlace,int availableSeats, float price){
+		this.description=description;
+		this.departureCity=departureCity;
+		this.fromPlace=fromPlace;
+		this.departureDate=departureDate;
+		this.arrivalCity=arrivalCity;
+		this.toPlace=toPlace;
+		this.availableSeats=availableSeats;
+		this.price=price;
+	}
 	
 	Integer id;
 	@Id
@@ -26,7 +37,7 @@ public class TripJPA implements Serializable {
 	}
 
 	String description;
-	String departureCity;
+	CityJPA departureCity;
 	String fromPlace;
 	Date   departureDate;
 	CityJPA	arrivalCity;
@@ -41,10 +52,12 @@ public class TripJPA implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getDepartureCity() {
+	
+	@ManyToOne
+	public CityJPA getDepartureCity() {
 		return departureCity;
 	}
-	public void setDepartureCity(String departureCity) {
+	public void setDepartureCity(CityJPA departureCity) {
 		this.departureCity = departureCity;
 	}
 	public String getFromPlace() {

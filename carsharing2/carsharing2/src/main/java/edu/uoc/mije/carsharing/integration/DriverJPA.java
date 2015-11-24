@@ -1,6 +1,7 @@
 package edu.uoc.mije.carsharing.integration;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.*;
@@ -11,8 +12,8 @@ public class DriverJPA extends UserJPA{
 	
 	private static final long serialVersionUID = 1L;
 
-	private Collection<CarJPA>cars;
-	private Collection<TripJPA>trips;
+	private Collection<CarJPA>cars = new ArrayList<CarJPA>();
+	private Collection<TripJPA>trips= new ArrayList<TripJPA>();
 	
 	public DriverJPA() {
 		// TODO Auto-generated constructor stub
@@ -28,8 +29,13 @@ public class DriverJPA extends UserJPA{
 	public Collection<CarJPA> getCars() {
 		return cars;
 	}
+	
 	public void setCars(Collection<CarJPA> cars) {
 		this.cars = cars;
+	}
+	
+	public void addCar( CarJPA car){
+		cars.add(car);
 	}
 	
 	@OneToMany(cascade = CascadeType.ALL )
@@ -37,8 +43,12 @@ public class DriverJPA extends UserJPA{
 	public Collection<TripJPA> getTrips() {
 		return trips;
 	}
+	
 	public void setTrips(Collection<TripJPA> trips) {
 		this.trips=trips;
 	}
-	
+
+	public void addTrip( TripJPA trip){
+		trips.add(trip);
+	}
 }

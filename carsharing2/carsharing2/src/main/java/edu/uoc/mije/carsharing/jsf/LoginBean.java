@@ -49,8 +49,6 @@ public class LoginBean {
 
 		if ( getEmail().equalsIgnoreCase(getPassword()) ) {
 			user = getEmail();
-			//esto hay que sacarlo de aqui. es para tener datos cargados
-			prepareDatabase();
 		}
 	}
 
@@ -64,9 +62,5 @@ public class LoginBean {
 		return user != null;
 	}
 
-	@EJB
-	UtilFacadeRemote utilFacadeRemote;
-	public void prepareDatabase(){
-		utilFacadeRemote.loadModel();
-	}
+
 }
