@@ -4,15 +4,24 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="USER_TYPE",discriminatorType=DiscriminatorType.STRING,length=2)
-@Table(name="users")
-public abstract class UserJPA  {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "USER_TYPE", discriminatorType = DiscriminatorType.STRING, length = 2)
+@Table(name = "users")
+public abstract class UserJPA {
 
 	private static final long serialVersionUID = 1L;
 
 	public UserJPA() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public UserJPA(String nif, String name, String surname, String phone, String password, String email) {
+		this.nif=nif;
+		this.name=name;
+		this.surname=surname;
+		this.phone=phone;
+		this.password=password;
+		this.email=email;
 	}
 
 	long id;
@@ -26,7 +35,7 @@ public abstract class UserJPA  {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 	String nif;
 	String name;
 	String surname;

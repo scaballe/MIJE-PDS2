@@ -9,6 +9,7 @@ import edu.uoc.mije.carsharing.integration.CarJPA;
 import edu.uoc.mije.carsharing.integration.CityJPA;
 import edu.uoc.mije.carsharing.integration.DriverJPA;
 import edu.uoc.mije.carsharing.integration.MessageJPA;
+import edu.uoc.mije.carsharing.integration.PassengerJPA;
 import edu.uoc.mije.carsharing.integration.TripJPA;
 
 public class ExampleModel1 implements ExampleModel{
@@ -50,6 +51,10 @@ public class ExampleModel1 implements ExampleModel{
 		driver1.addTrip(trip1);
 		
 		em.persist(driver1);
+		
+		
+		PassengerJPA pass1 = new PassengerJPA("222", "name", "surname", "phone", "password", "email");
+		em.persist(pass1);
 	}
 
 }

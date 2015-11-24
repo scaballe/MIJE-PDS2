@@ -12,5 +12,7 @@ public class PassengerJPA extends UserJPA{
 		// TODO Auto-generated constructor stub
 	}
 	
-
+	public PassengerJPA(String nif, String name, String surname, String phone, String password, String email) {
+		super(nif,name,surname,phone,password,email);
+	}
 }
