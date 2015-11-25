@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="./layout.xhtml">
+	<ui:define name="content">
+		<h:form align="left">
+			<h:outputText value="Origen: " />
+			<h:inputText value="#{trips.departureCity}" />
+			<h:outputText value="Destino: " />
+			<h:inputText value="#{trips.arrivalCity}" />
+			<h:commandButton value="Buscar" action="#{trips.listTrips}" />
+			<h:commandLink action="#{trips.previousScreen}" value="Previous" />
+			<h:outputText value="   " />
+			<h:commandLink action="#{trips.nextScreen}" value="Next" />
+			<h:dataTable value="#{trips.tripsListView}" var="item"
+				bgcolor="#F1F1F1" border="1" first="0" width="75%" frame="hsides"
+				rules="all">
+				<f:facet name="header">
+					<h:outputText align="center" value="Viajes: " />
+				</f:facet>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Fecha:" />
+					</f:facet>
+					<p align="left">
+						<h:outputText value="#{item.departureDate}" />
+					</p>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Precio" />
+					</f:facet>
+					<p align="left">
+						<h:outputText value="item.price" />
+					</p>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Lugar de recogida:" />
+					</f:facet>
+					<h:outputText value="#{item.fromPlace}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Lugar de llegada:" />
+					</f:facet>
+					<h:outputText value="#{item.toPlace}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Puntuación del conductor" />
+					</f:facet>
+					<h:outputText value="item.availableSeats" />
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -26,13 +26,18 @@ public class FindTripMBean {
 	 * Constructor method
 	 * @throws Exception
 	 */
-	public FindTripMBean(String departureCity, String arrivalCity, float minPrice, float maxPrice, Date departureDate) throws Exception{
-		this.departureCity = departureCity;
-		this.arrivalCity = arrivalCity;
-		this.minPrice = minPrice;
-		this.maxPrice = maxPrice;
-		this.departureDate = departureDate;
-		//this.tripList();
+	public FindTripMBean() throws Exception{
+		this.departureCity = null;
+		this.arrivalCity = null;
+		this.minPrice = 0;
+		this.maxPrice = 9999;
+		this.departureDate = null;
+		this.tripList();
+	}
+
+	private void tripList() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
