@@ -6,7 +6,7 @@
 	version="1.0">
    <persistence-unit name="CarSharing">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>    
-    <jta-data-source>java:jboss/datasources/postgresDS</jta-data-source>
+    <jta-data-source>java:jboss/postgresDS</jta-data-source>
      <properties>
          <property name="hibernate.dialect" 
                   value="org.hibernate.dialect.PostgreSQLDialect"/>
