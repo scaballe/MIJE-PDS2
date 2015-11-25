@@ -12,27 +12,18 @@ public class MessageJPA implements Serializable{
 		super();
 	}
 	
-	public MessageJPA(String subject, String body, DriverJPA driver, PassengerJPA passenger, TripJPA trip){		
+	public MessageJPA(String subject, String body, DriverJPA driver, PassengerJPA passenger, TripJPA trip){
+		this.id = new MessageIndexJPA(driver,passenger,trip);
 		this.subject=subject;
 		this.body=body;
-		//this.driver=driver;
-		//this.passenger=passenger;
-		//this.trip=trip;
 	}
+
+	@EmbeddedId
+	MessageIndexJPA id;
 	
-	Integer id;
 	String subject;	
 	String body;
 	
-	@Id	
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	
 	public String getSubject() {
 		return subject;
@@ -49,29 +40,6 @@ public class MessageJPA implements Serializable{
 	public void setBody(String body) {
 		this.body = body;
 	}
-	/*
-	DriverJPA driver;
-	public DriverJPA getDriver() {
-		return driver;
-	}
-	public void setDriver(DriverJPA driver) {
-		this.driver = driver;
-	}
-	
-	PassengerJPA passenger;
-	public PassengerJPA getPassenger() {
-		return passenger;
-	}
-	public void setPassenger(PassengerJPA passenger) {
-		this.passenger = passenger;
-	}
-	
-	TripJPA trip;
-	public TripJPA getTrip() {
-		return trip;
-	}
-	public void setTrip(TripJPA trip) {
-		this.trip = trip;
-	}
-*/
+
+
 }

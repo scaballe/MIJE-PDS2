@@ -22,31 +22,31 @@ public class MessageIndexJPA implements Serializable {
 		this.trip = trip.getId();
 	}
 
-	private long driver;
-	private long passenger;
-	private long trip;
+	private int driver;
+	private int passenger;
+	private int trip;
 
-	public long getDriver() {
+	public int getDriver() {
 		return driver;
 	}
 
-	public void setDriver(long driver) {
+	public void setDriver(int driver) {
 		this.driver = driver;
 	}
 
-	public long getPassenger() {
+	public int getPassenger() {
 		return passenger;
 	}
 
-	public void setPassenger(long passenger) {
+	public void setPassenger(int passenger) {
 		this.passenger = passenger;
 	}
 
-	public long getTrip() {
+	public int getTrip() {
 		return trip;
 	}
 
-	public void setTrip(long trip) {
+	public void setTrip(int trip) {
 		this.trip = trip;
 	}
 

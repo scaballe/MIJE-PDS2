@@ -80,7 +80,7 @@
 								aria-expanded="false">Perfil <span class="caret"></span></a>
 								<ul class="dropdown-menu">
 									<li><h:commandLink action="#{login.logout}">Salir</h:commandLink></li>
-									<li><a href="#">Mis datos</a></li>									
+									<li><a href="#">Mis datos</a></li>
 								</ul></li>
 						</c:otherwise>
 						<!-- else condition -->
@@ -109,7 +109,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<h:messages globalOnly="false" errorStyle="color:red;" infoStyle="color:blue;"/>
+				<h:messages globalOnly="false" errorStyle="color:red;"
+					infoStyle="color:blue;" />
 			</div>
 		</div>
 	</div>
@@ -119,7 +120,29 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<ui:insert name="content">Content</ui:insert>
+
+				<c:choose>
+					<c:when test="#{login.loggedIn == false}">
+
+						<p>Si ya está registrado, acceda al sistema identificandose en
+							el menú superior</p>
+						<p>
+							Si se quiere registrar como un conductor, por favor, rellene este
+							<a href="#">Formulario</a>
+						</p>
+						<p>
+							Si, por el contrario, se quiere registrar como un pasajero, por
+							favor, rellene este otro <a href="#">Formulario</a>
+						</p>
+
+					</c:when>
+
+					<c:otherwise>
+
+						<ui:insert name="content">Content</ui:insert>
+
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</div>

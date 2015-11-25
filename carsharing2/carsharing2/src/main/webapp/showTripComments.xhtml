@@ -15,6 +15,10 @@
 				<div class="content" align="center">
 					<h1>ShowTripComments</h1>
 
+					<h:dataTable var="iterator" value="#{showTripComments.messages}">
+						<h:column>#{iterator.subject}</h:column>
+						<h:column>#{iterator.body} </h:column>
+					</h:dataTable>
 
 
 				</div>

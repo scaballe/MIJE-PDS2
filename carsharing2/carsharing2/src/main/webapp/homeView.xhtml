@@ -15,28 +15,14 @@
 				<div class="content" align="center">
 					<h1>Welcome to CarSharing</h1>
 
-					<c:choose>
-						<c:when test="#{login.loggedIn == false}">
-
-							<p>Si ya está registrado, acceda al sistema identificandose
-								en el menú superior</p>
-							<p>
-								Si se quiere registrar como un conductor, por favor, rellene
-								este <a href="#">Formulario</a>
-							</p>
-							<p>
-								Si, por el contrario, se quiere registrar como un pasajero, por
-								favor, rellene este otro <a href="#">Formulario</a>
-							</p>
-
-						</c:when>
-
-						<c:otherwise>
-						
-						
-						</c:otherwise>
-					</c:choose>
-
+					<h:form>
+						test showTripComments : <h:inputText id="tripId" 
+							converter="javax.faces.Integer"
+							value="#{showTripComments.tripId}" />
+						<h:commandButton value="Click here"
+							action="#{showTripComments.doAction()}" />
+					</h:form>
+					
 				</div>
 			</td>
 		</table>
