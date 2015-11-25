@@ -20,11 +20,13 @@ public class ExampleModel1 implements ExampleModel{
 
 	public void loadExampleModel(EntityManager em){
 		
+		// limpiamos tablas
 		em.createQuery("delete from MessageJPA").executeUpdate();				
 		em.createQuery("delete from TripJPA").executeUpdate();
 		em.createQuery("delete from CarJPA").executeUpdate();
 		em.createQuery("delete from UserJPA").executeUpdate();
 		
+		// algunas ciudades para visitar
 		CityJPA madrid,barcelona,malaga;
 		if( (madrid=em.find(CityJPA.class, "madrid")) == null){
 			em.persist(madrid=new CityJPA("madrid"));
@@ -39,6 +41,7 @@ public class ExampleModel1 implements ExampleModel{
 		CarJPA car1 = new CarJPA("111", "brand", "model", "color");
 		TripJPA trip1 = new TripJPA("trip1", madrid, "entrevias", Calendar.getInstance().getTime(), barcelona, "La Rambla", 4, 100);
 		
+		// Un conductor con un coche y que ofrece un viaje
 		DriverJPA driver1 = new DriverJPA();
 		driver1.setEmail("email");
 		driver1.setName("name");
@@ -52,9 +55,12 @@ public class ExampleModel1 implements ExampleModel{
 		
 		em.persist(driver1);
 		
-		
+		// Un pasejero registrado en el sistema
 		PassengerJPA pass1 = new PassengerJPA("222", "name", "surname", "phone", "password", "email");
 		em.persist(pass1);
+		
+		
+		// .... 
 	}
 
 }
