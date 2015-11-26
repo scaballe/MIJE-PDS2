@@ -61,12 +61,26 @@ public class ExampleModel1 implements ExampleModel{
 		
 		MessageJPA msg1 = new MessageJPA("subject", "body", driver1, pass1, trip1);
 		em.persist(msg1);
-		// .... 
+
+		// ....
+		// some querys to test the model
 		Collection<MessageJPA> allMessages = em.
 				createQuery("from MessageJPA m where m.id.trip=:tripId").
 				setParameter("tripId", trip1.getId()).
 				getResultList();
-
+		assert allMessages.size() != 0;
+				
+		Collection<CarJPA> cars = em.
+				createQuery("from CarJPA c where c.driver=:driver").
+				setParameter("driver", driver1).
+				getResultList();
+		assert cars.size() != 0;
+		
+		Collection<CarJPA> trips = em.
+				createQuery("from TripJPA c where c.driver=:driver").
+				setParameter("driver", driver1).
+				getResultList();
+		assert trips.size() != 0;
 	}
 
 }

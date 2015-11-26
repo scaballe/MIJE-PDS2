@@ -9,6 +9,7 @@ public class CarJPA implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
 	String	carRegistrationId;
 	String	brand;
 	String	model;
@@ -25,7 +26,6 @@ public class CarJPA implements Serializable{
 		this.color=color;
 	}
 	
-	@Id
 	public String getCarRegistrationId() {
 		return carRegistrationId;
 	}
@@ -49,6 +49,17 @@ public class CarJPA implements Serializable{
 	}
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="driver_id")
+	private DriverJPA driver;
+		
+	public DriverJPA getDriver() {
+		return driver;
+	}
+	public void setDriver(DriverJPA driver) {
+		this.driver = driver;
 	}
 	
 	

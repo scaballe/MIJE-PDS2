@@ -26,9 +26,9 @@ public class TripJPA implements Serializable {
 		this.price=price;
 	}
 	
-	Integer id;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)	
+	Integer id;
 	public Integer getId() {
 		return id;
 	}
@@ -37,10 +37,8 @@ public class TripJPA implements Serializable {
 	}
 
 	String description;
-	CityJPA departureCity;
 	String fromPlace;
 	Date   departureDate;
-	CityJPA	arrivalCity;
 	String	toPlace;
 	Integer availableSeats;
 	Float	price;
@@ -102,6 +100,26 @@ public class TripJPA implements Serializable {
 	}
 	public void setDriverRating(Float driverRating) {
 		this.driverRating = driverRating;
+	}
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="departure_id")
+	CityJPA departureCity;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="arrival_id")
+	CityJPA	arrivalCity;
+
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="driver_id")
+	private DriverJPA driver;
+		
+	public DriverJPA getDriver() {
+		return driver;
+	}
+	public void setDriver(DriverJPA driver) {
+		this.driver = driver;
 	}
 
 }

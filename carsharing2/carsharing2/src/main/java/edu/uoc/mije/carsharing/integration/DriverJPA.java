@@ -24,8 +24,8 @@ public class DriverJPA extends UserJPA{
 		return 0;
 	}
 	
-	@OneToMany(cascade = CascadeType.ALL )
-	@JoinColumn(name = "driver") 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="driver")
+	//@JoinColumn(name = "driver") 
 	public Collection<CarJPA> getCars() {
 		return cars;
 	}
@@ -35,11 +35,11 @@ public class DriverJPA extends UserJPA{
 	}
 	
 	public void addCar( CarJPA car){
+		car.setDriver(this);
 		cars.add(car);
 	}
 	
-	@OneToMany(cascade = CascadeType.ALL )
-	@JoinColumn(name = "driver") 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="driver" )
 	public Collection<TripJPA> getTrips() {
 		return trips;
 	}
@@ -49,6 +49,7 @@ public class DriverJPA extends UserJPA{
 	}
 
 	public void addTrip( TripJPA trip){
+		trip.setDriver(this);
 		trips.add(trip);
 	}
 }
