@@ -13,6 +13,13 @@ public class DriverCommentJPA implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
+	public DriverCommentJPA(String comment, int rating, DriverJPA driver, PassengerJPA passenger){
+		this.comment=comment;
+		this.ratting=rating;
+		setDriver(driver);
+		setPassenger(passenger);
+	}
+	
 	Integer id;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -21,25 +28,6 @@ public class DriverCommentJPA implements Serializable{
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	/*
-	@OneToOne
-	DriverJPA driver;
-	public DriverJPA getDriver() {
-		return driver;
-	}
-	public void setDriver(DriverJPA driver) {
-		this.driver = driver;
-	}
-	
-	@OneToOne
-	PassengerJPA passenger;
-	public PassengerJPA getPassenger() {
-		return passenger;
-	}
-	public void setPassenger(PassengerJPA passenger) {
-		this.passenger = passenger;
 	}
 	
 	String comment;
@@ -56,5 +44,30 @@ public class DriverCommentJPA implements Serializable{
 	}
 	public void setRatting(int ratting) {
 		this.ratting = ratting;
-	}*/
+	}
+	
+	private DriverJPA driver;
+	
+	private PassengerJPA passenger;
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="driver")
+	public DriverJPA getDriver() {
+		return driver;
+	}
+	public void setDriver(DriverJPA driver) {
+		this.driver = driver;
+	}
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="passenger")
+	public PassengerJPA getPassenger() {
+		return passenger;
+	}
+	public void setPassenger(PassengerJPA passenger) {
+		this.passenger = passenger;
+	}
+	
+	
+
 }

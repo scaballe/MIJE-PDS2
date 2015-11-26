@@ -25,7 +25,6 @@ public class DriverJPA extends UserJPA{
 	}
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="driver")
-	//@JoinColumn(name = "driver") 
 	public Collection<CarJPA> getCars() {
 		return cars;
 	}
@@ -52,4 +51,21 @@ public class DriverJPA extends UserJPA{
 		trip.setDriver(this);
 		trips.add(trip);
 	}
+	
+	private Collection<DriverCommentJPA> comments= new ArrayList<DriverCommentJPA>();
+	
+	@OneToMany(mappedBy = "driver", 
+			cascade = { CascadeType.PERSIST,
+			CascadeType.REMOVE }, orphanRemoval = true)
+	public Collection<DriverCommentJPA> getComments() {
+		return comments;
+	}
+	public void setComments(Collection<DriverCommentJPA> comments) {
+		this.comments = comments;
+	}
+	public void addComment(DriverCommentJPA comment){
+		comments.add(comment);
+		comment.setDriver(this);
+	}
+	
 }

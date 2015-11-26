@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 import edu.uoc.mije.carsharing.integration.CarJPA;
 import edu.uoc.mije.carsharing.integration.CityJPA;
+import edu.uoc.mije.carsharing.integration.DriverCommentJPA;
 import edu.uoc.mije.carsharing.integration.DriverJPA;
 import edu.uoc.mije.carsharing.integration.MessageJPA;
 import edu.uoc.mije.carsharing.integration.PassengerJPA;
@@ -62,6 +63,9 @@ public class ExampleModel1 implements ExampleModel{
 		MessageJPA msg1 = new MessageJPA("subject", "body", driver1, pass1, trip1);
 		em.persist(msg1);
 
+		DriverCommentJPA comment = new DriverCommentJPA("no estuvo mal",5,driver1,pass1);
+		em.persist(comment);
+		
 		// ....
 		// some querys to test the model
 		Collection<MessageJPA> allMessages = em.
@@ -80,7 +84,14 @@ public class ExampleModel1 implements ExampleModel{
 				createQuery("from TripJPA c where c.driver=:driver").
 				setParameter("driver", driver1).
 				getResultList();
-		assert trips.size() != 0;
+		assert trips.size() == 1;
+		
+		
+		Collection<DriverCommentJPA>comments = em.
+				createQuery("from DriverCommentJPA c where c.driver=:driver").
+				setParameter("driver", driver1).
+				getResultList();
+		assert trips.size() == 1;
 	}
 
 }
