@@ -35,4 +35,20 @@ public class PassengerJPA extends UserJPA{
 		comment.setPassenger(this);
 	}
 
+	private Collection<MessageJPA> messages= new ArrayList<MessageJPA>();
+	
+	@OneToMany(mappedBy = "passenger", 
+			cascade = { CascadeType.PERSIST,
+			CascadeType.REMOVE }, orphanRemoval = true)
+	public Collection<MessageJPA> getMessage() {
+		return messages;
+	}
+	public void setMessage(Collection<MessageJPA> comments) {
+		this.messages = comments;
+	}
+	public void addMessage(MessageJPA comment){
+		messages.add(comment);
+		comment.setPassenger(this);
+	}
+
 }

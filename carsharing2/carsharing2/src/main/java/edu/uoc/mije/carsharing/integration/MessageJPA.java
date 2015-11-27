@@ -12,14 +12,23 @@ public class MessageJPA implements Serializable{
 		super();
 	}
 	
-	public MessageJPA(String subject, String body, DriverJPA driver, PassengerJPA passenger, TripJPA trip){
-		this.id = new MessageIndexJPA(driver,passenger,trip);
+	public MessageJPA(String subject, String body, DriverJPA driver, PassengerJPA passenger, TripJPA trip){		
 		this.subject=subject;
 		this.body=body;
+		setDriver(driver);
+		setPassenger(passenger);
+		setTrip(trip);
 	}
 
-	@EmbeddedId
-	MessageIndexJPA id;
+	Integer id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
 	String subject;	
 	String body;
@@ -41,5 +50,36 @@ public class MessageJPA implements Serializable{
 		this.body = body;
 	}
 
-
+	private DriverJPA driver;
+	
+	private PassengerJPA passenger;
+	
+	private TripJPA trip;
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="driver")
+	public DriverJPA getDriver() {
+		return driver;
+	}
+	public void setDriver(DriverJPA driver) {
+		this.driver = driver;
+	}
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="passenger")
+	public PassengerJPA getPassenger() {
+		return passenger;
+	}
+	public void setPassenger(PassengerJPA passenger) {
+		this.passenger = passenger;
+	}
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="trip")
+	public TripJPA getTrip() {
+		return trip;
+	}
+	public void setTrip(TripJPA trip) {
+		this.trip = trip;
+	}
 }

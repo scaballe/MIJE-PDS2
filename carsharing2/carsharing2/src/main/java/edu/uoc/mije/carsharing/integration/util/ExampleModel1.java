@@ -70,8 +70,8 @@ public class ExampleModel1 implements ExampleModel{
 		// ....
 		// some querys to test the model
 		Collection<MessageJPA> allMessages = em.
-				createQuery("from MessageJPA m where m.id.trip=:tripId").
-				setParameter("tripId", trip1.getId()).
+				createQuery("from MessageJPA m where m.trip=:tripId").
+				setParameter("tripId", trip1).
 				getResultList();
 		assert allMessages.size() != 0;
 				
