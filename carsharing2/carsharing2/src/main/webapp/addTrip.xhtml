@@ -11,13 +11,23 @@
 	<ui:define name="content">
 
 		<table width="100%">
-			<td rowspan="1" colspan="1">
+			<td rowspan="9" colspan="1">
 				<div class="content" align="center">
 					<h1>AddTrip</h1>
 
 <h:form>
-<p>aqui ira el formulario capturando los datos del trip hasta los cojones</p>
-<p>mete el id del driver<h:inputText value="#{addTrip.driverId}" id="driverId"/></p>
+<p>Formulario para introducir los datos del trip</p>
+<p>Introduce Id del driver<h:inputText value="#{addTrip.driverId}" id="driverId"/></p>
+<p>Introduce Description<h:inputText value="#{addTrip.description}" id="description"/></p>
+<p>Introduce departureCity<h:inputText value="#{addTrip.departureCity}" id="departureCity"/></p>
+<p>Introduce fromPlace<h:inputText value="#{addTrip.fromPlace}" id="fromPlace"/></p>
+<p>Introduce departureDate<h:inputText value="#{addTrip.departureDate}" id="departureDate"/></p>
+//falta departureTime
+<p>Introduce arrivalCity<h:inputText value="#{addTrip.arrivalCity}" id="arrivalCity"/></p>
+<p>Introduce toPlace<h:inputText value="#{addTrip.toPlace}" id="toPlace"/></p>
+<p>Introduce availableSeats<h:inputText value="#{addTrip.availableSeats}" id="availableSeats"/></p>
+<p>Introduce price<h:inputText value="#{addTrip.price}" id="price"/></p>
+
 <p>y aqui invocamos al action <h:commandButton action="#{addTrip.doAction()}" value="call me" /></p>
 </h:form>
 				</div>
