@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
+import edu.uoc.mije.carsharing.integration.DriverCommentJPA;
 import edu.uoc.mije.carsharing.integration.MessageJPA;
 
 @Stateless
@@ -23,7 +24,7 @@ public class CommunicationFacadeBean implements CommunicationFacadeRemote {
 	public Collection<MessageJPA> showTripComments(int tripId) {
 		@SuppressWarnings("unchecked")
 		Collection<MessageJPA> allMessages = entman.
-			createQuery("from MessageJPA m where m.id.trip=:tripId").
+			createQuery("from MessageJPA m where m.trip.id=:tripId").
 			setParameter("tripId", tripId).
 			getResultList();
 		return allMessages;
@@ -46,7 +47,12 @@ public class CommunicationFacadeBean implements CommunicationFacadeRemote {
 	}
 
 	@Override
-	public Collection<MessageJPA> showDriverComments(String driver) {
-		throw new RuntimeException("method not implemented");
+	public Collection<DriverCommentJPA> showDriverComments(String driver) {
+		@SuppressWarnings("unchecked")
+		Collection<DriverCommentJPA> allMessages = entman.
+			createQuery("from DriverCommentJPA m where m.driver.email=:driver").
+			setParameter("driver",driver).
+			getResultList();
+		return allMessages;
 	}
 }
