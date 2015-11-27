@@ -23,6 +23,7 @@ public class ExampleModel1 implements ExampleModel{
 		
 		// limpiamos tablas
 		em.createQuery("delete from MessageJPA").executeUpdate();				
+		em.createQuery("delete from DriverCommentJPA").executeUpdate();
 		em.createQuery("delete from TripJPA").executeUpdate();
 		em.createQuery("delete from CarJPA").executeUpdate();
 		em.createQuery("delete from UserJPA").executeUpdate();
