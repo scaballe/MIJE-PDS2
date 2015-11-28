@@ -2,14 +2,16 @@ package edu.uoc.mije.carsharing.jsf;
 
 
 import java.util.Date;
+import java.util.Properties;
 import java.util.logging.Logger;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.*;
+
+import javax.ejb.EJB;
+import javax.faces.bean.*;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.persistence.*;
-
-
-
-
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -18,14 +20,15 @@ import javax.persistence.ManyToOne;
 import edu.uoc.mije.carsharing.business.comms.CommunicationFacadeRemote;
 import edu.uoc.mije.carsharing.business.tripadmin.TripAdminFacadeRemote;
 import edu.uoc.mije.carsharing.integration.CityJPA;
+import edu.uoc.mije.carsharing.integration.TripJPA;
 
 @ManagedBean(name = "addTrip")
 @RequestScoped
-public class AddTripBean {
-
+public class AddTripBean implements Serializable {
+	
 	@EJB
-	CommunicationFacadeRemote communicationRemote; 
-	// este lo tienes que cambiar al tuyo
+	private TripAdminFacadeRemote AddTripRemote;
+	
 	
 	String driverId;
 	String description;
@@ -103,15 +106,16 @@ public class AddTripBean {
 	}	
 	
 	 
-	public String doAction(){  //por ejemplo. yo los llamo doAction pero puede ser lo que quieras
-	
-		Logger.getLogger("carsharing").info("addTrip to "+driverId);
+	public void addTrip() throws Exception{  
 		
-		if( "1".equals(driverId)){
-			return "homeView";
-		}
+		//Logger.getLogger("carsharing").info("addTrip to "+driverId);
 		
-		return "addTrip";
+		Properties props = System.getProperties();
+		Context ctx = new InitialContext(props);
+		AddTripRemote = (TripAdminFacadeRemote) ctx.lookup("java:app/CarSharingMije.jar/TripAdminFacadeBean!ejb.TripAdminFacadeRemote");
+		AddTripRemote.addTrip(description, departureCity, fromPlace, departureDate, arrivalCity, toPlace, availableSeats, price);
+			
+		
 	}
 	
 	
