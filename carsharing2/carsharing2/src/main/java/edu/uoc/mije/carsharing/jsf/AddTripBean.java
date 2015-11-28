@@ -3,12 +3,13 @@ package edu.uoc.mije.carsharing.jsf;
 import java.util.logging.Logger;
 
 
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import edu.uoc.mije.carsharing.business.comms.CommunicationFacadeRemote;
-import edu.uoc.mije.carsharing.business.tripAdministration.TripAdministrationFacadeRemote;
+import edu.uoc.mije.carsharing.business.tripadmin.TripAdminFacadeRemote;
 
 @ManagedBean(name = "addTrip")
 @RequestScoped
