@@ -58,7 +58,12 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 	
 	@Override
 	public void updateTripInformation( int tripId, String description, CityJPA departureCity, String fromPlace, Date departureDate, CityJPA arrivalCity, String toPlace, int availableSeats, float price){
-		throw new RuntimeException("method not implemented");
+		
+		TripJPA instance = new TripJPA(description, departureCity, fromPlace,
+				departureDate, arrivalCity, toPlace, availableSeats, price);
+		
+		//entman.refresh(instance,);
+		
 	}
 
 	

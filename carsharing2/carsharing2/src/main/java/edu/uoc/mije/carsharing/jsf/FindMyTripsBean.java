@@ -41,7 +41,7 @@ public class FindMyTripsBean implements Serializable {
 		//Logger.getLogger("carsharing").info("findMyTrips"+ driver.getNif());
 		Properties props = System.getProperties();
 		Context ctx = new InitialContext(props);
-		FindMyTripsRemote = (TripAdminFacadeRemote) ctx.lookup("java:app/CarSharingMije.jar/TripAdminFacadeBean!ejb.TripAdminFacadeRemote");
+		//FindMyTripsRemote = (TripAdminFacadeRemote) ctx.lookup("java:app/CarSharingMije.jar/TripAdminFacadeBean!ejb.TripAdminFacadeRemote");
 		listTrips = FindMyTripsRemote.findMyTrips(driver);	
 		
 		return listTrips;

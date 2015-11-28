@@ -112,7 +112,7 @@ public class AddTripBean implements Serializable {
 		
 		Properties props = System.getProperties();
 		Context ctx = new InitialContext(props);
-		AddTripRemote = (TripAdminFacadeRemote) ctx.lookup("java:app/CarSharingMije.jar/TripAdminFacadeBean!ejb.TripAdminFacadeRemote");
+		//AddTripRemote = (TripAdminFacadeRemote) ctx.lookup("java:app/CarSharingMije.jar/TripAdminFacadeBean!ejb.TripAdminFacadeRemote");
 		AddTripRemote.addTrip(description, departureCity, fromPlace, departureDate, arrivalCity, toPlace, availableSeats, price);
 			
 		
