@@ -50,8 +50,18 @@ public class CommunicationFacadeBean implements CommunicationFacadeRemote {
 	}
 
 	@Override
-	public void rateDriver(String driver, String passenger, String comment, int rate) {
-		throw new RuntimeException("method not implemented");
+	public void rateDriver(String driverId, String passengerId, String comment, int rate) {
+
+		DriverJPA driver = (DriverJPA)entman.createQuery("from DriverJPA p where p.email=:email")
+				.setParameter("email", driverId)
+				.getSingleResult();
+
+		PassengerJPA pass = (PassengerJPA)entman.createQuery("from PassengerJPA p where p.email=:email")
+				.setParameter("email", passengerId)
+				.getSingleResult();
+	
+		DriverCommentJPA commentario = new DriverCommentJPA(comment, rate, driver, pass);
+		entman.persist(commentario);
 	}
 
 	@Override
