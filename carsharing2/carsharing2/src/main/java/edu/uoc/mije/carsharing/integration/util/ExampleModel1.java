@@ -66,6 +66,7 @@ public class ExampleModel1 implements ExampleModel{
 		
 		
 		MessageJPA msg1 = new MessageJPA("one question", "this is a question example", pass1, trip1);
+		MessageJPA msg1 = new MessageJPA("one question", "this is a question example", pass1, trip1);
 		em.persist(msg1);
 
 		MessageJPA reply = new MessageJPA("one response", "this is a response example", driver1, trip1);
