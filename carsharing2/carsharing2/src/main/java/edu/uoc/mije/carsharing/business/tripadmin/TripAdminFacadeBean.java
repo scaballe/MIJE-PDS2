@@ -46,14 +46,17 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 		
 		
 		throw new RuntimeException("method not implemented");
-		
+		//no puedo implementarla porque necesito que esten implementadas otras cosas por los compañeros
 		
 			
 	}
 	
 	@Override
-	public List <PassengerJPA> findAllPassengers( int tripId){
+	public List <PassengerJPA> findAllPassengers(int tripId){
+		
 		throw new RuntimeException("method not implemented");
+		//no puedo implementarla porque necesito que esten implementadas otras cosas por los compañeros
+		
 	}
 	
 	@Override
@@ -62,7 +65,7 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 		TripJPA instance = new TripJPA(description, departureCity, fromPlace,
 				departureDate, arrivalCity, toPlace, availableSeats, price);
 		
-		//entman.refresh(instance,);
+		entman.refresh(instance);
 		
 	}
 

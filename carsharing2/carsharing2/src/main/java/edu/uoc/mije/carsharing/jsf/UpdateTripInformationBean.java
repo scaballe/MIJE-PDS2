@@ -55,7 +55,7 @@ public class UpdateTripInformationBean {
 		
 		Properties props = System.getProperties();
 		Context ctx = new InitialContext(props);
-		//UpdateTripsRemote = (TripAdminFacadeRemote) ctx.lookup("java:app/CarSharingMije.jar/TripAdminFacadeBean!ejb.TripAdminFacadeRemote");
+		UpdateTripsRemote = (TripAdminFacadeRemote) ctx.lookup("java:app/CarSharing.jar/TripAdminFacadeBean!ejb.TripAdminFacadeRemote");
 		UpdateTripsRemote.updateTripInformation(tripId, description, departureCity, fromPlace, departureDate, arrivalCity, toPlace, availableSeats, price);
 							
 				
