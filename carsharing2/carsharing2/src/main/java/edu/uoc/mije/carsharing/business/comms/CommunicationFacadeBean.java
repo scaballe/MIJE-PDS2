@@ -8,7 +8,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
 import edu.uoc.mije.carsharing.integration.DriverCommentJPA;
+import edu.uoc.mije.carsharing.integration.DriverJPA;
 import edu.uoc.mije.carsharing.integration.MessageJPA;
+import edu.uoc.mije.carsharing.integration.PassengerJPA;
+import edu.uoc.mije.carsharing.integration.TripJPA;
 
 @Stateless
 public class CommunicationFacadeBean implements CommunicationFacadeRemote {
@@ -33,7 +36,17 @@ public class CommunicationFacadeBean implements CommunicationFacadeRemote {
 
 	@Override
 	public void askQuestion(int tripId, String passenger, String subject, String body) {
-		throw new RuntimeException("method not implemented");
+		
+		TripJPA trip = (TripJPA)entman.createQuery("from TripJPA p where p.id=:id")
+				.setParameter("id",tripId)
+				.getSingleResult();
+		
+		PassengerJPA pass = (PassengerJPA)entman.createQuery("from PassengerJPA p where p.email=:email")
+				.setParameter("email", passenger)
+				.getSingleResult();
+		
+		MessageJPA msg = new MessageJPA(subject, body, pass, trip);
+		entman.persist(msg);
 	}
 
 	@Override
@@ -42,8 +55,19 @@ public class CommunicationFacadeBean implements CommunicationFacadeRemote {
 	}
 
 	@Override
-	public void replyQuestion(int tripId, int questionId, String driver, String subject, String body) {
-		throw new RuntimeException("method not implemented");
+	public void replyQuestion(int tripId, int questionId, String driverId, String subject, String body) {
+		
+		TripJPA trip = (TripJPA)entman.find(TripJPA.class, tripId);
+		
+		MessageJPA question = (MessageJPA)entman.find(MessageJPA.class, questionId);
+		
+		DriverJPA driver = (DriverJPA)entman.createQuery("from DriverJPA p where p.email=:email")
+				.setParameter("email", driverId)
+				.getSingleResult();
+		
+		MessageJPA reply = new MessageJPA(subject, body, driver, trip, question);
+		entman.persist(reply);
+
 	}
 
 	@Override

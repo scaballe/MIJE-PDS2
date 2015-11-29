@@ -67,9 +67,9 @@ public class DriverJPA extends UserJPA{
 		comments.add(comment);
 		comment.setDriver(this);
 	}
-
-	private Collection<MessageJPA> messages= new ArrayList<MessageJPA>();
 	
+	/*
+	private Collection<MessageJPA> messages= new ArrayList<MessageJPA>();
 	@OneToMany(mappedBy = "driver", 
 			cascade = { CascadeType.PERSIST,
 			CascadeType.REMOVE }, orphanRemoval = true)
@@ -82,7 +82,7 @@ public class DriverJPA extends UserJPA{
 	public void addMessage(MessageJPA comment){
 		messages.add(comment);
 		comment.setDriver(this);
-	}
+	}*/
 	
 	
 }

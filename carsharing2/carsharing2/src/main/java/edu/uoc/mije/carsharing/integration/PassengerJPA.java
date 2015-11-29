@@ -35,6 +35,8 @@ public class PassengerJPA extends UserJPA{
 		comment.setPassenger(this);
 	}
 
+	
+	/*
 	private Collection<MessageJPA> messages= new ArrayList<MessageJPA>();
 	
 	@OneToMany(mappedBy = "passenger", 
@@ -50,5 +52,5 @@ public class PassengerJPA extends UserJPA{
 		messages.add(comment);
 		comment.setPassenger(this);
 	}
-
+*/
 }
