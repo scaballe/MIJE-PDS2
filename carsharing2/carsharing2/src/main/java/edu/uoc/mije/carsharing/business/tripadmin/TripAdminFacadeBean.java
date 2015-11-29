@@ -28,7 +28,6 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 	}
 
 	
-
 	@Override
 	public void addTrip (String description, CityJPA departureCity, 
 			String fromPlace, Date departureDate, CityJPA arrivalCity, 

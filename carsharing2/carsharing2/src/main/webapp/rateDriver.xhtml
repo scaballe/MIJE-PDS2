@@ -14,24 +14,20 @@
 			role="form">
 			<f:validateBean>
 				<div class="form-group">
-					<label for="trip">Trip Id:</label> 
-						<h:inputText id="trip" styleClass="form-control"  value="#{rateDriver.tripId}" />
-				</div>
-				<div class="form-group">
-					<label for="question">Question Id:</label> 
-						<h:inputText id="question" styleClass="form-control"  value="#{rateDriver.questionId}" />
-				</div>
-				<div class="form-group">
 					<label for="driver">Driver:</label> 
 						<h:inputText id="driver" styleClass="form-control"  value="#{rateDriver.driver}" />
 				</div>
 				<div class="form-group">
-					<label for="subject">Subject:</label> 
-						<h:inputText id="subject" styleClass="form-control"  value="#{rateDriver.subject}" />
+					<label for="passenger">Passenger:</label> 
+						<h:inputText id="passenger" styleClass="form-control"  value="#{rateDriver.passenger}" />
+				</div>
+				<div class="form-group">
+					<label for="comment">Comment:</label> 
+						<h:inputText id="comment" styleClass="form-control"  value="#{rateDriver.comment}" />
 				</div>				
 				<div class="form-group">
-					<label for="body">Body:</label> 
-						<h:inputText id="body" styleClass="form-control"  value="#{rateDriver.body}" />
+					<label for="ratting">Ratting:</label> 
+						<h:inputText id="ratting" styleClass="form-control"  value="#{rateDriver.rate}" />
 				</div>				
 				<h:commandButton value="Send" action="#{rateDriver.doAction}" />				
 			</f:validateBean>
