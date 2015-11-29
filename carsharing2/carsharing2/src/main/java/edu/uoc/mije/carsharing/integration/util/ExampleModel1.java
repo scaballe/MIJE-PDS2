@@ -61,6 +61,10 @@ public class ExampleModel1 implements ExampleModel{
 		PassengerJPA pass1 = new PassengerJPA("222", "name", "surname", "phone", "password", "email");
 		em.persist(pass1);
 		
+		trip1.addPassenger(pass1);
+		em.persist(trip1);
+		
+		
 		MessageJPA msg1 = new MessageJPA("one question", "this is a question example", pass1, trip1);
 		em.persist(msg1);
 
