@@ -1,6 +1,9 @@
 package edu.uoc.mije.carsharing.integration;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,13 +14,21 @@ public class MessageJPA implements Serializable{
 	public MessageJPA(){
 		super();
 	}
-	
-	public MessageJPA(String subject, String body, DriverJPA driver, PassengerJPA passenger, TripJPA trip){		
+
+	public MessageJPA(String subject, String body, UserJPA author, TripJPA trip, MessageJPA parent){
 		this.subject=subject;
 		this.body=body;
-		setDriver(driver);
-		setPassenger(passenger);
+		setAuthor(author);
 		setTrip(trip);
+		if( parent != null){
+			this.setParentMessage(parent);
+			parent.getSubMessages().add(this);
+		}
+	}
+
+	
+	public MessageJPA(String subject, String body, UserJPA author, TripJPA trip){		
+		this(subject,body,author,trip,null);
 	}
 
 	Integer id;
@@ -50,28 +61,17 @@ public class MessageJPA implements Serializable{
 		this.body = body;
 	}
 
-	private DriverJPA driver;
-	
-	private PassengerJPA passenger;
+	private UserJPA author;
 	
 	private TripJPA trip;
 	
 	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="driver")
-	public DriverJPA getDriver() {
-		return driver;
+	@JoinColumn(name="author")
+	public UserJPA getAuthor() {
+		return author;
 	}
-	public void setDriver(DriverJPA driver) {
-		this.driver = driver;
-	}
-	
-	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="passenger")
-	public PassengerJPA getPassenger() {
-		return passenger;
-	}
-	public void setPassenger(PassengerJPA passenger) {
-		this.passenger = passenger;
+	public void setAuthor(UserJPA author) {
+		this.author=author;
 	}
 	
 	@ManyToOne(cascade=CascadeType.PERSIST)
@@ -82,4 +82,26 @@ public class MessageJPA implements Serializable{
 	public void setTrip(TripJPA trip) {
 		this.trip = trip;
 	}
+	
+	MessageJPA parentMessage;
+	@ManyToOne
+	@JoinColumn(name = "fk_parent_message")
+	public MessageJPA getParentMessage() {
+		return parentMessage;
+	}
+	public void setParentMessage(MessageJPA parentMessage) {
+		this.parentMessage = parentMessage;
+	}
+	
+
+	List<MessageJPA> subMessages = new ArrayList<MessageJPA>();
+	@OneToMany(mappedBy="parentMessage", cascade = CascadeType.ALL)
+	public List<MessageJPA> getSubMessages() {
+		return subMessages;
+	}
+	public void setSubMessages(List<MessageJPA> subMessages) {
+		this.subMessages = subMessages;
+	}
+	
+
 }
