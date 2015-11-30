@@ -10,20 +10,24 @@
 <ui:composition template="./layout.xhtml">
 	<ui:define name="content">
 
-		<table width="100%">
-			<td rowspan="1" colspan="1">
-				<div class="content" align="center">
-					<h1>ShowTripComments</h1>
+		<div class="table-responsive">
+			<h:dataTable styleClass="table" headerClass="tableHeader"
+				rowClasses="tableOddRow,tableEvenRow" var="iterator"
+				value="#{showTripComments.messages}">
 
-					<h:dataTable var="iterator" value="#{showTripComments.messages}">
-						<h:column>#{iterator.subject}</h:column>
-						<h:column>#{iterator.body} </h:column>
-					</h:dataTable>
+				<h:column>
+					<f:facet name="subject">Subject</f:facet>
+					<p>#{iterator.subject}</p>
+				</h:column>
 
+				<h:column>
+					<f:facet name="comment">Body</f:facet>
+					<p>#{iterator.body}</p>
+				</h:column>
 
-				</div>
-			</td>
-		</table>
+			</h:dataTable>
+		</div>
+
 	</ui:define>
 </ui:composition>
 </html>

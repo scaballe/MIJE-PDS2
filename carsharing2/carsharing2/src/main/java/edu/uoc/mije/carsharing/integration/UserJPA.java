@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "USER_TYPE", discriminatorType = DiscriminatorType.STRING, length = 2)
 @Table(name = "users")
-public abstract class UserJPA {
+public abstract class UserJPA implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 

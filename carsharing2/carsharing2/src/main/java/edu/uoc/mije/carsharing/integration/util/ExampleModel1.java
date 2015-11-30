@@ -61,17 +61,25 @@ public class ExampleModel1 implements ExampleModel{
 		PassengerJPA pass1 = new PassengerJPA("222", "name", "surname", "phone", "password", "email");
 		em.persist(pass1);
 		
-		MessageJPA msg1 = new MessageJPA("subject", "body", driver1, pass1, trip1);
+		trip1.addPassenger(pass1);
+		em.persist(trip1);
+		
+		
+		MessageJPA msg1 = new MessageJPA("one question", "this is a question example", pass1, trip1);
 		em.persist(msg1);
 
+		MessageJPA reply = new MessageJPA("one response", "this is a response example", driver1, trip1);
+		em.persist(reply);
+
+		
 		DriverCommentJPA comment = new DriverCommentJPA("no estuvo mal",5,driver1,pass1);
 		em.persist(comment);
 		
 		// ....
 		// some querys to test the model
 		Collection<MessageJPA> allMessages = em.
-				createQuery("from MessageJPA m where m.id.trip=:tripId").
-				setParameter("tripId", trip1.getId()).
+				createQuery("from MessageJPA m where m.trip=:tripId").
+				setParameter("tripId", trip1).
 				getResultList();
 		assert allMessages.size() != 0;
 				

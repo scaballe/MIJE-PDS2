@@ -1,7 +1,8 @@
 package edu.uoc.mije.carsharing.integration;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -123,4 +124,17 @@ public class TripJPA implements Serializable {
 		this.driver = driver;
 	}
 
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="passenger_id")
+	private Collection<PassengerJPA> passengers = new ArrayList<PassengerJPA>();
+	public Collection<PassengerJPA> getPassengers() {
+		return passengers;
+	}
+	public void setPassengers(Collection<PassengerJPA> passengers) {
+		this.passengers = passengers;
+	}
+	public void addPassenger(PassengerJPA add){
+		passengers.add(add);
+	}
+	
 }

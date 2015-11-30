@@ -4,10 +4,12 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
+import javax.ejb.Stateless;
 import javax.persistence.*;
 
 import edu.uoc.mije.carsharing.integration.TripJPA;
 
+@Stateless
 public class TripFacadeBean implements TripFacadeRemote{
 
 	//Persistence Unit Context

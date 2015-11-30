@@ -14,15 +14,16 @@
 			<td rowspan="1" colspan="1">
 				<div class="content" align="center">
 					<h1>Welcome to CarSharing</h1>
+					<h2>Lo que sigue a continuacion es para probar, hay que quitarlo y dejar el buscador</h2>
+					<h:form>					
+						<p>
+							test showTripComments :
+							<h:inputText id="tripId" converter="javax.faces.Integer"
+								value="#{showTripComments.tripId}" />
+							<h:commandButton value="Click here"
+								action="#{showTripComments.doAction()}" />
+						</p>
 
-<<<<<<< HEAD>>>
-					<h:form>
-						test showTripComments : <h:inputText id="tripId" 
-							converter="javax.faces.Integer"
-							value="#{showTripComments.tripId}" />
-						<h:commandButton value="Click here"
-							action="#{showTripComments.doAction()}" />
-=======
 						<p>
 							test showDriverComments :
 							<h:inputText id="driverId" 
@@ -34,9 +35,7 @@
 						<p> <a href="askQuestion.xhtml">Preguntar a un Driver </a></p>
 						<p> <a href="rateDriver.xhtml">Puntuar a un Driver </a></p>
 						
->>>>>>> branch 'master' of https://github.com/scaballe/MIJE-PDS2.git
 					</h:form>
-					
 				</div>
 			</td>
 		</table>
