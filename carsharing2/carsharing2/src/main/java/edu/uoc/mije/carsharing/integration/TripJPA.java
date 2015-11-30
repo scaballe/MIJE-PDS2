@@ -135,11 +135,23 @@ public class TripJPA implements Serializable {
 	public Collection<PassengerJPA> getPassengers() {
 		return passengers;
 	}
+	
 	public void setPassengers(Collection<PassengerJPA> passengers) {
 		this.passengers = passengers;
 	}
+	
 	public void addPassenger(PassengerJPA add){
 		passengers.add(add);
+		availableSeats--;
+	}
+	
+	public void removePassenger(PassengerJPA pass){
+		passengers.remove(pass);
+		availableSeats++;
+	}
+	
+	public boolean containsPassenger(PassengerJPA pass){
+		return passengers.contains(pass);
 	}
 	
 }
