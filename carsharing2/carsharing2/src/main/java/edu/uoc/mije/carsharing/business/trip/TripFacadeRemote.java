@@ -13,7 +13,7 @@ public interface TripFacadeRemote {
 	public Collection<TripJPA> findTrip(String departureCity, String arrivalCity, 
 			float minPrice, float maxPrice, Date departureDate);
 	public TripJPA showTrip(int tripId);
-	//public boolean RegisterInTrip(int tripId, String passenger);
-	//public boolean removeFromTrip(int tripId, String passenger);
+	public void registerInTrip(int tripId, String passenger);
+	public void removeFromTrip(int tripId, String passenger);
 
 }

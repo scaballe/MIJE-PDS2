@@ -14,7 +14,7 @@ import edu.uoc.mije.carsharing.integration.TripJPA;
 
 
 
-@ManagedBean(name = "trips")
+@ManagedBean(name = "findTrip")
 @SessionScoped
 public class FindTripMBean {
 

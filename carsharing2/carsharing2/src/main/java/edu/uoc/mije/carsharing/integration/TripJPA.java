@@ -122,4 +122,9 @@ public class TripJPA implements Serializable {
 		this.driver = driver;
 	}
 
+	public boolean contains(PassengerJPA passenger) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
