@@ -2,6 +2,7 @@ package edu.uoc.mije.carsharing.business.tripadmin;
 
 import java.sql.Time;
 
+
 import java.util.*;
 
 import javax.ejb.Stateless;
@@ -26,17 +27,7 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public List <TripJPA> findMyTrips( String driverNif) {
-		// Encontrar los id de los trips del driver.
-		DriverJPA driver;
-		
-		
-		//getTrips();
-		
-		throw new RuntimeException("method not implemented");
-	}
-
+	
 	@Override
 	public void addTrip (String description, CityJPA departureCity, 
 			String fromPlace, Date departureDate, CityJPA arrivalCity, 
@@ -49,13 +40,32 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 	}
 	
 	@Override
-	public List <PassengerJPA> findAllPassengers( int tripId){
+	public List <TripJPA> findMyTrips(String driverNif) {
+		// Encontrar los trips del driver.
+		
+		
 		throw new RuntimeException("method not implemented");
+		//no puedo implementarla porque necesito que esten implementadas otras cosas por los compañeros
+		
+			
 	}
 	
 	@Override
-	public void updateTripInformation( int tripId, String description, String departureCity, String fromPlace, Date departureDate, Time departureTime, String arrivalCity, String toPlace, int availableSeats, float price){
+	public List <PassengerJPA> findAllPassengers(int tripId){
+		
 		throw new RuntimeException("method not implemented");
+		//no puedo implementarla porque necesito que esten implementadas otras cosas por los compañeros
+		
+	}
+	
+	@Override
+	public void updateTripInformation( int tripId, String description, CityJPA departureCity, String fromPlace, Date departureDate, CityJPA arrivalCity, String toPlace, int availableSeats, float price){
+		
+		TripJPA instance = new TripJPA(description, departureCity, fromPlace,
+				departureDate, arrivalCity, toPlace, availableSeats, price);
+		
+		entman.refresh(instance);
+		
 	}
 
 	

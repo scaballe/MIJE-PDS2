@@ -1,13 +1,17 @@
 package edu.uoc.mije.carsharing.jsf.trip;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Properties;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.spi.Context;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.naming.InitialContext;
 
 import edu.uoc.mije.carsharing.business.trip.TripFacadeRemote;
 import edu.uoc.mije.carsharing.integration.TripJPA;
@@ -113,9 +117,9 @@ public class FindTripMBean {
 	}
 
 	private void tripList() throws Exception {
-		//Properties props = System.getProperties();
-		//Context ctx = new InitialContext(props);
-		//tripsRemote = (TripFacadeRemote) ctx.lookup("java:app/CarSharingEJB.jar/TripFacadeBean!ejb.TripFacadeRemote");
+		Properties props = System.getProperties();
+		Context ctx = (Context) new InitialContext(props);
+		tripsRemote = (TripFacadeRemote) ((InitialContext) ctx).lookup("java:app/CarSharingEJB.jar/TripFacadeBean!ejb.TripFacadeRemote");
 		tripList = (Collection<TripJPA>)tripsRemote.findTrip(departureCity, arrivalCity, minPrice, maxPrice, departureDate);
 	}
 	

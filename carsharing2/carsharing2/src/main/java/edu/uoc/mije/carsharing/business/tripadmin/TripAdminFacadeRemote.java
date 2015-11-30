@@ -19,10 +19,15 @@ public interface TripAdminFacadeRemote {
 
 	public List <TripJPA> findMyTrips( String driver);
 	
-	public void addTrip(String description, CityJPA departureCity, String fromPlace, Date departureDate, CityJPA arrivalCity, String toPlace, int availableSeats, float price);
+	public void addTrip(String description, CityJPA departureCity, String fromPlace, Date departureDate, 
+			CityJPA arrivalCity, String toPlace, int availableSeats, float price);
 	
 	public List <PassengerJPA> findAllPassengers( int tripId);
 	
-	public void updateTripInformation( int tripId, String description, String departureCity, String fromPlace, Date departureDate, Time departureTime, String arrivalCity, String toPlace, int availableSeats, float price);
+	public void updateTripInformation( int tripId, String description, CityJPA departureCity,
+			String fromPlace, Date departureDate, CityJPA arrivalCity, String toPlace, 
+			int availableSeats, float price);
+
+
 
 }

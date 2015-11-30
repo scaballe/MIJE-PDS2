@@ -2,13 +2,19 @@ package edu.uoc.mije.carsharing.jsf;
 
 import java.sql.Time;
 
+
 import java.util.Date;
+import java.util.Properties;
 import java.util.logging.Logger;
+
+
 
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 
 import edu.uoc.mije.carsharing.business.comms.CommunicationFacadeRemote;
 import edu.uoc.mije.carsharing.business.tripadmin.TripAdminFacadeRemote;
@@ -21,7 +27,10 @@ public class UpdateTripInformationBean {
 
 	@EJB
 	TripAdminFacadeRemote tripadminRemote; 
-	// este lo tienes que cambiar al tuyo
+	
+	private TripAdminFacadeRemote UpdateTripsRemote;
+
+	
 	
 	Integer tripId;
 	String description;
@@ -36,12 +45,20 @@ public class UpdateTripInformationBean {
 	Float	driverRating;
 
 	
-	public void doAction(){  
+	public void updateTripInformation() throws Exception{  
 	
 	
-		Logger.getLogger("carsharing").info("updateTripInformation"+ tripId.toString() + description + departureCity.getName()+ 
+		/**Logger.getLogger("carsharing").info("updateTripInformation"+ tripId.toString() + description + departureCity.getName()+ 
 				fromPlace+departureDate.toString() + departureTime.toString() + arrivalCity.getName()+toPlace + 
-				availableSeats.toString() + price.toString() + driverRating.toString());
+				availableSeats.toString() + price.toString() + driverRating.toString());**/
+		
+		
+		Properties props = System.getProperties();
+		Context ctx = new InitialContext(props);
+		UpdateTripsRemote = (TripAdminFacadeRemote) ctx.lookup("java:app/CarSharing.jar/TripAdminFacadeBean!ejb.TripAdminFacadeRemote");
+		UpdateTripsRemote.updateTripInformation(tripId, description, departureCity, fromPlace, departureDate, arrivalCity, toPlace, availableSeats, price);
+							
+				
 		
 	}
 			

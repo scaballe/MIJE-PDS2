@@ -13,16 +13,21 @@
 		<div class="table-responsive">
 			<h:dataTable styleClass="table" headerClass="tableHeader"
 				rowClasses="tableOddRow,tableEvenRow" var="iterator"
-				value="#{showTripComments.messages}">
+				value="#{showDriverComments.messages}">
 
 				<h:column>
-					<f:facet name="subject">Subject</f:facet>
-					<p>#{iterator.subject}</p>
+					<f:facet name="subject">Pasajero</f:facet>
+					<p>#{iterator.passenger.name}</p>
 				</h:column>
 
 				<h:column>
-					<f:facet name="comment">Body</f:facet>
-					<p>#{iterator.body}</p>
+					<f:facet name="comment">Comentario</f:facet>
+					<p>#{iterator.comment}</p>
+				</h:column>
+
+				<h:column>
+					<f:facet name="rating">Puntuacion</f:facet>
+					<p>#{iterator.ratting}</p>
 				</h:column>
 
 			</h:dataTable>

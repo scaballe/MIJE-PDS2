@@ -22,11 +22,11 @@ public class ShowDriverCommentsBean {
 		
 	}
 	
-	private int driverId;
-	public int getDriverId() {
+	private String driverId;
+	public String getDriverId() {
 		return driverId;
 	}
-	public void setDriverId(int driverId) {
+	public void setDriverId(String driverId) {
 		this.driverId = driverId;
 	}
 	
@@ -39,9 +39,8 @@ public class ShowDriverCommentsBean {
 	public String doAction(){
 	
 		Logger.getLogger("carsharing").info("ShowDriverComments "+driverId);
-		
-		
-		//messages = communicationRemote.showDriverComments(driverId);
+				
+		messages = communicationRemote.showDriverComments(driverId);
 		
 		return "showDriverComments";
 	}
