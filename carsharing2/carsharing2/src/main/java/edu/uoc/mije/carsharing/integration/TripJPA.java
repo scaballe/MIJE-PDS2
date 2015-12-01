@@ -142,12 +142,10 @@ public class TripJPA implements Serializable {
 	
 	public void addPassenger(PassengerJPA add){
 		passengers.add(add);
-		availableSeats--;
 	}
 	
 	public void removePassenger(PassengerJPA pass){
 		passengers.remove(pass);
-		availableSeats++;
 	}
 	
 	public boolean containsPassenger(PassengerJPA pass){
