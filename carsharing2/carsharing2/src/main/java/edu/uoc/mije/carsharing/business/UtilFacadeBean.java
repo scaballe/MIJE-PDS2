@@ -21,14 +21,14 @@ public class UtilFacadeBean implements UtilFacadeRemote{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void loadModel( int exampleId ){
+	public void loadModel( int exampleId ) throws Exception{
 		
 		ExampleModel1 model = new ExampleModel1();
 		
 		runModel(model);
 	}
 	
-	private void runModel( ExampleModel model){
+	private void runModel( ExampleModel model) throws Exception{
 		model.loadExampleModel(entman);
 	}
 	

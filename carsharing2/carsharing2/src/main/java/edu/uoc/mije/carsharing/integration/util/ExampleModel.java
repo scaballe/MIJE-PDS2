@@ -4,5 +4,5 @@ import javax.persistence.EntityManager;
 
 public interface ExampleModel {
 
-	public void loadExampleModel(EntityManager em);
+	public void loadExampleModel(EntityManager em) throws Exception;
 }

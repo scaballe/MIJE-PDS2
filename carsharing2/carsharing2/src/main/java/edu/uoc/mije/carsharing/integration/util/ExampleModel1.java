@@ -19,7 +19,7 @@ public class ExampleModel1 implements ExampleModel{
 		// TODO Auto-generated constructor stub
 	}
 
-	public void loadExampleModel(EntityManager em){
+	public void loadExampleModel(EntityManager em) throws Exception{
 		
 		// limpiamos tablas
 		em.createQuery("delete from MessageJPA").executeUpdate();				
