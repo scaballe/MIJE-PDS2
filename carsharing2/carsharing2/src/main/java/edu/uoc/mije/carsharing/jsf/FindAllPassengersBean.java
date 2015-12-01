@@ -35,14 +35,14 @@ public class FindAllPassengersBean {
 	int idTrip;
 
 	
-	public Collection<PassengerJPA> findAllPassengers() throws Exception{  
+	public Collection<PassengerJPA> findAllPassengers(int tripId) throws Exception{  
 	
 	
 		//Logger.getLogger("carsharing").info("findAllPassengers"+idTrip);
 	
 		Properties props = System.getProperties();
 		Context ctx = new InitialContext(props);
-		FindAllPassengersRemote = (TripAdminFacadeRemote) ctx.lookup("java:app/CarSharing.jar/TripAdminFacadeBean!ejb.TripAdminFacadeRemote");
+		FindAllPassengersRemote = (TripAdminFacadeRemote) ctx.lookup("java:app/CarSharingMije.jar/TripAdminFacadeBean!ejb.TripAdminFacadeRemote");
 		listPassengers = FindAllPassengersRemote.findAllPassengers(idTrip);	
 				
 		return listPassengers;
