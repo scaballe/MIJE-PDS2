@@ -56,11 +56,11 @@ public class TripFacadeBean implements TripFacadeRemote{
 				System.out.println("El pasajero seleccionado no existe.");
 			else if (trip.contains(passenger))
 				System.out.println("El pasajero seleccionado ya está en este viaje.");
-			else if (trip.getAvailableSeats()==0)
+			else if (trip.getAvailableSeats()==trip.getPassengers().size())
 				System.out.println("No quedan plazas disponibles para el viaje seleccionado.");
 			else{
 				trip.addPassenger(passenger);
-				entman.refresh(trip);
+				entman.persist(trip);
 			}
 		}catch (PersistenceException e) {
 			System.out.println(e);
@@ -79,7 +79,7 @@ public class TripFacadeBean implements TripFacadeRemote{
 				System.out.println("El pasajero no está asignado al viaje.");
 			else{
 				trip.removePassenger(passenger);
-				entman.refresh(trip);
+				entman.persist(trip);
 			}
 		}catch (PersistenceException e) {
 			System.out.println(e);
