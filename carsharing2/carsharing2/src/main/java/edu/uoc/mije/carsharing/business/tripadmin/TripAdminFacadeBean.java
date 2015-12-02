@@ -26,23 +26,20 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 				
 			@SuppressWarnings("unchecked")
 			Collection<DriverJPA> drivers = entman.createQuery("FROM DriverJPA b WHERE b.user_type = :type AND b.nif :nif").setParameter("type", 'D').setParameter("nif", driver).getResultList();
-			if (drivers.isEmpty())		return null;
+			if (drivers.isEmpty())	return null;
 
-			Iterator<DriverJPA> iter =drivers.iterator();
-		
-			return iter.next();
+			return (DriverJPA) drivers.toArray()[0];
 	}
+	
 
 	public TripJPA getTrip(int idTrip){
 		
 		@SuppressWarnings("unchecked")
 		Collection<TripJPA> trips = entman.createQuery("FROM TripJPA b WHERE b.id = :id").setParameter("id", idTrip).getResultList();
-		if (trips.isEmpty())		return null;
-
-		Iterator<TripJPA> iter =trips.iterator();
-	
-		return iter.next();
-}
+		if (trips.isEmpty()) return null;
+		
+		return (TripJPA) trips.toArray()[0];
+	}
 	
 	
 	@Override

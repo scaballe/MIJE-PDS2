@@ -142,7 +142,52 @@
 
 					<c:otherwise>
 
-						<ui:insert name="content">Content</ui:insert>
+						<ui:insert name="content2">	<h:form align="left" >			
+			<h:dataTable id="tabla" value="#{listCars.carsList}" var="item" bgcolor="#F1F1F1" border="3" first="0" width="50%" frame="hsides" rules="all"  >
+ 			<f:facet name="header">			
+  			<h:outputText align="center" value="Cars of driver with NIF: #{listCars.nif}" />		
+  			</f:facet> 
+ 			<h:column>
+   				<f:facet name="header">
+   					<h:outputText value="Car Registration Id" />
+   				</f:facet> 
+   				<p align="center"><h:outputText value="#{item.carRegistrationId}" /></p>
+ 			</h:column>
+ 			<h:column>
+   				<f:facet name="header">
+   					<h:outputText value="Brand"/>
+   				</f:facet> 
+     			<p align="center"><h:outputText value="#{item.brand}" /></p>
+ 			</h:column>
+ 			<h:column>
+   				<f:facet name="header">
+   					<h:outputText value="Model" />
+   				</f:facet> 
+    			<p align="center"><h:outputText value="#{item.model}" /></p>
+ 			</h:column>
+ 			<h:column>
+   				<f:facet name="header">
+   					<h:outputText value="Color"/>
+   				</f:facet>
+     			<p align="center"><h:outputText value="#{item.color}" /></p>
+ 			</h:column>
+ 			<h:column>
+   				<f:facet name="header">
+   					
+   				</f:facet>
+     			<p align="center">
+     				<h:commandButton value="Delete this car" action="#{deleteCar.deleteCar(item.carRegistrationId)}">      						
+     				</h:commandButton>
+     			</p>
+ 			</h:column>		
+ 		</h:dataTable>
+ 	  </h:form>	
+ 	  	
+ 	  <h :form> 
+      	<h:commandButton value="Add a new car"
+                     action ="AddCarView.xhtml" immediate="true" style="position:relative; top:40px; right:-300px"/>
+	  </h:form>
+	  </ui:insert>
 
 					</c:otherwise>
 				</c:choose>

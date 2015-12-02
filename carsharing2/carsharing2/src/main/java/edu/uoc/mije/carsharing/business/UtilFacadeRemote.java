@@ -5,6 +5,6 @@ import javax.ejb.Remote;
 @Remote
 public interface UtilFacadeRemote {
 	
-	public void loadModel(int exampleId);
+	public void loadModel(int exampleId) throws Exception;
 
 }

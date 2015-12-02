@@ -7,6 +7,10 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import edu.uoc.mije.carsharing.business.exceptions.FullTripException;
+import edu.uoc.mije.carsharing.business.exceptions.PassengerInTripException;
+import edu.uoc.mije.carsharing.business.exceptions.PassengerNotInTripException;
+
 @Entity
 @Table(name="trip")
 public class TripJPA implements Serializable {
@@ -140,12 +144,21 @@ public class TripJPA implements Serializable {
 		this.passengers = passengers;
 	}
 	
-	public void addPassenger(PassengerJPA add){
-		passengers.add(add);
+
+	public void addPassenger(PassengerJPA add) throws PassengerInTripException,FullTripException{
+		if(passengers.contains(add)) 
+			throw new PassengerInTripException("El pasajero de ID "+add.getId()+" ya ha reservado plaza en el viaje de ID "+id+".");
+		else if(availableSeats == passengers.size()) 
+			throw new FullTripException("El viaje de ID "+id+" ya está lleno.");
+		else 
+			passengers.add(add);
 	}
 	
-	public void removePassenger(PassengerJPA pass){
-		passengers.remove(pass);
+	public void removePassenger(PassengerJPA remove) throws PassengerNotInTripException{
+		if(!passengers.contains(remove)) 
+			throw new PassengerNotInTripException("El pasajero de ID "+remove.getId()+" no ha reservado plaza en el viaje de ID "+id+".");
+		else
+			passengers.remove(remove);
 	}
 	
 	public boolean containsPassenger(PassengerJPA pass){

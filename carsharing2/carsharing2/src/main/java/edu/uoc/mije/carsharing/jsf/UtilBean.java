@@ -17,7 +17,7 @@ public class UtilBean {
 	@EJB
 	UtilFacadeRemote utilFacadeRemote;
 	
-	public void loadModel1(){
+	public void loadModel1() throws Exception{
 		utilFacadeRemote.loadModel(1);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		facesContext.addMessage("loginForm", new FacesMessage("Modelo cargado correctamente"));
