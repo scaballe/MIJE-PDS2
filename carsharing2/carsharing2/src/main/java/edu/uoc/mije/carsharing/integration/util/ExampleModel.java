@@ -9,4 +9,5 @@ public interface ExampleModel {
 	public void loadExampleModel(EntityManager em);
 	
 	public void validateModel(EntityManager em);
+
 }

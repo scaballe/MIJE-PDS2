@@ -48,21 +48,20 @@ public class TripFacadeBean implements TripFacadeRemote {
 		}
 		return trip;
 	}
-
-	public void registerInTrip(int tripId, String passengerId) {
-		try {
+	
+	public void registerInTrip(int tripId, String passengerId) throws Exception{
+		try{
 			TripJPA trip = entman.find(TripJPA.class, tripId);
 			PassengerJPA passenger = entman.find(PassengerJPA.class, passengerId);
-			if (trip == null)
-				throw new TripNotFoundException("El viaje con ID " + tripId + " no existe en la base de datos.");
-			else if (passenger == null)
-				throw new PassengerNotFoundException(
-						"El pasajero con ID " + passengerId + " no existe en la base de datos.");
-			else {
+			if (trip==null) 
+				throw new TripNotFoundException("El viaje con ID "+tripId+" no existe en la base de datos.");
+			else if (passenger==null) 
+				throw new PassengerNotFoundException("El pasajero con ID "+passengerId+" no existe en la base de datos.");
+			else{
 				trip.addPassenger(passenger);
 				entman.persist(trip);
 			}
-		} catch (Exception e) {
+		}catch (Exception e) {
 			System.out.println(e);
 		}
 	}
@@ -91,7 +90,6 @@ public class TripFacadeBean implements TripFacadeRemote {
 			e.printStackTrace();
 			facesContext.addMessage("error", new FacesMessage(e.getMessage()));
 		}
-
 	}
 
 }

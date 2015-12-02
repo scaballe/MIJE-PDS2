@@ -40,7 +40,7 @@ public class FindAllPassengersBean {
 	}
 	
 	
-	public Collection<PassengerJPA> findAllPassengers() throws Exception{  
+	public Collection<PassengerJPA> findAllPassengers(int tripId) throws Exception{  
 	
 	
 		//Logger.getLogger("carsharing").info("findAllPassengers"+idTrip);

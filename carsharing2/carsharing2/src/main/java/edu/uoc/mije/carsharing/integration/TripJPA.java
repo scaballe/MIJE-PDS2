@@ -144,6 +144,7 @@ public class TripJPA implements Serializable {
 		this.passengers = passengers;
 	}
 	
+
 	public void addPassenger(PassengerJPA add) throws PassengerInTripException,FullTripException{
 		if(passengers.contains(add)) 
 			throw new PassengerInTripException("El pasajero de ID "+add.getId()+" ya ha reservado plaza en el viaje de ID "+id+".");

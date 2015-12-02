@@ -7,6 +7,12 @@ import javax.faces.bean.RequestScoped;
 
 import edu.uoc.mije.carsharing.business.trip.TripFacadeRemote;
 
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
+import edu.uoc.mije.carsharing.business.trip.TripFacadeRemote;
+
 @ManagedBean(name = "addpassenger")
 @RequestScoped
 public class RegisterInTripMBean {

@@ -29,7 +29,6 @@ public class UtilFacadeBean implements UtilFacadeRemote{
 	}
 	
 	private void runModel( ExampleModel model) throws Exception{
-		
 		model.cleanModel(entman);
 		entman.flush();
 		

@@ -24,6 +24,13 @@ public class ExampleModel1 extends BaseExampleModel{
 	
 	public void loadExampleModel(EntityManager em) {
 		
+		// limpiamos tablas
+		em.createQuery("delete from MessageJPA").executeUpdate();				
+		em.createQuery("delete from DriverCommentJPA").executeUpdate();
+		em.createQuery("delete from TripJPA").executeUpdate();
+		em.createQuery("delete from CarJPA").executeUpdate();
+		em.createQuery("delete from UserJPA").executeUpdate();
+		
 		// algunas ciudades para visitar
 		CityJPA madrid,barcelona,malaga;
 		if( (madrid=em.find(CityJPA.class, "madrid")) == null){
