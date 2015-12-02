@@ -16,9 +16,9 @@
 					<h1>FinAllPassengers</h1>
 
 <h:form>
-<p>Formulario para capturar los datos del trip</p>
-<p>Introduce Id del driver<h:inputText value="#{addTrip.driverId}" id="driverId"/></p>
-<p>y aqui invocamos al action <h:commandButton action="#{addTrip.doAction()}" value="call me" /></p>
+<p>Formulario listar todos los pasajeros de un trip</p>
+<p>Introduce Id del tripr<h:inputText value="#{findAllPassengers.findAllPassengers()}" id="idTrip"/></p>
+<p>y aqui invocamos al action <h:commandButton action="#{findAllPassengers}" value="call me" /></p>
 </h:form>
 				</div>
 			</td>

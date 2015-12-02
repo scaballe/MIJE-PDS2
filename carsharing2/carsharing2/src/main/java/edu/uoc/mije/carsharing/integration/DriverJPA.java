@@ -18,6 +18,10 @@ public class DriverJPA extends UserJPA{
 	public DriverJPA() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public DriverJPA(String nif, String name, String surname, String phone, String password, String email) {
+		super(nif,name,surname,phone,password,email);
+	}
 		
 	@Transient
 	public int getGlobalRating(){

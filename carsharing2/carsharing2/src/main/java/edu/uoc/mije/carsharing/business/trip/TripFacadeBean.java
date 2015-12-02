@@ -9,6 +9,8 @@ import javax.persistence.*;
 
 import edu.uoc.mije.carsharing.integration.PassengerJPA;
 import edu.uoc.mije.carsharing.integration.TripJPA;
+import edu.uoc.mije.carsharing.services.PassengerNotFoundException;
+import edu.uoc.mije.carsharing.services.TripNotFoundException;
 
 @Stateless
 public class TripFacadeBean implements TripFacadeRemote{
@@ -46,42 +48,36 @@ public class TripFacadeBean implements TripFacadeRemote{
 	    return trip;
 	}
 	
-	public void registerInTrip(int tripId, String passengerId){
+	public void registerInTrip(int tripId, String passengerId) throws Exception{
 		try{
 			TripJPA trip = entman.find(TripJPA.class, tripId);
 			PassengerJPA passenger = entman.find(PassengerJPA.class, passengerId);
-			if (trip==null)
-				System.out.println("El viaje seleccionado no existe.");
-			else if (passenger==null)
-				System.out.println("El pasajero seleccionado no existe.");
-			else if (trip.contains(passenger))
-				System.out.println("El pasajero seleccionado ya está en este viaje.");
-			else if (trip.getAvailableSeats()==0)
-				System.out.println("No quedan plazas disponibles para el viaje seleccionado.");
+			if (trip==null) 
+				throw new TripNotFoundException("El viaje con ID "+tripId+" no existe en la base de datos.");
+			else if (passenger==null) 
+				throw new PassengerNotFoundException("El pasajero con ID "+passengerId+" no existe en la base de datos.");
 			else{
 				trip.addPassenger(passenger);
-				entman.refresh(trip);
+				entman.persist(trip);
 			}
-		}catch (PersistenceException e) {
+		}catch (Exception e) {
 			System.out.println(e);
 		} 
 	}
 	
-	public void removeFromTrip(int tripId, String passengerId){
+	public void removeFromTrip(int tripId, String passengerId) throws Exception{
 		try{
 			TripJPA trip = entman.find(TripJPA.class, tripId);
 			PassengerJPA passenger = entman.find(PassengerJPA.class, passengerId);
-			if (trip==null)
-				System.out.println("El viaje seleccionado no existe.");
-			else if (passenger==null)
-				System.out.println("El pasajero seleccionado no existe.");
-			else if (!trip.contains(passenger))
-				System.out.println("El pasajero no está asignado al viaje.");
+			if (trip==null) 
+				throw new TripNotFoundException("El viaje con ID "+tripId+" no existe en la base de datos.");
+			else if (passenger==null) 
+				throw new PassengerNotFoundException("El pasajero con ID "+passengerId+" no existe en la base de datos.");
 			else{
 				trip.removePassenger(passenger);
-				entman.refresh(trip);
+				entman.persist(trip);
 			}
-		}catch (PersistenceException e) {
+		}catch (Exception e) {
 			System.out.println(e);
 		} 
 	}
