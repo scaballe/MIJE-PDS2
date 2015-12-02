@@ -1,19 +1,13 @@
 package edu.uoc.mije.carsharing.business.tripadmin;
 
-import java.sql.Time;
-
-
 import java.util.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 
 import edu.uoc.mije.carsharing.integration.CityJPA;
 import edu.uoc.mije.carsharing.integration.DriverJPA;
-import edu.uoc.mije.carsharing.integration.MessageJPA;
-import edu.uoc.mije.carsharing.integration.PassengerJPA;
 import edu.uoc.mije.carsharing.integration.TripJPA;
 
 @Stateless
@@ -26,7 +20,30 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 	public TripAdminFacadeBean() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	public DriverJPA getDriver(String driver){
+				
+			@SuppressWarnings("unchecked")
+			Collection<DriverJPA> drivers = entman.createQuery("FROM DriverJPA b WHERE b.user_type = :type AND b.nif :nif").setParameter("type", 'D').setParameter("nif", driver).getResultList();
+			if (drivers.isEmpty())		return null;
 
+			Iterator<DriverJPA> iter =drivers.iterator();
+		
+			return iter.next();
+	}
+
+	public TripJPA getTrip(int idTrip){
+		
+		@SuppressWarnings("unchecked")
+		Collection<TripJPA> trips = entman.createQuery("FROM TripJPA b WHERE b.id = :id").setParameter("id", idTrip).getResultList();
+		if (trips.isEmpty())		return null;
+
+		Iterator<TripJPA> iter =trips.iterator();
+	
+		return iter.next();
+}
+	
 	
 	@Override
 	public void addTrip (String description, CityJPA departureCity, 
@@ -39,34 +56,26 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 		
 	}
 	
-	@Override
-	public List <TripJPA> findMyTrips(String driverNif) {
-		// Encontrar los trips del driver.
-		
-		
-		throw new RuntimeException("method not implemented");
-		//no puedo implementarla porque necesito que esten implementadas otras cosas por los compañeros
-		
-			
-	}
 	
 	@Override
-	public List <PassengerJPA> findAllPassengers(int tripId){
+	public void updateTripInformation( int idTrip, String description, CityJPA departureCity, String fromPlace, Date departureDate, CityJPA arrivalCity, String toPlace, int availableSeats, float price){
 		
-		throw new RuntimeException("method not implemented");
-		//no puedo implementarla porque necesito que esten implementadas otras cosas por los compañeros
+		TripJPA trip = getTrip(idTrip) ;
 		
-	}
-	
-	@Override
-	public void updateTripInformation( int tripId, String description, CityJPA departureCity, String fromPlace, Date departureDate, CityJPA arrivalCity, String toPlace, int availableSeats, float price){
+		if (trip == null ) return ;
 		
-		TripJPA instance = new TripJPA(description, departureCity, fromPlace,
-				departureDate, arrivalCity, toPlace, availableSeats, price);
+		trip.setDescription(description);
+		trip.setArrivalCity(arrivalCity);
+		trip.setDepartureCity(departureCity);
+		trip.setFromPlace(fromPlace);
+		trip.setDepartureDate(departureDate);
+		trip.setArrivalCity(arrivalCity);
+		trip.setToPlace(toPlace);
+		trip.setAvailableSeats(availableSeats);
+		trip.setPrice(price);
 		
-		entman.refresh(instance);
-		
+		entman.persist(trip);
+				
 	}
 
-	
 }
