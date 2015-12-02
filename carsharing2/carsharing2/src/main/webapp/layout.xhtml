@@ -175,18 +175,18 @@
    				<f:facet name="header">
    					
    				</f:facet>
-     			<?p align="center">
+     			<p align="center">
      				<h:commandButton value="Delete this car" action="#{deleteCar.deleteCar(item.carRegistrationId)}">      						
      				</h:commandButton>
-     			</p?>
+     			</p>
  			</h:column>		
  		</h:dataTable>
  	  </h:form>	
  	  	
- 	  <?h :form > 
+ 	  <h :form> 
       	<h:commandButton value="Add a new car"
                      action ="AddCarView.xhtml" immediate="true" style="position:relative; top:40px; right:-300px"/>
-	  </h:form?>
+	  </h:form>
 	  </ui:insert>
 
 					</c:otherwise>
