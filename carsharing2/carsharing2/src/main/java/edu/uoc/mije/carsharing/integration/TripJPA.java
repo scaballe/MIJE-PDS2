@@ -7,9 +7,9 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-import edu.uoc.mije.carsharing.services.FullTripException;
-import edu.uoc.mije.carsharing.services.PassengerInTripException;
-import edu.uoc.mije.carsharing.services.PassengerNotInTripException;
+import edu.uoc.mije.carsharing.business.exceptions.FullTripException;
+import edu.uoc.mije.carsharing.business.exceptions.PassengerInTripException;
+import edu.uoc.mije.carsharing.business.exceptions.PassengerNotInTripException;
 
 @Entity
 @Table(name="trip")
@@ -153,7 +153,7 @@ public class TripJPA implements Serializable {
 			passengers.add(add);
 	}
 	
-	public void removePassenger(PassengerJPA remove) throws Exception{
+	public void removePassenger(PassengerJPA remove) throws PassengerNotInTripException{
 		if(!passengers.contains(remove)) 
 			throw new PassengerNotInTripException("El pasajero de ID "+remove.getId()+" no ha reservado plaza en el viaje de ID "+id+".");
 		else

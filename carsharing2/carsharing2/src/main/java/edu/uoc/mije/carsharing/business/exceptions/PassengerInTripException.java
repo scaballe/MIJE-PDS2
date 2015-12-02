@@ -1,4 +1,4 @@
-package edu.uoc.mije.carsharing.services;
+package edu.uoc.mije.carsharing.business.exceptions;
 
 import javax.ejb.ObjectNotFoundException;
 
