@@ -22,7 +22,7 @@ public class ExampleModel1 extends BaseExampleModel{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void loadExampleModel(EntityManager em) throws Exception{
+	public void loadExampleModel(EntityManager em) {
 		
 		// algunas ciudades para visitar
 		CityJPA madrid,barcelona,malaga;
@@ -50,9 +50,12 @@ public class ExampleModel1 extends BaseExampleModel{
 		PassengerJPA pass1 = new PassengerJPA("222", "name", "surname", "phone", "password", "email");
 		em.persist(pass1);
 		
-		trip1.addPassenger(pass1);
-		em.persist(trip1);
-		
+		try{
+			trip1.addPassenger(pass1);
+			em.persist(trip1);
+		}catch( Exception e){
+			throw new RuntimeException(e);
+		}
 		
 		MessageJPA msg1 = new MessageJPA("one question", "this is a question example", pass1, trip1);
 		em.persist(msg1);

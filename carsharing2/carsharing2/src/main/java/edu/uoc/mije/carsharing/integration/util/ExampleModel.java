@@ -6,7 +6,7 @@ public interface ExampleModel {
 
 	public void cleanModel(EntityManager em);
 	
-	public void loadExampleModel(EntityManager em) throws Exception;
+	public void loadExampleModel(EntityManager em);
 	
 	public void validateModel(EntityManager em);
 }

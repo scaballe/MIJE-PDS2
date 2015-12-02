@@ -24,8 +24,6 @@ import edu.uoc.mije.carsharing.integration.TripJPA;
 
 public class FindAllPassengersBean {
 	
-	private TripAdminFacadeRemote FindAllPassengersRemote;
-
 	@EJB
 	TripAdminFacadeRemote tripadminRemote; 
 	
@@ -34,16 +32,20 @@ public class FindAllPassengersBean {
 	
 	int idTrip;
 
+	public int getIdTrip() {
+		return idTrip;
+	}
+	public void setIdTrip(int idTrip) {
+		this.idTrip = idTrip;
+	}
 	
-	public Collection<PassengerJPA> findAllPassengers(int tripId) throws Exception{  
+	
+	public Collection<PassengerJPA> findAllPassengers() throws Exception{  
 	
 	
 		//Logger.getLogger("carsharing").info("findAllPassengers"+idTrip);
 	
-		Properties props = System.getProperties();
-		Context ctx = new InitialContext(props);
-		FindAllPassengersRemote = (TripAdminFacadeRemote) ctx.lookup("java:app/CarSharingMije.jar/TripAdminFacadeBean!ejb.TripAdminFacadeRemote");
-		listPassengers = FindAllPassengersRemote.findAllPassengers(idTrip);	
+		listPassengers = tripadminRemote.findAllPassengers(idTrip);	
 				
 		return listPassengers;
 			
