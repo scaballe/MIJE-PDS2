@@ -48,11 +48,6 @@ public class UpdateTripInformationBean {
 	public void updateTripInformation() throws Exception{  
 	
 	
-		/**Logger.getLogger("carsharing").info("updateTripInformation"+ tripId.toString() + description + departureCity.getName()+ 
-				fromPlace+departureDate.toString() + departureTime.toString() + arrivalCity.getName()+toPlace + 
-				availableSeats.toString() + price.toString() + driverRating.toString());**/
-		
-		
 		Properties props = System.getProperties();
 		Context ctx = new InitialContext(props);
 		UpdateTripsRemote = (TripAdminFacadeRemote) ctx.lookup("java:app/CarSharingMije.jar/TripAdminFacadeBean!ejb.TripAdminFacadeRemote");
