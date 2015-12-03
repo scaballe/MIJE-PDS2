@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arquillian xmlns="http://jboss.org/schema/arquillian"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://jboss.org/schema/arquillian
+        http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+
+
+	<container qualifier="jboss" default="true">
+		<configuration>
+			<property name="jbossHome">target/jboss-as-7.1.1.Final</property>
+			<!-- property name="javaVmArguments">-Djboss.socket.binding.port-offset=100 -Djboss.management.native.port=9054 -Xrunjdwp:transport=dt_socket,address=8086,server=y,suspend=n</property -->
+			<property name="managementPort">9999</property>
+			<property name="outputToConsole">true</property>
+			<property name="serverConfig">../../../test-classes/test-standalone.xml</property>			
+		</configuration>
+	</container>
+
+</arquillian>
