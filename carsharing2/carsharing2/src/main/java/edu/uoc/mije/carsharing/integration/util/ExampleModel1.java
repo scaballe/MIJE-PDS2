@@ -47,14 +47,14 @@ public class ExampleModel1 extends BaseExampleModel{
 		TripJPA trip1 = new TripJPA("trip1", madrid, "entrevias", Calendar.getInstance().getTime(), barcelona, "La Rambla", 4, 100);
 		
 		// Un conductor con un coche y que ofrece un viaje
-		DriverJPA driver1 = new DriverJPA("111", "name", "surname", "phone", "password", "email");		
+		DriverJPA driver1 = new DriverJPA("111", "name", "surname", "phone", "password", "driver");		
 		driver1.addCar(car1);
 		driver1.addTrip(trip1);
 		
 		em.persist(driver1);
 		
 		// Un pasejero registrado en el sistema
-		PassengerJPA pass1 = new PassengerJPA("222", "name", "surname", "phone", "password", "email");
+		PassengerJPA pass1 = new PassengerJPA("222", "name", "surname", "phone", "password", "passenger");
 		em.persist(pass1);
 		
 		try{

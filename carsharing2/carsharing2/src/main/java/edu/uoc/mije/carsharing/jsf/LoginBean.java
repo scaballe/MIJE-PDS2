@@ -8,18 +8,25 @@ import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 
 import edu.uoc.mije.carsharing.business.UtilFacadeRemote;
+import edu.uoc.mije.carsharing.business.exceptions.UserNotFoundException;
+import edu.uoc.mije.carsharing.business.user.UserFacadeRemote;
+import edu.uoc.mije.carsharing.integration.DriverJPA;
 
 @ManagedBean(name = "login")
 @SessionScoped
 public class LoginBean {
 
+	@EJB
+	UserFacadeRemote userRemote;
 	
 	private String email;
 
@@ -45,16 +52,26 @@ public class LoginBean {
 	
 	String user;
 
-	public void login() {
+	boolean driver;	
+	
+	public String login() {
 
-		if ( getEmail().equalsIgnoreCase(getPassword()) ) {
-			user = getEmail();
-		}
+		try{
+			driver = userRemote.login(email, password);
+			
+			user = email;
+			
+		}catch(UserNotFoundException un){
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			facesContext.addMessage("error", new FacesMessage("Usuario/Password no validos"));
+		}		
+		
+		return "homeView";
 	}
 
-	public void logout() {
-		user = null;
-
+	public String logout() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		 return "/homeView.xhtml?faces-redirect=true";
 	}
 
 	public boolean isLoggedIn() {
@@ -62,5 +79,8 @@ public class LoginBean {
 		return user != null;
 	}
 
+	public boolean isDriver() {
+		return driver;
+	}
 
 }

@@ -10,15 +10,161 @@
 <ui:composition template="./layout.xhtml">
 	<ui:define name="content">
 
-		<table width="100%">
-			<td rowspan="1" colspan="1">
-				<div class="content" align="center">
-					<h1>Welcome to CarSharing</h1>
-					
-					
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Welcome to CarSharing MIJE</h1>
+			</div>
+		</div>
+
+		<c:choose>
+			<c:when test="#{login.loggedIn == false}">
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<p>Si ya está registrado en el sistema, por favor
+									identifiquese en el menú superior</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<p>
+									Si se quiere registrar como un conductor, por favor rellene
+									este <a href="registerDriver.xhtml">formulario</a>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<p>
+									Si se quiere registrar como un pasajero, por favor rellene este
+									<a href="registerPassenger.xhtml">formulario</a>
+								</p>
+							</div>
+						</div>
+					</div>
 				</div>
-			</td>
-		</table>
+
+			</c:when>
+
+			<c:otherwise>
+
+				<c:choose>
+					<c:when test="#{login.driver}">
+
+						<div class="row">
+							<div class="col-md-4">
+								<div class="panel panel-default">
+									<div class="panel-body">
+										<p>
+											Para gestionar sus vehiculos acceda al siguiente <a
+												href="listCars.xhtml">enlace</a>
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="panel panel-default">
+									<div class="panel-body">
+										<p>
+											Para gestionar sus viajes acceda al siguiente <a
+												href="listTrips.xhtml">enlace</a>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</c:when>
+
+					<c:otherwise>
+
+						<div class="row">
+							<div class="col-md-4">
+								<div class="panel panel-default">
+									<div class="panel-body">
+										<p>
+											Para consultar los viajes disponibles acceda al siguiente <a
+												href="listTrips.xhtml">enlace</a>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:otherwise>
+
+				</c:choose>
+
+				<!-- 
+							<h:form align="left">
+								<h:dataTable id="tabla" value="#{listCars.carsList}" var="item"
+									bgcolor="#F1F1F1" border="3" first="0" width="50%"
+									frame="hsides" rules="all">
+									<f:facet name="header">
+										<h:outputText align="center"
+											value="Cars of driver with NIF: #{listCars.nif}" />
+									</f:facet>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Car Registration Id" />
+										</f:facet>
+										<p align="center">
+											<h:outputText value="#{item.carRegistrationId}" />
+										</p>
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Brand" />
+										</f:facet>
+										<p align="center">
+											<h:outputText value="#{item.brand}" />
+										</p>
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Model" />
+										</f:facet>
+										<p align="center">
+											<h:outputText value="#{item.model}" />
+										</p>
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Color" />
+										</f:facet>
+										<p align="center">
+											<h:outputText value="#{item.color}" />
+										</p>
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+
+										</f:facet>
+										<p align="center">
+											<h:commandButton value="Delete this car"
+												action="#{deleteCar.deleteCar(item.carRegistrationId)}">
+											</h:commandButton>
+										</p>
+									</h:column>
+								</h:dataTable>
+							</h:form>
+
+							<h:form>
+								<h:commandButton value="Add a new car" action="addCarView.xhtml"
+									immediate="true"
+									style="position:relative; top:40px; right:-300px" />
+							</h:form>
+						-->
+
+			</c:otherwise>
+		</c:choose>
+
+
 	</ui:define>
 </ui:composition>
 </html>

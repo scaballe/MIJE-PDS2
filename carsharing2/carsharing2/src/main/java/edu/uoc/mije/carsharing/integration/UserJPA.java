@@ -37,6 +37,7 @@ public abstract class UserJPA implements Serializable{
 	}
 
 	String nif;
+	
 	String name;
 	String surname;
 	String phone;
@@ -83,6 +84,7 @@ public abstract class UserJPA implements Serializable{
 		this.password = password;
 	}
 
+	@Column(unique=true)
 	public String getEmail() {
 		return email;
 	}

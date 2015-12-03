@@ -21,7 +21,7 @@ public class ListCarsMBean implements Serializable{
 	private static final long serialVersionUID = 1L;	
 
 	@EJB
-	private UserFacadeRemote carsRemote;
+	UserFacadeRemote userRemote;
 	
 	//stores the nif of the driver who owns the cars
 	protected String nif = "00000000X";	
@@ -34,7 +34,7 @@ public class ListCarsMBean implements Serializable{
 	 */
 	public ListCarsMBean() throws Exception
 	{
-		this.carList();
+		//this.carList();
 	}
 		
 	/**
@@ -66,10 +66,8 @@ public class ListCarsMBean implements Serializable{
 	@SuppressWarnings("unchecked")
 	protected void carList() throws Exception
 	{	
-		Properties props = System.getProperties();
-		Context ctx = new InitialContext(props);		
-		carsRemote = (UserFacadeRemote) ctx.lookup("java:app/CarSharingEJB.jar/UserFacadeRemote!edu.uoc.mije.carsharing.business.user.UserFacadeRemote");
-		carsList = (Collection<CarJPA>)carsRemote.listAllCars(nif);			
+		
+		carsList = (Collection<CarJPA>)userRemote.listAllCars(nif);			
 	}
 	
 }

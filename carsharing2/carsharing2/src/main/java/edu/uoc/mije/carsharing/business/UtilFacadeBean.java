@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
+import edu.uoc.mije.carsharing.integration.CityJPA;
 import edu.uoc.mije.carsharing.integration.MessageJPA;
 import edu.uoc.mije.carsharing.integration.util.ExampleModel;
 import edu.uoc.mije.carsharing.integration.util.ExampleModel1;
@@ -38,5 +39,9 @@ public class UtilFacadeBean implements UtilFacadeRemote{
 		model.validateModel(entman);
 		entman.flush();
 	}
-	
+
+	@Override
+	public Collection<CityJPA> listCities() {
+		return entman.createQuery("SELECT c FROM CityJPA ", CityJPA.class).getResultList();
+	}
 }

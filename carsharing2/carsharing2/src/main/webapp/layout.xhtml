@@ -54,13 +54,15 @@
 			<ul class="nav navbar-nav">
 				<c:if test="#{login.loggedIn}">
 
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Viajes <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Buscar</a></li>
-							<li><a href="#">Nuevo</a></li>
-						</ul></li>
+					<c:if test="#{login.driver}">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Mis cosas <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="listCars.xhtml">Mis coches</a></li>
+								<li><a href="listTrips.xhtml">Mis viajes</a></li>
+							</ul></li>
+					</c:if>
 
 				</c:if>
 				<!-- if condition -->
@@ -120,74 +122,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-
-				<c:choose>
-					<c:when test="#{login.loggedIn == false}">
-
-						<p>Si ya está registrado, acceda al sistema identificandose en
-							el menú superior</p>
-						<p>
-							Si se quiere registrar como un conductor, por favor, rellene este
-							<a href="#">Formulario</a>
-						</p>
-						<p>
-							Si, por el contrario, se quiere registrar como un pasajero, por
-							favor, rellene este otro <a href="#">Formulario</a>
-						</p>
-
-					</c:when>
-
-					<c:otherwise>
-
-						<ui:insert name="content2">	<h:form align="left" >			
-			<h:dataTable id="tabla" value="#{listCars.carsList}" var="item" bgcolor="#F1F1F1" border="3" first="0" width="50%" frame="hsides" rules="all"  >
- 			<f:facet name="header">			
-  			<h:outputText align="center" value="Cars of driver with NIF: #{listCars.nif}" />		
-  			</f:facet> 
- 			<h:column>
-   				<f:facet name="header">
-   					<h:outputText value="Car Registration Id" />
-   				</f:facet> 
-   				<p align="center"><h:outputText value="#{item.carRegistrationId}" /></p>
- 			</h:column>
- 			<h:column>
-   				<f:facet name="header">
-   					<h:outputText value="Brand"/>
-   				</f:facet> 
-     			<p align="center"><h:outputText value="#{item.brand}" /></p>
- 			</h:column>
- 			<h:column>
-   				<f:facet name="header">
-   					<h:outputText value="Model" />
-   				</f:facet> 
-    			<p align="center"><h:outputText value="#{item.model}" /></p>
- 			</h:column>
- 			<h:column>
-   				<f:facet name="header">
-   					<h:outputText value="Color"/>
-   				</f:facet>
-     			<p align="center"><h:outputText value="#{item.color}" /></p>
- 			</h:column>
- 			<h:column>
-   				<f:facet name="header">
-   					
-   				</f:facet>
-     			<p align="center">
-     				<h:commandButton value="Delete this car" action="#{deleteCar.deleteCar(item.carRegistrationId)}">      						
-     				</h:commandButton>
-     			</p>
- 			</h:column>		
- 		</h:dataTable>
- 	  </h:form>	
- 	  	
- 	  <h :form> 
-      	<h:commandButton value="Add a new car"
-                     action ="AddCarView.xhtml" immediate="true" style="position:relative; top:40px; right:-300px"/>
-	  </h:form>
-	  </ui:insert>
-
-					</c:otherwise>
-				</c:choose>
+				<ui:insert name="content" />
 			</div>
 		</div>
 	</div>
