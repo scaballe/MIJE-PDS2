@@ -5,8 +5,6 @@ import java.util.*;
 
 import javax.ejb.EJB;
 import javax.faces.bean.*;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 
 import edu.uoc.mije.carsharing.integration.CarJPA;
 import edu.uoc.mije.carsharing.business.user.UserFacadeRemote;
@@ -65,9 +63,8 @@ public class ListCarsMBean implements Serializable{
 	 */
 	@SuppressWarnings("unchecked")
 	protected void carList() throws Exception
-	{	
-		
-		carsList = (Collection<CarJPA>)userRemote.listAllCars(nif);			
+	{			
+		this.carsList = (Collection<CarJPA>) userRemote.listAllCars(nif);			
 	}
 	
 }
