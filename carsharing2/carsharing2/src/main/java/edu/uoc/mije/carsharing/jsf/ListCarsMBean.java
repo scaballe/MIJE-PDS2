@@ -16,7 +16,7 @@ import edu.uoc.mije.carsharing.business.user.UserFacadeRemote;
 @SessionScoped
 public class ListCarsMBean implements Serializable{
 	
-	private static final long serialVersionUID = 1L;	
+	private static final long serialVersionUID = -6051491540088391729L;
 
 	@EJB
 	UserFacadeRemote userRemote;
@@ -25,16 +25,8 @@ public class ListCarsMBean implements Serializable{
 	protected String nif = "00000000X";	
 	//stores all the instances of CarJPA
 	protected Collection<CarJPA> carsList;
-		
-	/**
-	 * Constructor method
-	 * @throws Exception
-	 */
-	public ListCarsMBean() throws Exception
-	{
-		//this.carList();
-	}
-		
+	
+	
 	/**
 	 * Get/set the nif
 	 * @return nif
@@ -48,23 +40,15 @@ public class ListCarsMBean implements Serializable{
 		this.nif = nif;
 	}
 		
+	@SuppressWarnings("unchecked")
 	public Collection<CarJPA> getCarsList()
-	{
-		return carsList;
+	{		
+		carsList = (Collection<CarJPA>) userRemote.listAllCars(nif);		
+		return this.carsList;
 	}
 		
 	public void setCarsList(Collection<CarJPA> carslist){
 		this.carsList = carslist;
-	}
-		
-	/**
-	 * Method that gets a list of Car instances by nif of driver
-	 * @throws Exception
-	 */
-	@SuppressWarnings("unchecked")
-	protected void carList() throws Exception
-	{			
-		this.carsList = (Collection<CarJPA>) userRemote.listAllCars(nif);			
 	}
 	
 }

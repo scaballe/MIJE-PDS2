@@ -50,9 +50,11 @@ public class UserFacadeBean implements UserFacadeRemote {
 	public java.util.Collection<?> listAllCars(String nif) throws PersistenceException {
 		try 
 		{
-			@SuppressWarnings("unchecked")			
-			Collection<CarJPA> allCars = entman.createQuery("from CarJPA c where c.driver_id = :nif").setParameter("nif", nif).getResultList();
+			Collection<CarJPA> allCars = entman.createQuery("from CarJPA c where brand = :marca")
+					.setParameter("marca", "Opel")
+					.getResultList();							
 		    return allCars;	
+		    
 		}catch (PersistenceException e) {
 			System.out.println(e);
 			return null;
