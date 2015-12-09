@@ -11,6 +11,7 @@ import javax.persistence.PersistenceException;
 
 import edu.uoc.mije.carsharing.integration.CarJPA;
 import edu.uoc.mije.carsharing.integration.DriverJPA;
+import edu.uoc.mije.carsharing.integration.PassengerJPA;
 import edu.uoc.mije.carsharing.integration.UserJPA;
 import edu.uoc.mije.carsharing.business.exceptions.UserAlreadyRegisteredException;
 import edu.uoc.mije.carsharing.business.exceptions.UserNotFoundException;
@@ -106,5 +107,19 @@ public class UserFacadeBean implements UserFacadeRemote {
 		}
 		
 	}
+	public void registerPassenger(String nif, String name, String surname, String phone, String password, String email)
+			throws UserAlreadyRegisteredException{
+				
+				try{
+					UserJPA user = entman.createQuery("from UserJPA u where email=:email",UserJPA.class).setParameter("email", email).getSingleResult();
+					throw new UserAlreadyRegisteredException();
+				}catch( NoResultException ok){
+					
+					PassengerJPA passenger = new PassengerJPA(nif, name, surname, phone, password, email);
+					entman.persist(passenger);
+					
+				}
+				
+			}
 	  
 }
