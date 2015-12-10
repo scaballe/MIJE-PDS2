@@ -31,7 +31,7 @@ public class DriverCommentJPA implements Serializable{
 	}
 	
 	String comment;
-	int ratting;
+	Integer ratting;
 	
 	public String getComment() {
 		return comment;
@@ -39,10 +39,10 @@ public class DriverCommentJPA implements Serializable{
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public int getRatting() {
+	public Integer getRatting() {
 		return ratting;
 	}
-	public void setRatting(int ratting) {
+	public void setRatting(Integer ratting) {
 		this.ratting = ratting;
 	}
 	

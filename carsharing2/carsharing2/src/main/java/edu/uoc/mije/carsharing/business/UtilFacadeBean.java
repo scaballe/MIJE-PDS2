@@ -42,6 +42,6 @@ public class UtilFacadeBean implements UtilFacadeRemote{
 
 	@Override
 	public Collection<CityJPA> listCities() {
-		return entman.createQuery("SELECT c FROM CityJPA ", CityJPA.class).getResultList();
+		return entman.createQuery("from CityJPA c", CityJPA.class).getResultList();
 	}
 }

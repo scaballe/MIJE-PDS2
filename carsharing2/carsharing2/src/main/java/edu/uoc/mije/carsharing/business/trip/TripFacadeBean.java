@@ -3,6 +3,7 @@ package edu.uoc.mije.carsharing.business.trip;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
@@ -22,12 +23,12 @@ public class TripFacadeBean implements TripFacadeRemote {
 	@PersistenceContext(unitName = "CarSharing")
 	private EntityManager entman;
 
-	public Collection<TripJPA> findTrip(String departureCity, String arrivalCity, float minPrice, float maxPrice,
+	public List<TripJPA> findTrip(String departureCity, String arrivalCity, float minPrice, float maxPrice,
 			Date departureDate) {
 		@SuppressWarnings("unchecked")
-		Collection<TripJPA> trips = entman
+		List<TripJPA> trips = entman
 				.createQuery(
-						"select u from TripJPA u where u.departureCity = :departureCity and u.arrivalCity = :departureCity")
+						"select u from TripJPA u where u.departureCity.name = :departureCity and u.arrivalCity.name = :arrivalCity")
 				.setParameter("departureCity", departureCity).setParameter("arrivalCity", arrivalCity).getResultList();
 		return trips;
 

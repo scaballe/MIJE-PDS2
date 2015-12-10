@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 import javax.ejb.EJB;
+import javax.el.ArrayELResolver;
 import javax.enterprise.context.spi.Context;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -18,7 +20,7 @@ import edu.uoc.mije.carsharing.integration.TripJPA;
 
 
 
-@ManagedBean(name = "findtrip")
+@ManagedBean(name = "findTrip")
 @SessionScoped
 public class FindTripMBean {
 
@@ -32,10 +34,10 @@ public class FindTripMBean {
 	private Date departureDate;
 	
 	//all the instances of TripJPA
-	private Collection<TripJPA> tripList;
+	private List<TripJPA> tripList;
 	
 	//ten or less TripJPA instances for display
-	protected Collection<TripJPA> tripListView;
+	protected List<TripJPA> tripListView;
 	
 	//current screen number
 	private int screen = 0;
@@ -102,7 +104,7 @@ public class FindTripMBean {
 	
 	public String listTrips() throws Exception {
 		tripList();
-		return "listTripsView";
+		return "findTrip";
 	}
 	
 	/**
@@ -117,13 +119,14 @@ public class FindTripMBean {
 	}
 
 	private void tripList() throws Exception {
-		Properties props = System.getProperties();
-		Context ctx = (Context) new InitialContext(props);
-		tripsRemote = (TripFacadeRemote) ((InitialContext) ctx).lookup("java:app/CarSharingEJB.jar/TripFacadeBean!ejb.TripFacadeRemote");
-		tripList = (Collection<TripJPA>)tripsRemote.findTrip(departureCity, arrivalCity, minPrice, maxPrice, departureDate);
+		if( departureCity == null || arrivalCity == null){
+			tripList = new ArrayList<TripJPA>();
+		}else{
+			tripList = tripsRemote.findTrip(departureCity, arrivalCity, minPrice, maxPrice, departureDate);
+		}
 	}
 	
-	public Collection<TripJPA> getTripsListView() throws Exception {
+	public List<TripJPA> getTripsListView() throws Exception {		
 		this.tripList();
 		int n = 0;
 		tripListView = new ArrayList<TripJPA>();

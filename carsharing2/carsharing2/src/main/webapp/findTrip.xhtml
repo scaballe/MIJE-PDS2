@@ -10,15 +10,25 @@
 <ui:composition template="./layout.xhtml">
 	<ui:define name="content">
 		<h:form align="left">
+
 			<h:outputText value="Origen: " />
-			<h:inputText value="#{trips.departureCity}" />
+			<h:selectOneListbox value="#{findTrip.departureCity}">
+				<f:selectItems value="#{util.cities}" var="i" itemLabel="#{i.name}"
+					itemValue="#{i.name}"></f:selectItems>
+			</h:selectOneListbox>
+
 			<h:outputText value="Destino: " />
-			<h:inputText value="#{trips.arrivalCity}" />
-			<h:commandButton value="Buscar" action="#{trips.listTrips}" />
-			<h:commandLink action="#{trips.previousScreen}" value="Previous" />
+			<h:selectOneListbox value="#{findTrip.arrivalCity}">
+				<f:selectItems value="#{util.cities}" var="i" itemLabel="#{i.name}"
+					itemValue="#{i.name}"></f:selectItems>
+			</h:selectOneListbox>
+
+			<h:commandButton value="Buscar" action="#{findTrip.listTrips}" />
+			<h:commandLink action="#{findTrip.previousScreen}" value="Previous" />
 			<h:outputText value="   " />
-			<h:commandLink action="#{trips.nextScreen}" value="Next" />
-			<h:dataTable value="#{trips.tripsListView}" var="item"
+			<h:commandLink action="#{findTrip.nextScreen}" value="Next" />
+
+			<h:dataTable value="#{findTrip.tripsListView}" var="item"
 				bgcolor="#F1F1F1" border="1" first="0" width="75%" frame="hsides"
 				rules="all">
 				<f:facet name="header">
@@ -37,7 +47,7 @@
 						<h:outputText value="Precio" />
 					</f:facet>
 					<p align="left">
-						<h:outputText value="item.price" />
+						<h:outputText value="#{item.price}" />
 					</p>
 				</h:column>
 				<h:column>
@@ -54,9 +64,17 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Puntuación del conductor" />
+						<h:outputText value="Asientos disponibles" />
 					</f:facet>
-					<h:outputText value="item.availableSeats" />
+					<h:outputText value="#{item.availableSeats}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Detalles" />
+					</f:facet>
+					<h:link outcome="showTripComments" value="Ver">
+						<f:param name="id" value="#{item.id}" />
+					</h:link>
 				</h:column>
 			</h:dataTable>
 		</h:form>

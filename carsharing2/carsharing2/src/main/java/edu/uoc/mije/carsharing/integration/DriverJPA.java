@@ -24,7 +24,7 @@ public class DriverJPA extends UserJPA{
 	}
 		
 	@Transient
-	public int getGlobalRating(){
+	public Integer getGlobalRating(){
 		return 0;
 	}
 	
