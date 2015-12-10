@@ -19,9 +19,11 @@ public interface UserFacadeRemote {
 	  public void registerDriver(String nif, String name, String surname, String phone, String password, String email)
 	  throws UserAlreadyRegisteredException;
 	  
-	  //TO IMPLEMENT
-	  /*public void registerDriver(String nif, String name, String surname, String phone, String password, String email);
-	  public void registerPassenger(String nif, String name, String surname, String phone, String password, String email);
+	  public void registerPassenger(String nif, String name, String surname, String phone, String password, String email)
+			  throws UserAlreadyRegisteredException;
 	  
+	  
+	  /*TO IMPLEMENT
+	  //updatedata
 	  */	  
 }

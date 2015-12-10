@@ -1,7 +1,3 @@
-/*
- * Practica 2 - ISCSD 2014/15-2 - UOC
- * Ivan Pintor Maestre
- */
 package edu.uoc.mije.carsharing.jsf;
 
 import java.io.Serializable;
@@ -9,8 +5,6 @@ import java.util.*;
 
 import javax.ejb.EJB;
 import javax.faces.bean.*;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 
 import edu.uoc.mije.carsharing.integration.CarJPA;
 import edu.uoc.mije.carsharing.business.user.UserFacadeRemote;
@@ -25,14 +19,14 @@ public class AddCarMBean implements Serializable{
 	private static final long serialVersionUID = 1L;	
 
 	@EJB
-	private UserFacadeRemote carsRemote;
+	UserFacadeRemote carsRemote;
 		
-	@ManagedProperty(value="#{listCars.carsList}")
-    private Collection<CarJPA> listCarsMB;
+	//@ManagedProperty(value="#{listCars.carsList}")
+    //private Collection<CarJPA> listCarsMB;
 	
 	@ManagedProperty(value="#{listCars.nif}")
     private String nif;
-
+	
 	private String carRegistrationId;
 	private String brand;
 	private String model;
@@ -41,14 +35,14 @@ public class AddCarMBean implements Serializable{
 	/* 
 	 * getters and setters methods	 
 	 */
-    public Collection<CarJPA> getListCarsMB()
+    //public Collection<CarJPA> getListCarsMB()
     {
-    return listCarsMB;
+    //return listCarsMB;
     }
 
     public void setListCarsMB(Collection<CarJPA> listCars)
     {
-    this.listCarsMB = listCars;
+    //this.listCarsMB = listCars;
     }
     
     public String getNif()
@@ -92,19 +86,7 @@ public class AddCarMBean implements Serializable{
 	public void setColor(String color){
 		this.color = color;
 	}
-		
-	
-	/**
-	 * Constructor method
-	 * @throws Exception
-	 */
-	public AddCarMBean() throws Exception
-	{
-		Properties props = System.getProperties();
-		Context ctx = new InitialContext(props);		
-		carsRemote = (UserFacadeRemote) ctx.lookup("java:app/CarSharingMije.jar/UserFacadeBean!ejb.UserFacadeRemote");		
-	}
-		
+			
 	/*
 	 * Method that adds a car to the database
 	 */	
@@ -112,8 +94,8 @@ public class AddCarMBean implements Serializable{
 	{
 		try {
 			carsRemote.addCar(this.nif, this.carRegistrationId, this.brand, this.model, this.color);		
-			listCarsMB.add(new CarJPA(this.carRegistrationId, this.brand, this.model, this.color));				
-			return "CarListView";
+			//listCarsMB.add(new CarJPA(this.carRegistrationId, this.brand, this.model, this.color));				
+			return "listCars";
 		} catch (Exception e) {			
 			return "ErrorView?faces-redirect=true&error=" + e.getMessage();
 		}		

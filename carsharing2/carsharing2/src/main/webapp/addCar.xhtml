@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+
+  <ui:composition template="./headerView.xhtml">
+	<ui:define name="content">		
+	  	<h:form id="form">
+    <h:panelGrid id="panel" columns="2" border="1"  cellspacing="5">
+        <f:facet name="header">
+            <h:outputText value="New car"/>
+        </f:facet>
+        <h:outputText value="Car Registration Id: " />
+        <h:inputText id="carRegistrationId" value="#{addCar.carRegistrationId}" required = "true" requiredMessage= "Please enter a Car Registration Id" />
+        
+        <h:outputText value="Brand: " />
+        <h:inputText id="brand" value="#{addCar.brand}" required = "true" requiredMessage= "Please enter a Brand"/>
+        
+        <h:outputText value="Model: " />
+        <h:inputText id="model" value="#{addCar.model}" required = "true" requiredMessage= "Please enter a model"/>
+        
+        <h:outputText value="Color: " />
+        <h:inputText id="color" value="#{addCar.color}" required = "true" requiredMessage= "Please enter a color"/>
+        
+        <f:facet name="footer">
+            <h:panelGroup style="display:block; text-align:center">
+                <h:commandButton id="submit" action="#{addCar.addCar()}" value="Add car" />
+            </h:panelGroup>
+        </f:facet>
+    </h:panelGrid>
+    <h:form>
+      	<h:commandButton value="Return to car list"
+                     action ="listCars.xhtml" immediate="true" style="position:relative; top:50px; right:-300px"/>
+	  </h:form>
+	</h:form>		 	  
+	</ui:define>
+  </ui:composition>
+</html>

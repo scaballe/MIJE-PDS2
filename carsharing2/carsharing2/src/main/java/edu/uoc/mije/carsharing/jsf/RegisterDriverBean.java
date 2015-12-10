@@ -14,7 +14,7 @@ import edu.uoc.mije.carsharing.business.user.UserFacadeRemote;
 
 @ManagedBean(name = "registerDriver")
 @RequestScoped
-public class RegisterDriver {
+public class RegisterDriverBean {
 
 	@EJB
 	UserFacadeRemote userFacade;
