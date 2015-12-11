@@ -19,6 +19,7 @@ import javax.naming.InitialContext;
 import edu.uoc.mije.carsharing.business.comms.CommunicationFacadeRemote;
 import edu.uoc.mije.carsharing.business.tripadmin.TripAdminFacadeRemote;
 import edu.uoc.mije.carsharing.integration.CityJPA;
+import edu.uoc.mije.carsharing.integration.TripJPA;
 
 @ManagedBean(name = "updateTripInformation")
 @RequestScoped
@@ -28,33 +29,128 @@ public class UpdateTripInformationBean {
 	@EJB
 	TripAdminFacadeRemote tripadminRemote; 
 	
-	private TripAdminFacadeRemote UpdateTripsRemote;
-
-	
-	
 	Integer tripId;
 	String description;
-	CityJPA departureCity;
+	String departureCity;
 	String fromPlace;
-	Date   departureDate;
-	Time departureTime;
-	CityJPA	arrivalCity;
+	Date   	departureDate;
+	Time 	departureTime;
+	String	arrivalCity;
 	String	toPlace;
 	Integer availableSeats;
 	Float	price;
 	Float	driverRating;
 
 	
-	public void updateTripInformation() throws Exception{  
-	
-	
-		Properties props = System.getProperties();
-		Context ctx = new InitialContext(props);
-		UpdateTripsRemote = (TripAdminFacadeRemote) ctx.lookup("java:app/CarSharingMije.jar/TripAdminFacadeBean!ejb.TripAdminFacadeRemote");
-		UpdateTripsRemote.updateTripInformation(tripId, description, departureCity, fromPlace, departureDate, arrivalCity, toPlace, availableSeats, price);
-							
-				
+	public Integer getTripId() {
+		return tripId;
+	}
+
+	public void setTripId(Integer tripId) {
+		this.tripId = tripId;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDepartureCity() {
+		return departureCity;
+	}
+
+	public void setDepartureCity(String departureCity) {
+		this.departureCity = departureCity;
+	}
+
+	public String getFromPlace() {
+		return fromPlace;
+	}
+
+	public void setFromPlace(String fromPlace) {
+		this.fromPlace = fromPlace;
+	}
+
+	public Date getDepartureDate() {
+		return departureDate;
+	}
+
+	public void setDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
+	}
+
+	public Time getDepartureTime() {
+		return departureTime;
+	}
+
+	public void setDepartureTime(Time departureTime) {
+		this.departureTime = departureTime;
+	}
+
+	public String getArrivalCity() {
+		return arrivalCity;
+	}
+
+	public void setArrivalCity(String arrivalCity) {
+		this.arrivalCity = arrivalCity;
+	}
+
+	public String getToPlace() {
+		return toPlace;
+	}
+
+	public void setToPlace(String toPlace) {
+		this.toPlace = toPlace;
+	}
+
+	public Integer getAvailableSeats() {
+		return availableSeats;
+	}
+
+	public void setAvailableSeats(Integer availableSeats) {
+		this.availableSeats = availableSeats;
+	}
+
+	public Float getPrice() {
+		return price;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+
+	public Float getDriverRating() {
+		return driverRating;
+	}
+
+	public void setDriverRating(Float driverRating) {
+		this.driverRating = driverRating;
+	}
+
+	public String showForm( TripJPA trip){
 		
+		tripId = trip.getId();
+		description = trip.getDescription();
+		departureCity = trip.getDepartureCity().getName();
+		fromPlace = trip.getFromPlace();
+		departureDate = trip.getDepartureDate();
+		arrivalCity = trip.getArrivalCity().getName();
+		toPlace = trip.getToPlace();
+		availableSeats = trip.getAvailableSeats();
+		price = trip.getPrice();
+		driverRating = trip.getDriverRating();
+		
+		return "updateTrip";
+	}
+	
+	public String updateTripInformation() throws Exception{  
+	
+		tripadminRemote.updateTripInformation(tripId, description, departureCity, fromPlace, departureDate, arrivalCity, toPlace, availableSeats, price);
+		
+		return "findMyTrips";
 	}
 			
 	

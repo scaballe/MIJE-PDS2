@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import edu.uoc.mije.carsharing.integration.CityJPA;
@@ -43,30 +44,54 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 	
 	
 	@Override
-	public void addTrip (String description, CityJPA departureCity, 
-			String fromPlace, Date departureDate, CityJPA arrivalCity, 
+	public void addTrip (String driverId, String description, String departureCity, 
+			String fromPlace, Date departureDate, String arrivalCity, 
 			String toPlace, int availableSeats, float price) {
 		
-		TripJPA instance = new TripJPA(description, departureCity, fromPlace,
-				departureDate, arrivalCity, toPlace, availableSeats, price);
-		entman.persist(instance);
+		try{
+			DriverJPA driver = entman.createQuery("FROM DriverJPA d where d.email = :driver", DriverJPA.class).
+					setParameter("driver", driverId).getSingleResult();
 		
+			CityJPA departure = entman.createQuery("FROM CityJPA d where d.name = :name", CityJPA.class).
+					setParameter("name", departureCity).getSingleResult();
+
+			CityJPA arrival = entman.createQuery("FROM CityJPA d where d.name = :name", CityJPA.class).
+					setParameter("name", arrivalCity).getSingleResult();
+
+			TripJPA instance = new TripJPA(description, departure, fromPlace,
+					departureDate, arrival, toPlace, availableSeats, price);
+			instance.setDriver(driver);
+			entman.persist(instance);
+			
+		}catch(NoResultException e){
+			
+		}
 	}
 	
 	
 	@Override
-	public void updateTripInformation( int idTrip, String description, CityJPA departureCity, String fromPlace, Date departureDate, CityJPA arrivalCity, String toPlace, int availableSeats, float price){
+	public void updateTripInformation( int idTrip, String description, String departureCity, String fromPlace, Date departureDate, String arrivalCity, String toPlace, int availableSeats, float price){
 		
 		TripJPA trip = getTrip(idTrip) ;
 		
 		if (trip == null ) return ;
+
+		try{
+			CityJPA departure = entman.createQuery("FROM CityJPA d where d.name = :name", CityJPA.class).
+					setParameter("name", departureCity).getSingleResult();
+
+			CityJPA arrival = entman.createQuery("FROM CityJPA d where d.name = :name", CityJPA.class).
+					setParameter("name", arrivalCity).getSingleResult();
+			
+			trip.setDepartureCity(departure);
+			trip.setArrivalCity(arrival);
+		}catch(NoResultException e){
+			return;
+		}
 		
 		trip.setDescription(description);
-		trip.setArrivalCity(arrivalCity);
-		trip.setDepartureCity(departureCity);
 		trip.setFromPlace(fromPlace);
 		trip.setDepartureDate(departureDate);
-		trip.setArrivalCity(arrivalCity);
 		trip.setToPlace(toPlace);
 		trip.setAvailableSeats(availableSeats);
 		trip.setPrice(price);
@@ -75,4 +100,9 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 				
 	}
 
+	public Collection<TripJPA>findMyTrips(String driver){
+		
+		return entman.createQuery("from TripJPA t where t.driver.email=:driver", TripJPA.class).setParameter("driver", driver).getResultList();
+		
+	}
 }

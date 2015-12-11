@@ -75,7 +75,7 @@ public class LoginBean {
 	}
 
 	public boolean isLoggedIn() {
-		Logger.getLogger("login").info("isLoggedIn " + user);
+		//Logger.getLogger("login").info("isLoggedIn " + user);
 		return user != null;
 	}
 

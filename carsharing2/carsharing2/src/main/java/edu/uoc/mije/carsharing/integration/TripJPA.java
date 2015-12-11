@@ -108,16 +108,16 @@ public class TripJPA implements Serializable {
 		this.driverRating = driverRating;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="departure_id")
 	CityJPA departureCity;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="arrival_id")
 	CityJPA	arrivalCity;
 
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="driver_id")
 	private DriverJPA driver;
 		
@@ -133,7 +133,7 @@ public class TripJPA implements Serializable {
 		return false;
 	}
 
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name="passenger_id")
 	private Collection<PassengerJPA> passengers = new ArrayList<PassengerJPA>();
 	public Collection<PassengerJPA> getPassengers() {

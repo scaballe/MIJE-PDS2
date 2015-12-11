@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="./layout.xhtml">
+	<ui:define name="content">
+
+		<div class="table-responsive">
+			<h:form>
+				<h:dataTable styleClass="table" headerClass="tableHeader"
+					bgcolor="#F1F1F1" border="3" first="0" width="50%" frame="hsides"
+					rules="all" rowClasses="tableOddRow,tableEvenRow" var="iterator"
+					value="#{findMyTrips.findMyTrips(login.email)}">
+
+					<h:column>
+						<f:facet name="descripcion">
+							<h:outputText align="center" value="Descripcion" />
+						</f:facet>
+						<p>#{iterator.description}</p>
+					</h:column>
+
+					<h:column>
+						<f:facet name="departureCity">
+							<h:outputText align="center" value="Departure City " />
+						</f:facet>
+						<p>#{iterator.departureCity.name}</p>
+					</h:column>
+
+					<h:column>
+						<f:facet name="departureCity">
+							<h:outputText align="center" value="Arrival City " />
+						</f:facet>
+						<p>#{iterator.arrivalCity.name}</p>
+					</h:column>
+
+					<h:column>
+						<f:facet name="price">
+							<h:outputText align="center" value="Price " />
+						</f:facet>
+						<p>#{iterator.price}</p>
+					</h:column>
+
+					<h:column>
+						<f:facet name="seats">
+							<h:outputText align="center" value="Seats " />
+						</f:facet>
+						<p>#{iterator.availableSeats}</p>
+					</h:column>
+
+					<h:column>
+						<f:facet name="passengers">
+							<h:outputText align="center" value="Passengers " />
+						</f:facet>
+						<p>#{iterator.passengers.size()}</p>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+
+						</f:facet>
+						<p align="center">
+							<h:commandButton value="Update"
+								action="#{updateTripInformation.showForm(iterator)}">
+							</h:commandButton>
+							<h:commandButton value="Pasajeros"
+								action="#{findAllPassengers.findAllPassengers(iterator.id)}">
+							</h:commandButton>							
+						</p>
+					</h:column>
+
+				</h:dataTable>
+			</h:form>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<h:form>
+					<h:commandLink action="addTrip.xhtml">Otro viaje</h:commandLink>
+				</h:form>
+			</div>
+		</div>
+
+
+	</ui:define>
+</ui:composition>
+</html>

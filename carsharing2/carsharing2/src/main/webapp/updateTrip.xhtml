@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="./layout.xhtml">
+	<ui:define name="content">
+
+		<table width="100%">
+			<td rowspan="9" colspan="1">
+				<div class="content" align="center">
+					<h1>updateTripInformation</h1>
+
+					<h:form>
+						<p>Formulario para introducir los datos del trip</p>
+
+						<h:inputHidden value="#{updateTripInformation.tripId}" id="tripId" />
+
+						<p>
+							Introduce Description
+							<h:inputText value="#{updateTripInformation.description}"
+								id="description" />
+						</p>
+
+						<p>
+							Introduce departureCity
+							<h:selectOneListbox
+								value="#{updateTripInformation.departureCity}">
+								<f:selectItems value="#{util.cities}" var="i"
+									itemLabel="#{i.name}" itemValue="#{i.name}"></f:selectItems>
+							</h:selectOneListbox>
+						</p>
+
+						<p>
+							Introduce fromPlace
+							<h:inputText value="#{updateTripInformation.fromPlace}"
+								id="fromPlace" />
+						</p>
+
+						<p>
+							Introduce departureDate
+							<h:inputText value="#{updateTripInformation.departureDate}"
+								id="departureDate" title="yyyy-MM-dd">
+								<f:convertDateTime pattern="yyyy-MM-dd" />
+							</h:inputText>
+						</p>
+
+						<p>
+							Introduce arrivalCity
+							<h:selectOneListbox value="#{updateTripInformation.arrivalCity}">
+								<f:selectItems value="#{util.cities}" var="i"
+									itemLabel="#{i.name}" itemValue="#{i.name}"></f:selectItems>
+							</h:selectOneListbox>
+						</p>
+						<p>
+							Introduce toPlace
+							<h:inputText value="#{updateTripInformation.toPlace}"
+								id="toPlace" />
+						</p>
+						<p>
+							Introduce availableSeats
+							<h:inputText value="#{updateTripInformation.availableSeats}"
+								id="availableSeats" />
+						</p>
+						<p>
+							Introduce price
+							<h:inputText value="#{updateTripInformation.price}" id="price" />
+						</p>
+
+						<p>
+							<h:commandButton
+								action="#{updateTripInformation.updateTripInformation()}"
+								value="Actualizar Trip" />
+						</p>
+					</h:form>
+				</div>
+			</td>
+		</table>
+	</ui:define>
+</ui:composition>
+</html>

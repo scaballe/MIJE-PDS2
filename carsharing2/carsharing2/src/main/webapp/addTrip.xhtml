@@ -15,20 +15,62 @@
 				<div class="content" align="center">
 					<h1>AddTrip</h1>
 
-<h:form>
-<p>Formulario para introducir los datos del trip</p>
-<p>Introduce Id del driver<h:inputText value="#{addTrip.driverId}" id="driverId"/></p>
-<p>Introduce Description<h:inputText value="#{addTrip.description}" id="description"/></p>
-<p>Introduce departureCity<h:inputText value="#{addTrip.departureCity.name}" id="departureCity"/></p>
-<p>Introduce fromPlace<h:inputText value="#{addTrip.fromPlace}" id="fromPlace"/></p>
-<p>Introduce departureDate<h:inputText value="#{addTrip.departureDate.date}" id="departureDate"/></p>
-<p>Introduce arrivalCity<h:inputText value="#{addTrip.arrivalCity.name}" id="arrivalCity"/></p>
-<p>Introduce toPlace<h:inputText value="#{addTrip.toPlace}" id="toPlace"/></p>
-<p>Introduce availableSeats<h:inputText value="#{addTrip.availableSeats}" id="availableSeats"/></p>
-<p>Introduce price<h:inputText value="#{addTrip.price}" id="price"/></p>
+					<h:form>
+						<p>Formulario para introducir los datos del trip</p>
 
-<p>Invocamos a addTrip()<h:commandButton action="#{addTrip.addTrip()}" value="call me" /></p>
-</h:form>
+						<input type="hidden" value="#{login.email}" id="driverId"
+							name="driverId" />
+
+						<p>
+							Introduce Description
+							<h:inputText value="#{addTrip.description}" id="description" />
+						</p>
+
+						<p>
+							Introduce departureCity
+							<h:selectOneListbox value="#{addTrip.departureCity}">
+								<f:selectItems value="#{util.cities}" var="i"
+									itemLabel="#{i.name}" itemValue="#{i.name}"></f:selectItems>
+							</h:selectOneListbox>
+						</p>
+
+						<p>
+							Introduce fromPlace
+							<h:inputText value="#{addTrip.fromPlace}" id="fromPlace" />
+						</p>
+						
+						<p>
+							Introduce departureDate
+							<h:inputText value="#{addTrip.departureDate}" id="departureDate" title="yyyy-MM-dd">
+							<f:convertDateTime pattern="yyyy-MM-dd"/>  
+							</h:inputText>
+						</p>
+						
+						<p>
+							Introduce arrivalCity
+							<h:selectOneListbox value="#{addTrip.arrivalCity}">
+								<f:selectItems value="#{util.cities}" var="i"
+									itemLabel="#{i.name}" itemValue="#{i.name}"></f:selectItems>
+							</h:selectOneListbox>
+						</p>
+						<p>
+							Introduce toPlace
+							<h:inputText value="#{addTrip.toPlace}" id="toPlace" />
+						</p>
+						<p>
+							Introduce availableSeats
+							<h:inputText value="#{addTrip.availableSeats}"
+								id="availableSeats" />
+						</p>
+						<p>
+							Introduce price
+							<h:inputText value="#{addTrip.price}" id="price" />
+						</p>
+
+						<p>							
+							<h:commandButton action="#{addTrip.addTrip()}" value="Crear Trip" />
+						</p>
+					</h:form>
 				</div>
 			</td>
 		</table>

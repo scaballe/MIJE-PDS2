@@ -1,5 +1,6 @@
 package edu.uoc.mije.carsharing.business.tripadmin;
 
+import java.util.Collection;
 import java.util.Date;
 import javax.ejb.Remote;
 import edu.uoc.mije.carsharing.integration.CityJPA;
@@ -13,11 +14,14 @@ public interface TripAdminFacadeRemote {
 	
 	public TripJPA getTrip(int idTrip);
 	
-	public void addTrip(String description, CityJPA departureCity, String fromPlace, Date departureDate, 
-			CityJPA arrivalCity, String toPlace, int availableSeats, float price);
+	public Collection<TripJPA>findMyTrips(String driver) ;
 	
-	public void updateTripInformation( int tripId, String description, CityJPA departureCity,
-			String fromPlace, Date departureDate, CityJPA arrivalCity, String toPlace, 
+	
+	public void addTrip(String driver, String description, String departureCity, String fromPlace, Date departureDate, 
+			String arrivalCity, String toPlace, int availableSeats, float price);
+	
+	public void updateTripInformation( int tripId, String description, String departureCity,
+			String fromPlace, Date departureDate, String arrivalCity, String toPlace, 
 			int availableSeats, float price);
 
 }

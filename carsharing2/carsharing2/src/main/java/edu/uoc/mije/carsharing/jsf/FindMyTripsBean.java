@@ -21,27 +21,14 @@ import edu.uoc.mije.carsharing.integration.TripJPA;
 
 public class FindMyTripsBean implements Serializable {
 
-	
-	private TripAdminFacadeRemote FindMyTripsRemote;
-	
-	Collection <TripJPA> listTrips;
-	
+		
 	@EJB
 	TripAdminFacadeRemote tripadminRemote; 
 	
 	
-	String driver;
-	
 	public Collection<TripJPA> findMyTrips(String nifDriver) throws Exception{  
-		
-		
-		Properties props = System.getProperties();
-		Context ctx = new InitialContext(props);
-		FindMyTripsRemote = (TripAdminFacadeRemote) ctx.lookup("java:app/CarSharingMije.jar/TripAdminFacadeBean!ejb.TripAdminFacadeRemote");
-		
-		DriverJPA  driver = FindMyTripsRemote.getDriver(nifDriver);	
-		
-		return driver.getTrips() ;
+			
+		return tripadminRemote.findMyTrips(nifDriver);
 		
 	}
 			

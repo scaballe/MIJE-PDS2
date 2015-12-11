@@ -15,6 +15,7 @@ import javax.persistence.*;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.ManyToOne;
 
 import edu.uoc.mije.carsharing.business.comms.CommunicationFacadeRemote;
@@ -27,26 +28,19 @@ import edu.uoc.mije.carsharing.integration.TripJPA;
 public class AddTripBean implements Serializable {
 	
 	@EJB
-	private TripAdminFacadeRemote AddTripRemote;
+	private TripAdminFacadeRemote tripAdminFacade;
 	
 	
-	String driverId;
 	String description;
-	CityJPA departureCity;
+	String departureCity;
 	String fromPlace;
 	Date   departureDate;
-	CityJPA arrivalCity;
+	String arrivalCity;
 	String	toPlace;
 	Integer availableSeats;
 	Float	price;
 	Float	driverRating;
 
-	public String getDriverId() {
-		return this.driverId;
-	}
-	public void setDriverId(String driverId) {
-		this.driverId = driverId;
-	}
 	public String getDescription() {
 		return description;
 	}
@@ -54,11 +48,10 @@ public class AddTripBean implements Serializable {
 		this.description = description;
 	}
 	
-	@ManyToOne
-	public CityJPA getDepartureCity() {
+	public String getDepartureCity() {
 		return departureCity;
 	}
-	public void setDepartureCity(CityJPA departureCity) {
+	public void setDepartureCity(String departureCity) {
 		this.departureCity = departureCity;
 	}
 	public String getFromPlace() {
@@ -73,11 +66,10 @@ public class AddTripBean implements Serializable {
 	public void setDepartureDate(Date departureDate) {
 		this.departureDate = departureDate;
 	}
-	@ManyToOne
-	public CityJPA getArrivalCity() {
+	public String getArrivalCity() {
 		return arrivalCity;
 	}
-	public void setArrivalCity(CityJPA arrivalCity) {
+	public void setArrivalCity(String arrivalCity) {
 		this.arrivalCity = arrivalCity;
 	}
 	public String getToPlace() {
@@ -106,15 +98,14 @@ public class AddTripBean implements Serializable {
 	}	
 	
 	 
-	public void addTrip() throws Exception{  
+	public String addTrip() throws Exception{  
 		
-		//Logger.getLogger("carsharing").info("addTrip to "+driverId);
+		String driverId = FacesContext.getCurrentInstance().
+				getExternalContext().getRequestParameterMap().get("driverId");
 		
-		Properties props = System.getProperties();
-		Context ctx = new InitialContext(props);
-		AddTripRemote = (TripAdminFacadeRemote) ctx.lookup("java:app/CarSharingMije.jar/TripAdminFacadeBean!ejb.TripAdminFacadeRemote");
-		AddTripRemote.addTrip(description, departureCity, fromPlace, departureDate, arrivalCity, toPlace, availableSeats, price);
-			
+		tripAdminFacade.addTrip(driverId, description, departureCity, fromPlace, departureDate, arrivalCity, toPlace, availableSeats, price);
+		
+		return "findMyTrips";
 		
 	}
 	

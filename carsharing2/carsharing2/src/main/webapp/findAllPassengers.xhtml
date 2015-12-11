@@ -10,19 +10,36 @@
 <ui:composition template="./layout.xhtml">
 	<ui:define name="content">
 
-		<table width="100%">
-			<td rowspan="1" colspan="1">
-				<div class="content" align="center">
-					<h1>FinAllPassengers</h1>
+		<div class="content" align="center">
+			<h1>FinAllPassengers</h1>
 
-<h:form>
-<p>Formulario listar todos los pasajeros de un trip</p>
-<p>Introduce Id del tripr<h:inputText value="#{findAllPassengers.idTrip}" id="idTrip"/></p>
-<p>y aqui invocamos al action <h:commandButton action="#{findAllPassengers.findAllPassengers()}" value="call me" /></p>
-</h:form>
-				</div>
-			</td>
-		</table>
+			<div class="table-responsive">
+				<h:form>
+					<h:dataTable styleClass="table" headerClass="tableHeader"
+						bgcolor="#F1F1F1" border="3" first="0" width="50%" frame="hsides"
+						rules="all" rowClasses="tableOddRow,tableEvenRow" var="iterator"
+						value="#{findAllPassengers.passengers}">
+
+						<h:column>
+							<f:facet name="name">
+								<h:outputText align="center" value="Name" />
+							</f:facet>
+							<p>#{iterator.name}</p>
+						</h:column>
+
+						<h:column>
+							<f:facet name="email">
+								<h:outputText align="center" value="eMail" />
+							</f:facet>
+							<p>#{iterator.email}</p>
+						</h:column>
+
+					</h:dataTable>
+				</h:form>
+			</div>
+
+		</div>
+
 	</ui:define>
 </ui:composition>
 </html>
