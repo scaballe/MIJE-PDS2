@@ -1,6 +1,7 @@
 package edu.uoc.mije.carsharing.business.user;
 
 import java.util.Collection;
+
 import javax.ejb.Remote;
 
 import edu.uoc.mije.carsharing.business.exceptions.UserAlreadyRegisteredException;
@@ -22,7 +23,7 @@ public interface UserFacadeRemote {
 	  public void registerPassenger(String nif, String name, String surname, String phone, String password, String email)
 			  throws UserAlreadyRegisteredException;
 	  
-	  
+	  public String retrieveNif(String email);
 	  /*TO IMPLEMENT
 	  //updatedata
 	  */	  

@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.*;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
 
 import edu.uoc.mije.carsharing.integration.CarJPA;
+import edu.uoc.mije.carsharing.business.exceptions.UserNotFoundException;
 import edu.uoc.mije.carsharing.business.user.UserFacadeRemote;
 
 /**
@@ -21,29 +24,29 @@ public class ListCarsMBean implements Serializable{
 	@EJB
 	UserFacadeRemote userRemote;
 	
-	//stores the nif of the driver who owns the cars
-	protected String nif = "00000000X";	
+	@ManagedProperty(value="#{login.email}")
+    private String email;
+	
+	//stores the nif of the driver who owns the cars	
+	protected String nif;
+	
 	//stores all the instances of CarJPA
 	protected Collection<CarJPA> carsList;
-	
-	
+			
 	/**
-	 * Get/set the nif
-	 * @return nif
+	 * Getters/setters	
 	 */
-	public String getNif()
-	{
+	public String getNif()	{
+		this.nif = userRemote.retrieveNif(email);
 		return this.nif;
 	}
-	public void setNif(String nif)
-	{
+	public void setNif(String nif)	{
 		this.nif = nif;
 	}
 		
 	@SuppressWarnings("unchecked")
-	public Collection<CarJPA> getCarsList()
-	{		
-		carsList = (Collection<CarJPA>) userRemote.listAllCars(nif);		
+	public Collection<CarJPA> getCarsList()	{				
+		this.carsList = (Collection<CarJPA>) userRemote.listAllCars(nif);
 		return this.carsList;
 	}
 		
@@ -51,4 +54,10 @@ public class ListCarsMBean implements Serializable{
 		this.carsList = carslist;
 	}
 	
+	public String getEmail()	{
+		return this.email;
+	}
+	public void setEmail(String email)	{
+		this.email = email;
+	}	
 }

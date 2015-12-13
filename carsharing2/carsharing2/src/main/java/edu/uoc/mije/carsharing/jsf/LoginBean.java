@@ -28,7 +28,7 @@ public class LoginBean {
 	@EJB
 	UserFacadeRemote userRemote;
 	
-	private String email;
+	protected String email;
 
 	private String password;
 

@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.*;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
@@ -29,60 +31,41 @@ public class DeleteCarMBean implements Serializable{
 	@ManagedProperty(value="#{listCars.nif}")
     private String nif;
    	
-	/**
-	 * Constructor method
-	 * @throws Exception
-	 */
-	public DeleteCarMBean() throws Exception
-	{		
-			Properties props = System.getProperties();
-			Context ctx = new InitialContext(props);		
-			carsRemote = (UserFacadeRemote) ctx.lookup("java:app/CarSharingMije.jar/UserFacadeBean!ejb.UserFacadeRemote");				
-	}
 		
 	/*
 	 * getters and setters methods
 	 */
 	
-	public String getNif()
-    {
+	public String getNif(){
     return nif;
     }
 
-    public void setNif(String nif)
-    {
+    public void setNif(String nif){
     this.nif = nif;
     }
     
-	public Collection<CarJPA> getListCarsMB()
-    {
+	public Collection<CarJPA> getListCarsMB(){
     return listCarsMB;
     }
 
-    public void setListCarsMB(Collection<CarJPA> listCars)
-    {
+    public void setListCarsMB(Collection<CarJPA> listCars){
     this.listCarsMB = listCars;
     }
     
     
     /*
      * Method that deletes a car from the database
-     */
-    
-	public String deleteCar(String carRegistrationId) throws Exception
-	{
-		try {
-			carsRemote.deleteCar(this.nif, carRegistrationId);
-			
-			for (Iterator<CarJPA> iterator = listCarsMB.iterator(); iterator.hasNext();) {
-			    CarJPA car = iterator.next();
-			    if (car.getCarRegistrationId().equals(carRegistrationId)) {
-			        iterator.remove();
-			    }
-			}					
-		} catch (Exception e) {
-			return "ErrorView?faces-redirect=true&error=" + e.getMessage();
-		}		
-		return "CarListView";
+     */	
+	public String deleteCar(String carRegistrationId){
+		carsRemote.deleteCar(this.nif, carRegistrationId);
+		for (Iterator<CarJPA> iterator = listCarsMB.iterator(); iterator.hasNext();) {
+		    CarJPA car = iterator.next();
+		    if (car.getCarRegistrationId().equals(carRegistrationId)) {
+		        iterator.remove();
+		    }
+		}	
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		facesContext.addMessage("info", new FacesMessage("Coche eliminado correctamente"));			
+		return "CarListView";				
 	}
 }

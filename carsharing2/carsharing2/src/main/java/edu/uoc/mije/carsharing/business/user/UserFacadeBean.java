@@ -36,13 +36,17 @@ public class UserFacadeBean implements UserFacadeRemote {
 	 */
 	public void addCar(String nif, String carRegistrationId, String brand, String model, String color) throws PersistenceException{
 		
-			CarJPA newCar = new CarJPA();			
-			newCar.setCarRegistrationId(carRegistrationId);
-			newCar.setBrand(brand);
-			newCar.setModel(model);
-			newCar.setColor(color);
-			newCar.setDriver(entman.find(DriverJPA.class, nif));
-			entman.persist(newCar);		 
+		DriverJPA driver = (DriverJPA) entman.createQuery("from UserJPA u where nif = :nif ")
+				.setParameter("nif", nif)
+				.getSingleResult();
+		
+		CarJPA newCar = new CarJPA();			
+		newCar.setCarRegistrationId(carRegistrationId);
+		newCar.setBrand(brand);
+		newCar.setModel(model);
+		newCar.setColor(color);
+		newCar.setDriver(driver);
+		entman.persist(newCar);		 
 	}
 			
 	/**
@@ -51,8 +55,13 @@ public class UserFacadeBean implements UserFacadeRemote {
 	public java.util.Collection<?> listAllCars(String nif) throws PersistenceException {
 		try 
 		{
-			Collection<CarJPA> allCars = entman.createQuery("from CarJPA c where brand = :marca")
-					.setParameter("marca", "Opel")
+			DriverJPA driver = (DriverJPA) entman.createQuery("from UserJPA u where nif = :nif ")
+					.setParameter("nif", nif)
+					.getSingleResult();
+			
+			@SuppressWarnings("unchecked")
+			Collection<CarJPA> allCars = entman.createQuery("from CarJPA c where driver_id = :id")
+					.setParameter("id", driver.getId())
 					.getResultList();							
 		    return allCars;	
 		    
@@ -122,4 +131,13 @@ public class UserFacadeBean implements UserFacadeRemote {
 				
 			}
 	  
+	
+	 // Method that gets nif from the email address
+	
+	public String retrieveNif(String email){		
+		UserJPA user = entman.createQuery("from UserJPA u where email=:email",UserJPA.class)
+					.setParameter("email", email)
+					.getSingleResult();
+		return user.getNif();				
+	}
 }
