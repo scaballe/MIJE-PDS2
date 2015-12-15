@@ -20,6 +20,7 @@ import edu.uoc.mije.carsharing.business.UtilFacadeRemote;
 import edu.uoc.mije.carsharing.business.exceptions.UserNotFoundException;
 import edu.uoc.mije.carsharing.business.user.UserFacadeRemote;
 import edu.uoc.mije.carsharing.integration.DriverJPA;
+import edu.uoc.mije.carsharing.integration.UserJPA;
 
 @ManagedBean(name = "login")
 @SessionScoped
@@ -29,9 +30,8 @@ public class LoginBean {
 	UserFacadeRemote userRemote;
 	
 	protected String email;
-
 	private String password;
-
+	
 	@NotNull
 	public String getEmail() {
 		return email;
@@ -45,22 +45,27 @@ public class LoginBean {
 	public String getPassword() {
 		return password;
 	}
+	
+	public UserJPA getUser()	{
+		return this.user;
+	}
+	public void setUser(UserJPA user)	{
+		this.user = user;
+	}	
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 	
-	String user;
-
+	UserJPA user;
 	boolean driver;	
 	
 	public String login() {
 
 		try{
-			driver = userRemote.login(email, password);
-			
-			user = email;
-			
+			user = userRemote.login(email, password);
+			driver = user instanceof DriverJPA;
+						
 		}catch(UserNotFoundException un){
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			facesContext.addMessage("error", new FacesMessage("Usuario/Password no validos"));
