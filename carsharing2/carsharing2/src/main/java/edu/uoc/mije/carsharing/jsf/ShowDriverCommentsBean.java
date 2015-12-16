@@ -22,21 +22,13 @@ public class ShowDriverCommentsBean {
 		
 	}
 	
-	private String driverId;
-	public String getDriverId() {
-		return driverId;
-	}
-	public void setDriverId(String driverId) {
-		this.driverId = driverId;
-	}
-	
 	
 	Collection<DriverCommentJPA> messages;
 	public Collection<DriverCommentJPA> getMessages() {
 		return messages;
 	}
 	
-	public String doAction(){
+	public String doAction(String driverId){
 	
 		Logger.getLogger("carsharing").info("ShowDriverComments "+driverId);
 				

@@ -21,20 +21,14 @@ public class ShowTripCommentsBean {
 		
 	}
 	
-	private int tripId;
-	public void setTripId(int tripId) {
-		this.tripId = tripId;
-	}
-	public int getTripId() {
-		return tripId;
-	}
+	
 	
 	Collection<MessageJPA> messages;
 	public Collection<MessageJPA> getMessages() {
 		return messages;
 	}
 	
-	public String doAction(){
+	public String doAction(int tripId){
 	
 		Logger.getLogger("carsharing").info("ShowTripComments "+tripId);
 		
