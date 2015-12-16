@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="./layout.xhtml">
+	<ui:define name="content">
+
+		<table width="100%">
+			<td rowspan="9" colspan="1">
+				<div class="content" align="center">
+					<h1>updatePersonalData</h1>
+
+					<h:form>
+						<p>Formulario para modificar los datos del usuario</p>
+
+						<p>
+							Nombre completo:
+							<h:outputText value="#{updatePersonalData.name} #{updatePersonalData.surname}" id="Name" />
+						</p>
+
+						<p>
+							NIF:
+							<h:outputText value="#{updatePersonalData.nif}" id="nif" />
+						</p>
+						
+						<p>
+							Contraseña:
+							<h:inputSecret value="#{updatePersonalData.password}" id="password" required = "true" requiredMessage= "Por favor introduce una contraseña válida"/>
+						</p>
+						
+						<p>
+							Número de teléfono:
+							<h:inputText value="#{updatePersonalData.phone}" id="phone" />
+						</p>
+						
+						<p>
+							Correo electrónico:
+							<h:inputText value="#{updatePersonalData.email}" id="email" />
+						</p>
+						
+						 <h:commandButton id="submit" action="#{updatePersonalData.updateData()}" value="Actualizar datos" />
+						
+					</h:form>
+				</div>
+			</td>
+		</table>
+	</ui:define>
+</ui:composition>
+</html>
