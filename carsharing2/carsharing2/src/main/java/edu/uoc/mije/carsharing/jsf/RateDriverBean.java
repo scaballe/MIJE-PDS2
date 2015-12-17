@@ -5,10 +5,13 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import edu.uoc.mije.carsharing.business.comms.CommunicationFacadeRemote;
+import edu.uoc.mije.carsharing.integration.PassengerJPA;
+import edu.uoc.mije.carsharing.integration.UserJPA;
 
 @ManagedBean(name = "rateDriver")
 @RequestScoped
@@ -17,22 +20,25 @@ public class RateDriverBean {
 	@EJB
 	CommunicationFacadeRemote communicationRemote;
 
-	String driver;
-	String passenger;
+	@ManagedProperty(value="#{login.user}")
+    private UserJPA user;
+	public UserJPA getUser()	{
+		return this.user;
+	}
+	public void setUser(UserJPA user)	{
+		this.user = user;
+	}	
+	String driverId;
 	String comment;
 	Integer rate;
-	public String getDriver() {
-		return driver;
+	
+	public String getDriverId() {
+		return driverId;
 	}
-	public void setDriver(String driver) {
-		this.driver = driver;
+	public void setDriverId(String driver) {
+		this.driverId = driver;
 	}
-	public String getPassenger() {
-		return passenger;
-	}
-	public void setPassenger(String passenger) {
-		this.passenger = passenger;
-	}
+	
 	public String getComment() {
 		return comment;
 	}
@@ -46,13 +52,31 @@ public class RateDriverBean {
 		this.rate = ratting;
 	}
 	
+	public boolean isCanRate(){
+		
+		if( !(user instanceof PassengerJPA) ){
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public String rateDriver(){
+		
+		String driverId = FacesContext.getCurrentInstance().
+				getExternalContext().getRequestParameterMap().get("driverId");
+		setDriverId(driverId);
+		
+		return "rateDriver";
+	}
+	
 	public String doAction() { 
 		
 		Logger.getLogger("carsharing").info("rateDriver ");
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
 		try {
-			communicationRemote.rateDriver(driver, passenger, comment, rate);
+			communicationRemote.rateDriver(driverId, user.getEmail(), comment, rate);
 			
 			facesContext.addMessage("rateDriver", new FacesMessage("Driver ratted"));
 			

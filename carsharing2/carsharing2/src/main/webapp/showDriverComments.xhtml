@@ -10,28 +10,36 @@
 <ui:composition template="./layout.xhtml">
 	<ui:define name="content">
 
-		<div class="table-responsive">
-			<h:dataTable styleClass="table" headerClass="tableHeader"
-				rowClasses="tableOddRow,tableEvenRow" var="iterator"
-				value="#{showDriverComments.messages}">
+		<h:dataTable styleClass="table" headerClass="tableHeader"
+			rowClasses="tableOddRow,tableEvenRow" var="iterator"
+			value="#{showDriverComments.messages}">
 
-				<h:column>
-					<f:facet name="subject">Pasajero</f:facet>
-					<p>#{iterator.passenger.name}</p>
-				</h:column>
+			<h:column>
+				<f:facet name="subject">Pasajero</f:facet>
+				<p>#{iterator.passenger.name}</p>
+			</h:column>
 
-				<h:column>
-					<f:facet name="comment">Comentario</f:facet>
-					<p>#{iterator.comment}</p>
-				</h:column>
+			<h:column>
+				<f:facet name="comment">Comentario</f:facet>
+				<p>#{iterator.comment}</p>
+			</h:column>
 
-				<h:column>
-					<f:facet name="rating">Puntuacion</f:facet>
-					<p>#{iterator.ratting}</p>
-				</h:column>
+			<h:column>
+				<f:facet name="rating">Puntuacion</f:facet>
+				<p>#{iterator.ratting}</p>
+			</h:column>
 
-			</h:dataTable>
-		</div>
+		</h:dataTable>
+
+		<c:if test="#{login.loggedIn}">
+			<c:if test="#{rateDriver.canRate}">
+				<h:form>
+					<input type="hidden" id="driverId" name="driverId" value="#{showDriverComments.driverId}"/>
+					<h:commandLink action="#{rateDriver.rateDriver()}">Puntuar al conductor <h:outputText value="#{showDriverComments.driverId}"/></h:commandLink>
+				</h:form>
+			</c:if>
+		</c:if>
+
 
 	</ui:define>
 </ui:composition>

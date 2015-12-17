@@ -22,6 +22,13 @@ public class ShowDriverCommentsBean {
 		
 	}
 	
+	String driverId;
+	public String getDriverId() {
+		return driverId;
+	}
+	public void setDriverId(String driverId) {
+		this.driverId = driverId;
+	}
 	
 	Collection<DriverCommentJPA> messages;
 	public Collection<DriverCommentJPA> getMessages() {
@@ -32,6 +39,7 @@ public class ShowDriverCommentsBean {
 	
 		Logger.getLogger("carsharing").info("ShowDriverComments "+driverId);
 				
+		setDriverId(driverId);
 		messages = communicationRemote.showDriverComments(driverId);
 		
 		return "showDriverComments";

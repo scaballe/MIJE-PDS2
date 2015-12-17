@@ -66,6 +66,6 @@ public class DeleteCarMBean implements Serializable{
 		}	
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		facesContext.addMessage("info", new FacesMessage("Coche eliminado correctamente"));			
-		return "CarListView";				
+		return "listCars";				
 	}
 }

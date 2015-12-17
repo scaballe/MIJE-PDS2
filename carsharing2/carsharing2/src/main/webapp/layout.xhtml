@@ -81,7 +81,7 @@
 								data-toggle="dropdown" role="button" aria-haspopup="true"
 								aria-expanded="false">Perfil <span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li><h:commandLink action="#{login.logout}">Salir</h:commandLink></li>
+									<li><h:commandLink action="#{login.logout()}">Salir</h:commandLink></li>
 									<li><a href="updatePersonalData.xhtml">Mis datos</a></li>
 								</ul></li>
 						</c:otherwise>
@@ -98,7 +98,7 @@
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Util <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><h:commandLink action="#{util.loadModel1}">Cargar Modelo1</h:commandLink></li>
+							<li><h:commandLink action="#{util.loadModel1()}">Cargar Modelo1</h:commandLink></li>
 						</ul></li>
 				</ul>
 			</h:form>
