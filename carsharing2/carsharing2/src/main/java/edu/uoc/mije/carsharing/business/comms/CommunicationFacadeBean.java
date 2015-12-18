@@ -6,6 +6,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import edu.uoc.mije.carsharing.integration.DriverCommentJPA;
 import edu.uoc.mije.carsharing.integration.DriverJPA;
@@ -27,7 +29,7 @@ public class CommunicationFacadeBean implements CommunicationFacadeRemote {
 	public Collection<MessageJPA> showTripComments(int tripId) {
 		@SuppressWarnings("unchecked")
 		Collection<MessageJPA> allMessages = entman.
-			createQuery("from MessageJPA m where m.trip.id=:tripId").
+			createQuery("from MessageJPA m where m.trip.id=:tripId and m.parentMessage is null").
 			setParameter("tripId", tripId).
 			getResultList();
 		return allMessages;
@@ -76,7 +78,9 @@ public class CommunicationFacadeBean implements CommunicationFacadeRemote {
 				.getSingleResult();
 		
 		MessageJPA reply = new MessageJPA(subject, body, driver, trip, question);
-		entman.persist(reply);
+		question.getSubMessages().add(reply);
+		
+		entman.persist(question);
 
 	}
 
@@ -88,5 +92,22 @@ public class CommunicationFacadeBean implements CommunicationFacadeRemote {
 			setParameter("driver",driver).
 			getResultList();
 		return allMessages;
+	}
+	
+	@Override
+	public boolean canRateDriver(String driverId, String passengerId) {
+
+		Collection<TripJPA> trips = 
+		entman.createQuery("from TripJPA where driver.email=:driver",TripJPA.class).
+				setParameter("driver", driverId).
+				getResultList();
+		for( TripJPA trip : trips){
+			for( PassengerJPA p : trip.getPassengers() ){
+				if( p.getEmail().equals(passengerId)){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

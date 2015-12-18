@@ -18,5 +18,7 @@ public interface CommunicationFacadeRemote {
 	
 	public void replyQuestion(int tripId, int questionId, String driver, String subject, String body);
 	
+	public boolean canRateDriver(String driver, String passenger);
+	
 	public void rateDriver( String driver, String passenger, String comment, int rate);
 }

@@ -2,6 +2,7 @@ package edu.uoc.mije.carsharing.jsf;
 
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -52,22 +53,20 @@ public class RateDriverBean {
 		this.rate = ratting;
 	}
 	
-	public boolean isCanRate(){
+	public boolean canRate(String driverId){
 		
 		if( !(user instanceof PassengerJPA) ){
 			return false;
 		}
 		
-		return true;
+		return communicationRemote.canRateDriver(driverId, user.getEmail());
 	}
 	
-	public String rateDriver(){
-		
+	@PostConstruct
+	public void init(){		
 		String driverId = FacesContext.getCurrentInstance().
 				getExternalContext().getRequestParameterMap().get("driverId");
-		setDriverId(driverId);
-		
-		return "rateDriver";
+		setDriverId(driverId);			
 	}
 	
 	public String doAction() { 
@@ -85,7 +84,7 @@ public class RateDriverBean {
 			return "rateDriver";
 		}
 
-		return "homeView";
+		return "findTrip";
 	}
 
 

@@ -70,6 +70,10 @@
 							<h:commandButton value="Pasajeros"
 								action="#{findAllPassengers.findAllPassengers(iterator.id)}">
 							</h:commandButton>							
+							<h:commandButton value="Comentarios"
+								action="showTripComments">
+								<f:param name="tripId" value="#{iterator.id}"></f:param>
+							</h:commandButton>							
 						</p>
 					</h:column>
 

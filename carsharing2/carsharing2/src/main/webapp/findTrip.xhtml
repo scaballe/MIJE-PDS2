@@ -72,13 +72,17 @@
 					<f:facet name="header">
 						<h:outputText value="Comentarios Trip" />
 					</f:facet>
-					<h:commandLink action="#{showTripComments.doAction(item.id)}" value="Ver" />	
+					<h:commandLink action="showTripComments" value="Ver">
+						<f:param name="tripId" value="#{item.id}"></f:param>
+					</h:commandLink>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Comentarios Conductor" />
 					</f:facet>
-					<h:commandLink action="#{showDriverComments.doAction(item.driver.email)}" value="Ver" />
+					<h:commandLink action="showDriverComments" value="Ver">
+						<f:param name="driverId" value="#{item.driver.email}"></f:param>
+					</h:commandLink>
 				</h:column>
 			</h:dataTable>
 		</h:form>
