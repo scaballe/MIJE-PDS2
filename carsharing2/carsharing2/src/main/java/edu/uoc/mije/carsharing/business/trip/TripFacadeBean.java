@@ -23,46 +23,94 @@ public class TripFacadeBean implements TripFacadeRemote {
 	@PersistenceContext(unitName = "CarSharing")
 	private EntityManager entman;
 
-	public List<TripJPA> findTrip(String departureCity, String arrivalCity, float minPrice, float maxPrice,
-			Date departureDate) {
+	public List<TripJPA> findTrip(String departureCity, String arrivalCity,
+			float minPrice, float maxPrice, Date departureDate) {
+
+		Query query;
+
+		if (departureDate != null) {
+			query = entman
+					.createQuery("select u from TripJPA u where u.departureDate = :departureDate and u.departureCity.name = :departureCity and u.arrivalCity.name = :arrivalCity");
+			query.setParameter("departureDate", departureDate,
+					TemporalType.DATE);
+			System.out.println("FECHA Facade: " + departureDate);
+		} else {
+			query = entman
+					.createQuery("select u from TripJPA u where u.departureCity.name = :departureCity and u.arrivalCity.name = :arrivalCity");
+		}
+		query.setParameter("departureCity", departureCity);
+		query.setParameter("arrivalCity", arrivalCity);
+
 		@SuppressWarnings("unchecked")
-		List<TripJPA> trips = entman
-				.createQuery(
-						"select u from TripJPA u where u.departureCity.name = :departureCity and u.arrivalCity.name = :arrivalCity")
-				.setParameter("departureCity", departureCity).setParameter("arrivalCity", arrivalCity).getResultList();
+		List<TripJPA> trips = query.getResultList();
+		if (!trips.isEmpty())
+			System.out.println("Fecha viaje 1: "
+					+ trips.get(0).getDepartureDate());
 		return trips;
 
 	}
 
 	public TripJPA showTrip(int tripId) {
 		TripJPA trip = null;
+		Query query;
+		query = entman.createQuery("select u from TripJPA u where u.id = :id");
+		query.setParameter("id", tripId);
+
+		@SuppressWarnings("unchecked")
+		Collection<TripJPA> trips = query.getResultList();
+
+		if (!trips.isEmpty() || trips.size() == 1) {
+			Iterator<TripJPA> iter = trips.iterator();
+			trip = (TripJPA) iter.next();
+		}
+		
+		return trip;
+	}
+
+	public void registerInTrip(int tripId, String passengerEmail) throws Exception {
 		try {
+			
+			Query query;
+			
+			//Buscamos el Trip:
+			TripJPA trip = null;
+			query = entman.createQuery("select u from TripJPA u where u.id = :id");
+			query.setParameter("id", tripId);
+			
 			@SuppressWarnings("unchecked")
-			Collection<TripJPA> trips = entman.createQuery("FROM TripJPA b WHERE b.id = ?1")
-					.setParameter(1, new Integer(tripId)).getResultList();
+			Collection<TripJPA> trips = query.getResultList();
+
 			if (!trips.isEmpty() || trips.size() == 1) {
 				Iterator<TripJPA> iter = trips.iterator();
 				trip = (TripJPA) iter.next();
 			}
-		} catch (PersistenceException e) {
-			System.out.println(e);
-		}
-		return trip;
-	}
-	
-	public void registerInTrip(int tripId, String passengerId) throws Exception{
-		try{
-			TripJPA trip = entman.find(TripJPA.class, tripId);
-			PassengerJPA passenger = entman.find(PassengerJPA.class, passengerId);
-			if (trip==null) 
-				throw new TripNotFoundException("El viaje con ID "+tripId+" no existe en la base de datos.");
-			else if (passenger==null) 
-				throw new PassengerNotFoundException("El pasajero con ID "+passengerId+" no existe en la base de datos.");
-			else{
+			
+			//Buscamos el Pasajero:
+			PassengerJPA passenger = null;
+			query = entman.createQuery("select u from PassengerJPA u where u.email = :email");
+			query.setParameter("email", passengerEmail);
+			
+			@SuppressWarnings("unchecked")
+			Collection<PassengerJPA> passengers = query.getResultList();
+
+			if (!passengers.isEmpty() || passengers.size() == 1) {
+				Iterator<PassengerJPA> iter = passengers.iterator();
+				passenger = (PassengerJPA) iter.next();
+			}
+			
+			
+			if (trip == null)
+				throw new TripNotFoundException("El viaje con ID " + tripId
+						+ " no existe en la base de datos.");
+			else if (passenger == null)
+				throw new PassengerNotFoundException("El pasajero con e-mail "
+						+ passengerEmail + " no existe en la base de datos.");
+			else {
 				trip.addPassenger(passenger);
 				entman.persist(trip);
+				System.out.println("El pasajero "+passengerEmail+" se ha registrado en el viaje "+tripId);
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
@@ -72,14 +120,16 @@ public class TripFacadeBean implements TripFacadeRemote {
 
 		TripJPA trip = entman.find(TripJPA.class, tripId);
 		if (trip == null) {
-			facesContext.addMessage("error",
-					new FacesMessage("El viaje con ID " + tripId + " no existe en la base de datos."));
+			facesContext.addMessage("error", new FacesMessage(
+					"El viaje con ID " + tripId
+							+ " no existe en la base de datos."));
 			return;
 		}
 		PassengerJPA passenger = entman.find(PassengerJPA.class, passengerId);
 		if (passenger == null) {
-			facesContext.addMessage("error",
-					new FacesMessage("El pasajero con ID " + passengerId + " no existe en la base de datos."));
+			facesContext.addMessage("error", new FacesMessage(
+					"El pasajero con ID " + passengerId
+							+ " no existe en la base de datos."));
 			return;
 		}
 

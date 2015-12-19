@@ -12,15 +12,8 @@
 
 		<h:form method="post" name="login_form" styleClass="form-inline"
 			role="form">
+			<input type="hidden" name="tripId" value="#{askQuestion.tripId}"/>
 			<f:validateBean>
-				<div class="form-group">
-					<label for="trip">Trip Id:</label> 
-						<h:inputText id="trip" styleClass="form-control"  value="#{askQuestion.tripId}" />
-				</div>
-				<div class="form-group">
-					<label for="passenger">Passenger:</label> 
-						<h:inputText id="passenger" styleClass="form-control"  value="#{askQuestion.passenger}" />
-				</div>
 				<div class="form-group">
 					<label for="subject">Subject:</label> 
 						<h:inputText id="subject" styleClass="form-control"  value="#{askQuestion.subject}" />

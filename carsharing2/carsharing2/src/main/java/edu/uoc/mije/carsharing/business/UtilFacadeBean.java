@@ -9,6 +9,7 @@ import javax.persistence.PersistenceException;
 
 import edu.uoc.mije.carsharing.integration.CityJPA;
 import edu.uoc.mije.carsharing.integration.MessageJPA;
+import edu.uoc.mije.carsharing.integration.TripJPA;
 import edu.uoc.mije.carsharing.integration.util.ExampleModel;
 import edu.uoc.mije.carsharing.integration.util.ExampleModel1;
 
@@ -43,5 +44,11 @@ public class UtilFacadeBean implements UtilFacadeRemote{
 	@Override
 	public Collection<CityJPA> listCities() {
 		return entman.createQuery("from CityJPA c", CityJPA.class).getResultList();
+	}
+	
+	public TripJPA findTrip(int id){
+		return entman.createQuery("from TripJPA c where c.id=:id", TripJPA.class)
+				.setParameter("id", id)
+				.getSingleResult();
 	}
 }

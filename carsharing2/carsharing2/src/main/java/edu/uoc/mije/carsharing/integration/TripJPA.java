@@ -2,8 +2,10 @@ package edu.uoc.mije.carsharing.integration;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Time;
 
 import javax.persistence.*;
 
@@ -21,7 +23,19 @@ public class TripJPA implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TripJPA(	String description, CityJPA departureCity, String fromPlace,Date departureDate,CityJPA arrivalCity,String toPlace,int availableSeats, float price){
+	public TripJPA(	String description, CityJPA departureCity, String fromPlace,java.util.Date date, CityJPA arrivalCity,String toPlace,int availableSeats, float price){
+		Calendar c = Calendar.getInstance();
+		c.setTime(departureDate);
+		java.sql.Date departureDate = new java.sql.Date(c.getTime().getTime());
+		java.sql.Time departureTime = new java.sql.Time(c.getTime().getTime());
+		init(description, departureCity, fromPlace,departureDate, departureTime, arrivalCity,toPlace,availableSeats,price);
+	}
+	
+	public TripJPA(	String description, CityJPA departureCity, String fromPlace,Date departureDate, Time departureTime, CityJPA arrivalCity,String toPlace,int availableSeats, float price){
+		init(description, departureCity, fromPlace,departureDate, departureTime, arrivalCity,toPlace,availableSeats,price);
+	}
+	
+	private void init(String description, CityJPA departureCity, String fromPlace,Date departureDate, Time departureTime, CityJPA arrivalCity,String toPlace,int availableSeats, float price){
 		this.description=description;
 		this.departureCity=departureCity;
 		this.fromPlace=fromPlace;
@@ -30,6 +44,7 @@ public class TripJPA implements Serializable {
 		this.toPlace=toPlace;
 		this.availableSeats=availableSeats;
 		this.price=price;
+		this.departureTime = departureTime;
 	}
 	
 	@Id
@@ -45,6 +60,7 @@ public class TripJPA implements Serializable {
 	String description;
 	String fromPlace;
 	Date   departureDate;
+	Time   departureTime;
 	String	toPlace;
 	Integer availableSeats;
 	Float	price;
@@ -69,13 +85,14 @@ public class TripJPA implements Serializable {
 	}
 	public void setFromPlace(String fromPlace) {
 		this.fromPlace = fromPlace;
-	}
+	}	
 	public Date getDepartureDate() {
 		return departureDate;
 	}
 	public void setDepartureDate(Date departureDate) {
 		this.departureDate = departureDate;
 	}
+	
 	@ManyToOne
 	public CityJPA getArrivalCity() {
 		return arrivalCity;
@@ -108,6 +125,13 @@ public class TripJPA implements Serializable {
 		this.driverRating = driverRating;
 	}
 
+	public Time getDepartureTime() {
+		return departureTime;
+	}
+	public void setDepartureTime(Time departureTime) {
+		this.departureTime = departureTime;
+	}
+	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="departure_id")
 	CityJPA departureCity;

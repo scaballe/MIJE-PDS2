@@ -2,6 +2,7 @@ package edu.uoc.mije.carsharing.business.tripadmin;
 
 import java.util.*;
 
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -95,7 +96,7 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 		
 		trip.setDescription(description);
 		trip.setFromPlace(fromPlace);
-		trip.setDepartureDate(departureDate);
+		trip.setDepartureDate((java.sql.Date) departureDate);
 		trip.setToPlace(toPlace);
 		trip.setAvailableSeats(availableSeats);
 		trip.setPrice(price);

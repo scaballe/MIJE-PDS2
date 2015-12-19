@@ -1,6 +1,7 @@
 package edu.uoc.mije.carsharing.jsf;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -33,7 +34,10 @@ public class UtilBean {
 		if( cities == null ){
 			cities = utilFacadeRemote.listCities();
 		}
-		return cities;
-		
+		return cities;	
 	}
+	
+	List<Date> availableDates;
+	
+	
 }
