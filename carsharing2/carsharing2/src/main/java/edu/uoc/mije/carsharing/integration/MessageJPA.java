@@ -95,7 +95,7 @@ public class MessageJPA implements Serializable{
 	
 
 	List<MessageJPA> subMessages = new ArrayList<MessageJPA>();
-	@OneToMany(mappedBy="parentMessage", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="parentMessage", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	public List<MessageJPA> getSubMessages() {
 		return subMessages;
 	}

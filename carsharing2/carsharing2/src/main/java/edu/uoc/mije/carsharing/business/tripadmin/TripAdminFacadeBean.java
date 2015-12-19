@@ -91,7 +91,8 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 		
 		trip.setDescription(description);
 		trip.setFromPlace(fromPlace);
-		trip.setDepartureDate(departureDate);
+		trip.setDepartureDate( new java.sql.Date(departureDate.getTime()));
+		trip.setDepartureTime( new java.sql.Time(departureDate.getTime()));		
 		trip.setToPlace(toPlace);
 		trip.setAvailableSeats(availableSeats);
 		trip.setPrice(price);

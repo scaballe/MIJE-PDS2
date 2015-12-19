@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.*;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
 
 import edu.uoc.mije.carsharing.integration.CarJPA;
 import edu.uoc.mije.carsharing.business.user.UserFacadeRemote;
@@ -21,9 +23,6 @@ public class AddCarMBean implements Serializable{
 	@EJB
 	UserFacadeRemote carsRemote;
 		
-	//@ManagedProperty(value="#{listCars.carsList}")
-    //private Collection<CarJPA> listCarsMB;
-	
 	@ManagedProperty(value="#{listCars.nif}")
     private String nif;
 	
@@ -35,24 +34,13 @@ public class AddCarMBean implements Serializable{
 	/* 
 	 * getters and setters methods	 
 	 */
-    //public Collection<CarJPA> getListCarsMB()
-    {
-    //return listCarsMB;
-    }
-
-    public void setListCarsMB(Collection<CarJPA> listCars)
-    {
-    //this.listCarsMB = listCars;
-    }
     
-    public String getNif()
-    {
-    return nif;
+    public String getNif(){
+    	return nif;
     }
 
-    public void setNif(String nif)
-    {
-    this.nif = nif;
+    public void setNif(String nif){
+    	this.nif = nif;
     }
     
     public String getCarRegistrationId(){
@@ -93,11 +81,13 @@ public class AddCarMBean implements Serializable{
 	public String addCar() throws Exception
 	{
 		try {
-			carsRemote.addCar(this.nif, this.carRegistrationId, this.brand, this.model, this.color);		
-			//listCarsMB.add(new CarJPA(this.carRegistrationId, this.brand, this.model, this.color));				
+			carsRemote.addCar(this.nif, this.carRegistrationId, this.brand, this.model, this.color);	
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			facesContext.addMessage("info", new FacesMessage("Coche añadido correctamente"));
 			return "listCars";
 		} catch (Exception e) {			
 			return "ErrorView?faces-redirect=true&error=" + e.getMessage();
-		}		
+		}	
+				
 	}
 }

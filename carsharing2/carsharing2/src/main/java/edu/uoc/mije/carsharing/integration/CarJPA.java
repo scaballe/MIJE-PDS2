@@ -21,9 +21,9 @@ public class CarJPA implements Serializable{
 	
 	public CarJPA(String cardRegistrationId, String brand, String model, String color) {
 		this.carRegistrationId=cardRegistrationId;
-		this.brand=brand;
+		this.brand = brand;
 		this.model = model;
-		this.color=color;
+		this.color = color;
 	}
 	
 	public String getCarRegistrationId() {

@@ -4,13 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
 
-  <ui:composition template="./headerView.xhtml">
+  <ui:composition template="./layout.xhtml">
 	<ui:define name="content">
 		
 	  	<h:form align="left" >			
 		<h:dataTable id="tabla" value="#{listCars.carsList}" var="item" bgcolor="#F1F1F1" border="3" first="0" width="50%" frame="hsides" rules="all"  >
  			<f:facet name="header">			
-  			<h:outputText align="center" value="Cars of driver with NIF: #{listCars.nif}" />		
+  			<h:outputText align="center" value="Coches del usuario #{listCars.email} (#{listCars.nif})" />		
   			</f:facet> 
  			<h:column>
    				<f:facet name="header">

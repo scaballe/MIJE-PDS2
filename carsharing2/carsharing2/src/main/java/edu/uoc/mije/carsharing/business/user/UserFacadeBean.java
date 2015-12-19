@@ -36,13 +36,17 @@ public class UserFacadeBean implements UserFacadeRemote {
 	 */
 	public void addCar(String nif, String carRegistrationId, String brand, String model, String color) throws PersistenceException{
 		
-			CarJPA newCar = new CarJPA();			
-			newCar.setCarRegistrationId(carRegistrationId);
-			newCar.setBrand(brand);
-			newCar.setModel(model);
-			newCar.setColor(color);
-			newCar.setDriver(entman.find(DriverJPA.class, nif));
-			entman.persist(newCar);		 
+		DriverJPA driver = (DriverJPA) entman.createQuery("from UserJPA u where nif = :nif ")
+				.setParameter("nif", nif)
+				.getSingleResult();
+		
+		CarJPA newCar = new CarJPA();			
+		newCar.setCarRegistrationId(carRegistrationId);
+		newCar.setBrand(brand);
+		newCar.setModel(model);
+		newCar.setColor(color);
+		newCar.setDriver(driver);
+		entman.persist(newCar);		 
 	}
 			
 	/**
@@ -51,8 +55,13 @@ public class UserFacadeBean implements UserFacadeRemote {
 	public java.util.Collection<?> listAllCars(String nif) throws PersistenceException {
 		try 
 		{
-			Collection<CarJPA> allCars = entman.createQuery("from CarJPA c where brand = :marca")
-					.setParameter("marca", "Opel")
+			DriverJPA driver = (DriverJPA) entman.createQuery("from UserJPA u where nif = :nif ")
+					.setParameter("nif", nif)
+					.getSingleResult();
+			
+			@SuppressWarnings("unchecked")
+			Collection<CarJPA> allCars = entman.createQuery("from CarJPA c where driver_id = :id")
+					.setParameter("id", driver.getId())
 					.getResultList();							
 		    return allCars;	
 		    
@@ -75,11 +84,11 @@ public class UserFacadeBean implements UserFacadeRemote {
 		}
 	}
 	
-	public boolean login (String email, String password) throws UserNotFoundException{
+	public UserJPA login (String email, String password) throws UserNotFoundException{
 		try{
 			UserJPA user = entman.createQuery("from UserJPA u where email=:email",UserJPA.class).setParameter("email", email).getSingleResult();
 			if( user != null && user.getPassword().equals(password)){
-				return user  instanceof DriverJPA;
+				return user;
 			}
 			// password not match
 			throw new UserNotFoundException();				
@@ -122,4 +131,30 @@ public class UserFacadeBean implements UserFacadeRemote {
 				
 			}
 	  
+	public void updatePersonalData(String nif, String name, String surname, String phone, String password, String email){
+		 
+		entman.createQuery("UPDATE UserJPA u SET u.name = ?1, u.surname = ?2, u.phone = ?3, "
+				+ "u.password = ?4, u.email = ?5 WHERE u.nif = ?6 ")
+				.setParameter(1, name)
+				.setParameter(2, surname)
+				.setParameter(3, phone)
+				.setParameter(4, password)
+				.setParameter(5, email)
+				.setParameter(6, nif)
+				.executeUpdate();
+		
+		
+		
+	 }
+
+	
+	
+	
+	// Method that gets nif from the email address	
+	public UserJPA retrieveUser(String email){		
+		UserJPA user = entman.createQuery("from UserJPA u where email=:email",UserJPA.class)
+					.setParameter("email", email)
+					.getSingleResult();
+		return user;				
+	}
 }

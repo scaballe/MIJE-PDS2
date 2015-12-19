@@ -7,9 +7,6 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-
-import org.jboss.as.ejb3.timerservice.schedule.CalendarBasedTimeout;
-
 import edu.uoc.mije.carsharing.integration.CarJPA;
 import edu.uoc.mije.carsharing.integration.CityJPA;
 import edu.uoc.mije.carsharing.integration.DriverCommentJPA;
@@ -54,20 +51,14 @@ public class ExampleModel1 extends BaseExampleModel{
 		Date trip1Date = cal.getTime();
 		
 		CarJPA car1 = new CarJPA("111", "brand", "model", "color");
-		System.out.println("Fecha Modelo" + trip1Date);
+		java.sql.Date departureDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		java.sql.Time departureTime = java.sql.Time.valueOf( "18:05:00" );
+		TripJPA trip1 = new TripJPA("trip1", madrid, "entrevias", departureDate,departureTime, barcelona, "La Rambla", 4, 100);
 		
 				
 		// Un conductor con un coche y que ofrece un viaje
 		DriverJPA driver1 = new DriverJPA("111", "name", "surname", "phone", "password", "driver");		
-		driver1.addCar(car1);
-
-		TripJPA trip1 = null;
-		
-		for(int i=0;i<12;i++){
-			trip1 = new TripJPA("trip"+((int) Math.random()), madrid, "entrevias", trip1Date, barcelona, "La Rambla", 4, 100);
-			driver1.addTrip(trip1);
-		}
-		
+		driver1.addCar(car1);		
 		em.persist(driver1);
 		
 		// Un pasejero registrado en el sistema

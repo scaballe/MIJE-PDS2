@@ -1,10 +1,12 @@
 package edu.uoc.mije.carsharing.business.user;
 
 import java.util.Collection;
+
 import javax.ejb.Remote;
 
 import edu.uoc.mije.carsharing.business.exceptions.UserAlreadyRegisteredException;
 import edu.uoc.mije.carsharing.business.exceptions.UserNotFoundException;
+import edu.uoc.mije.carsharing.integration.UserJPA;
 
 @Remote
 public interface UserFacadeRemote {
@@ -13,7 +15,7 @@ public interface UserFacadeRemote {
 	  public Collection<?> listAllCars(String nif);
 	  public void deleteCar(String nif, String carRegistrationId);
 	  
-	  public boolean login (String email, String password) throws UserNotFoundException;
+	  public UserJPA login (String email, String password) throws UserNotFoundException;
 	  public void logout();
 	  
 	  public void registerDriver(String nif, String name, String surname, String phone, String password, String email)
@@ -21,9 +23,7 @@ public interface UserFacadeRemote {
 	  
 	  public void registerPassenger(String nif, String name, String surname, String phone, String password, String email)
 			  throws UserAlreadyRegisteredException;
-	  
-	  
-	  /*TO IMPLEMENT
-	  //updatedata
-	  */	  
+	  	    
+	  public void updatePersonalData(String nif, String name, String surname, String phone, String password, String email);
+	  	  
 }
