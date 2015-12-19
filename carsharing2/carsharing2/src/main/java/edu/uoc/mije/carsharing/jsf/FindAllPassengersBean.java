@@ -30,15 +30,13 @@ public class FindAllPassengersBean {
 		this.passengers = passengers;
 	}
 	
-	public String findAllPassengers(int tripId) throws Exception{  
+	public String  findAllPassengers(Integer tripId) throws Exception{  
 	
-		TripJPA trip;
-				
-		trip = tripAdminRemote.getTrip(tripId);	
-	
-		setPassengers( trip.getPassengers() );
-	
+		passengers = tripAdminRemote.findAllPassengers(tripId);	
+		
 		return "findAllPassengers";
+	
+	
 	}
 			
 	

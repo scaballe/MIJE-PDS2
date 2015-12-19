@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import edu.uoc.mije.carsharing.integration.CityJPA;
 import edu.uoc.mije.carsharing.integration.DriverJPA;
+import edu.uoc.mije.carsharing.integration.PassengerJPA;
 import edu.uoc.mije.carsharing.integration.TripJPA;
 
 @Stateless
@@ -33,24 +34,23 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 	}
 	
 
-	public TripJPA getTrip(int idTrip){
+	public TripJPA getTrip(Integer idTrip){
 		
-		@SuppressWarnings("unchecked")
-		Collection<TripJPA> trips = entman.createQuery("FROM TripJPA b WHERE b.id = :id").setParameter("id", idTrip).getResultList();
-		if (trips.isEmpty()) return null;
-		
-		return (TripJPA) trips.toArray()[0];
+	
+	    TripJPA trip = entman.createQuery("FROM TripJPA b WHERE b.id = :id",TripJPA.class).setParameter("id", idTrip).getSingleResult();
+		return trip;
 	}
 	
 	
 	@Override
-	public void addTrip (String driverId, String description, String departureCity, 
+	public void addTrip (Integer idDriver, String description, String departureCity, 
 			String fromPlace, Date departureDate, String arrivalCity, 
 			String toPlace, int availableSeats, float price) {
 		
 		try{
-			DriverJPA driver = entman.createQuery("FROM DriverJPA d where d.email = :driver", DriverJPA.class).
-					setParameter("driver", driverId).getSingleResult();
+			
+			DriverJPA driver = entman.createQuery("FROM DriverJPA d where d.id = :driver", DriverJPA.class).
+					setParameter("driver", idDriver).getSingleResult();
 		
 			CityJPA departure = entman.createQuery("FROM CityJPA d where d.name = :name", CityJPA.class).
 					setParameter("name", departureCity).getSingleResult();
@@ -58,19 +58,22 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 			CityJPA arrival = entman.createQuery("FROM CityJPA d where d.name = :name", CityJPA.class).
 					setParameter("name", arrivalCity).getSingleResult();
 
-			TripJPA instance = new TripJPA(description, departure, fromPlace,
+			TripJPA trip = new TripJPA(description, departure, fromPlace,
 					departureDate, arrival, toPlace, availableSeats, price);
-			instance.setDriver(driver);
-			entman.persist(instance);
+		
+			driver.addTrip(trip);
+			entman.persist(driver);
 			
 		}catch(NoResultException e){
-			
+		  return ;
 		}
 	}
 	
 	
 	@Override
-	public void updateTripInformation( int idTrip, String description, String departureCity, String fromPlace, Date departureDate, String arrivalCity, String toPlace, int availableSeats, float price){
+	public void updateTripInformation(Integer idTrip, String description, String departureCity, 
+			String fromPlace, Date departureDate, String arrivalCity, String toPlace, int availableSeats, 
+			float price){
 		
 		TripJPA trip = getTrip(idTrip) ;
 		
@@ -85,6 +88,7 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 			
 			trip.setDepartureCity(departure);
 			trip.setArrivalCity(arrival);
+			
 		}catch(NoResultException e){
 			return;
 		}
@@ -100,9 +104,21 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 				
 	}
 
-	public Collection<TripJPA>findMyTrips(String driver){
+	public Collection<TripJPA>findMyTrips(String email){
 		
-		return entman.createQuery("from TripJPA t where t.driver.email=:driver", TripJPA.class).setParameter("driver", driver).getResultList();
+	DriverJPA driver = entman.createQuery("FROM DriverJPA d where d.email = :email", DriverJPA.class).
+				setParameter("email", email).getSingleResult();
 		
+	 return driver.getTrips();
+						
+	}
+	
+	public Collection<PassengerJPA>findAllPassengers(Integer idTrip){
+		
+	TripJPA trip = getTrip(idTrip) ;
+		
+	return trip.getPassengers() ;
+							
 	}
 }
+

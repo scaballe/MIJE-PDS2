@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.*;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -30,7 +31,7 @@ public class AddTripBean implements Serializable {
 	@EJB
 	private TripAdminFacadeRemote tripAdminFacade;
 	
-	
+	Integer idDriver;
 	String description;
 	String departureCity;
 	String fromPlace;
@@ -40,7 +41,14 @@ public class AddTripBean implements Serializable {
 	Integer availableSeats;
 	Float	price;
 	Float	driverRating;
-
+	
+	public void setIdDriver (Integer idDriver){
+		this.idDriver = idDriver;
+	}
+	
+	public Integer getIdDriver() {
+		return this.idDriver;
+	}
 	public String getDescription() {
 		return description;
 	}
@@ -100,12 +108,22 @@ public class AddTripBean implements Serializable {
 	 
 	public String addTrip() throws Exception{  
 		
-		String driverId = FacesContext.getCurrentInstance().
-				getExternalContext().getRequestParameterMap().get("driverId");
+		//String driverId = FacesContext.getCurrentInstance().
+			//	getExternalContext().getRequestParameterMap().get("driverId");
 		
-		tripAdminFacade.addTrip(driverId, description, departureCity, fromPlace, departureDate, arrivalCity, toPlace, availableSeats, price);
+		//tripAdminFacade.addTrip(driverId, description, departureCity, fromPlace, departureDate, arrivalCity, toPlace, availableSeats, price);
 		
-		return "findMyTrips";
+		//return "findMyTrips";
+		
+		
+		try {
+			tripAdminFacade.addTrip(idDriver, description, departureCity, fromPlace, departureDate, arrivalCity, toPlace, availableSeats, price);	
+			
+			return "";
+		} catch (Exception e) {			
+			return "ErrorView?faces-redirect=true&error=" + e.getMessage();
+		}	
+			
 		
 	}
 	

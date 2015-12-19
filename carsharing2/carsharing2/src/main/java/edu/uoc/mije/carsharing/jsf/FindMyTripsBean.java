@@ -21,14 +21,17 @@ import edu.uoc.mije.carsharing.integration.TripJPA;
 
 public class FindMyTripsBean implements Serializable {
 
-		
+	Collection<TripJPA> trips;
+	
 	@EJB
 	TripAdminFacadeRemote tripadminRemote; 
+
 	
-	
-	public Collection<TripJPA> findMyTrips(String nifDriver) throws Exception{  
+	public Collection<TripJPA> findMyTrips(String email) throws Exception{  
 			
-		return tripadminRemote.findMyTrips(nifDriver);
+		return  tripadminRemote.findMyTrips(email);
+		
+	  
 		
 	}
 			

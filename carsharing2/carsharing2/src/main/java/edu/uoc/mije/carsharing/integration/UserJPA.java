@@ -1,6 +1,7 @@
 package edu.uoc.mije.carsharing.integration;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
