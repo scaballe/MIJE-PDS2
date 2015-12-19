@@ -44,7 +44,9 @@ public class ExampleModel1 extends BaseExampleModel{
 		}
 		
 		CarJPA car1 = new CarJPA("111", "brand", "model", "color");
-		TripJPA trip1 = new TripJPA("trip1", madrid, "entrevias", Calendar.getInstance().getTime(), barcelona, "La Rambla", 4, 100);
+		java.sql.Date departureDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		java.sql.Time departureTime = java.sql.Time.valueOf( "18:05:00" );
+		TripJPA trip1 = new TripJPA("trip1", madrid, "entrevias", departureDate,departureTime, barcelona, "La Rambla", 4, 100);
 		
 		// Un conductor con un coche y que ofrece un viaje
 		DriverJPA driver1 = new DriverJPA("111", "name", "surname", "phone", "password", "driver");		
