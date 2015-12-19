@@ -1,11 +1,14 @@
 package edu.uoc.mije.carsharing.integration.util;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+
+import org.jboss.as.ejb3.timerservice.schedule.CalendarBasedTimeout;
 
 import edu.uoc.mije.carsharing.integration.CarJPA;
 import edu.uoc.mije.carsharing.integration.CityJPA;
@@ -43,13 +46,27 @@ public class ExampleModel1 extends BaseExampleModel{
 			em.persist(malaga=new CityJPA("malaga"));
 		}
 		
-		CarJPA car1 = new CarJPA("111", "brand", "model", "color");
-		TripJPA trip1 = new TripJPA("trip1", madrid, "entrevias", Calendar.getInstance().getTime(), barcelona, "La Rambla", 4, 100);
+		Calendar cal = Calendar.getInstance();
+		cal.clear();
+		cal.set(Calendar.YEAR, 2014);
+		cal.set(Calendar.MONTH, 11);
+		cal.set(Calendar.DAY_OF_MONTH, 30);
+		Date trip1Date = cal.getTime();
 		
+		CarJPA car1 = new CarJPA("111", "brand", "model", "color");
+		System.out.println("Fecha Modelo" + trip1Date);
+		
+				
 		// Un conductor con un coche y que ofrece un viaje
 		DriverJPA driver1 = new DriverJPA("111", "name", "surname", "phone", "password", "driver");		
 		driver1.addCar(car1);
-		driver1.addTrip(trip1);
+
+		TripJPA trip1 = null;
+		
+		for(int i=0;i<12;i++){
+			trip1 = new TripJPA("trip"+((int) Math.random()), madrid, "entrevias", trip1Date, barcelona, "La Rambla", 4, 100);
+			driver1.addTrip(trip1);
+		}
 		
 		em.persist(driver1);
 		

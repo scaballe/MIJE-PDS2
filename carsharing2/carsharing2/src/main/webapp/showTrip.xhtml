@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<f:metadata>
+	<f:viewParam name="idTrip" value="#{tripshow.idTrip}" />
+</f:metadata>
+
+<ui:composition template="./layout.xhtml">
+	<ui:define name="content">
+		<br />
+		<h:form>
+			<input type="hidden" value="#{login.email}" id="passengerId" name="passengerId" />
+		
+			<div align="center">
+				<table border="1" width="50%" id="table1">
+					<tr>
+						<td width="155">
+							<p align="left" /> <i><b>Origen: </b></i>
+						</td>
+						<td>
+							<!--<p align="left" /> <h:outputText
+								value="#{tripshow.idTrip}" />-->
+							<p align="left" /> <h:outputText
+								value="#{tripshow.dataTrip.departureCity.name}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="155">
+							<p align="left" /> <i><b>Destino: </b></i>
+						</td>
+						<td>
+							<p align="left" /> <h:outputText
+								value="#{tripshow.dataTrip.arrivalCity.name}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="155">
+							<p align="left" /> <i><b>Fecha: </b></i>
+						</td>
+						<td>
+							<p align="left" /> <h:outputText
+								value="#{tripshow.dataTrip.departureDate}" ><f:convertDateTime type="date" pattern="dd/MM/yyyy"/></h:outputText>
+						</td>
+					</tr>
+					<tr>
+						<td width="155">
+							<p align="left" /> <i><b>Lugar de salida: </b></i>
+						</td>
+						<td>
+							<p align="left" /> <h:outputText
+								value="#{tripshow.dataTrip.fromPlace}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="155">
+							<p align="left" /> <i><b>Lugar de llegada: </b></i>
+						</td>
+						<td>
+							<p align="left" /> <h:outputText
+								value="#{tripshow.dataTrip.toPlace}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="155">
+							<p align="left" /> <i><b>Plazas libres: </b></i>
+						</td>
+						<td>
+							<p align="left" /> <h:outputText
+								value="#{tripshow.dataTrip.availableSeats}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="155">
+							<p align="left" /> <i><b>Precio (€): </b></i>
+						</td>
+						<td>
+							<p align="left" /> <h:outputText
+								value="#{tripshow.dataTrip.price}" />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+						<div align="center">
+							<h:commandButton align="center" value="Reservar plaza" action="#{tripshow.bookTrip}" />
+						</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<p align="center">
+				<h:commandLink value="Return" action="tripListView" />
+			</p>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,6 +1,5 @@
 package edu.uoc.mije.carsharing.business.trip;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
