@@ -2,10 +2,14 @@ package edu.uoc.mije.carsharing.jsf.trip;
 
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import edu.uoc.mije.carsharing.business.trip.TripFacadeRemote;
+import edu.uoc.mije.carsharing.integration.UserJPA;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -19,34 +23,37 @@ public class RegisterInTripMBean {
 	@EJB
 	TripFacadeRemote tripRemote; 
 	
-	String passengerId;
 	int tripId;
-	
-	public String getPassengerId() {
-		return passengerId;
-	}
-	
-	public void setPassengerId(String passengerId) {
-		this.passengerId = passengerId;
-	}
-	
-	public int gettripId() {
+
+	public int getTripId() {
 		return tripId;
 	}
-	public void setDriverId(int tripId) {
+	public void setTripId(int tripId) {
 		this.tripId = tripId;
 	}
 	
-	public String registerInTrip() throws Exception{
+	public String registerInTrip(int tripId) throws Exception{
+		setTripId(tripId);
 		register();
-		return "listTripsView";
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		facesContext.addMessage("addPassenger", new FacesMessage("Passenger enrolled to trip"));		
+		return "findTrip";
+	}
+
+	
+	@ManagedProperty(value = "#{login.user}")
+	private UserJPA user;
+
+	public UserJPA getUser() {
+		return this.user;
+	}
+
+	public void setUser(UserJPA user) {
+		this.user = user;
 	}
 	
 	public void register() throws Exception{  
-		//Properties props = System.getProperties();
-		//Context ctx = new InitialContext(props);
-		//showPetRemote = (CatalogFacadeRemote) ctx.lookup("java:app/PracticalCaseStudyJEE.jar/CatalogFacadeBean!ejb.CatalogFacadeRemote");
-		tripRemote.registerInTrip(tripId, passengerId);
+		tripRemote.registerInTrip(tripId, user.getEmail());
 		
 	}
 	

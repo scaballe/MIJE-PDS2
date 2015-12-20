@@ -54,18 +54,18 @@
 						</f:facet>
 						<p align="left">
 							<h:outputText value="#{item.departureDate}">
-								<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
 							</h:outputText>
 						</p>
 					</h:column>
 					<h:column>
-					<f:facet name="header">
-						<h:outputText value="Hora:" />
-					</f:facet>
-					<p align="left">
-						<h:outputText value="#{item.departureTime}" />
-					</p>
-				</h:column>
+						<f:facet name="header">
+							<h:outputText value="Hora:" />
+						</f:facet>
+						<p align="left">
+							<h:outputText value="#{item.departureTime}" />
+						</p>
+					</h:column>
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Precio" />
@@ -98,16 +98,23 @@
 						</f:facet>
 						<h:link outcome="showTrip" value="Ver detalles">
 							<f:param name="idTrip" value="#{item.id}" />
-						</h:link>
-						<h:outputText value="#{item.id}" />
+						</h:link>						
 					</h:column>
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Comentarios" />
+							<h:outputText value="Comentarios Trip" />
 						</f:facet>
-						<h:link outcome="showTripComments" value="Ver comentarios">
-							<f:param name="id" value="#{item.id}" />
-						</h:link>
+						<h:commandLink action="showTripComments" value="Ver">
+							<f:param name="tripId" value="#{item.id}"></f:param>
+						</h:commandLink>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Comentarios Conductor" />
+						</f:facet>
+						<h:commandLink action="showDriverComments" value="Ver">
+							<f:param name="driverId" value="#{item.driver.email}"></f:param>
+						</h:commandLink>
 					</h:column>
 				</h:dataTable>
 			</h:form>

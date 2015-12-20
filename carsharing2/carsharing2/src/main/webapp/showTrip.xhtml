@@ -72,7 +72,7 @@
 						</td>
 						<td>
 							<p align="left" /> <h:outputText
-								value="#{tripshow.dataTrip.availableSeats}" />
+								value="#{tripshow.reaminingSeat}" />
 						</td>
 					</tr>
 					<tr>
@@ -87,7 +87,8 @@
 					<tr>
 						<td colspan="2">
 						<div align="center">
-							<h:commandButton align="center" value="Reservar plaza" action="#{tripshow.bookTrip}" />
+							<h:commandButton align="center" value="Reservar plaza" action="#{addpassenger.registerInTrip(tripshow.dataTrip.id)}">							
+							</h:commandButton>
 						</div>
 						</td>
 					</tr>

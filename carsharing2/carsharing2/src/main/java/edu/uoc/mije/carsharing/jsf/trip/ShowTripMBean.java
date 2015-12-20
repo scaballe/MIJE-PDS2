@@ -4,12 +4,14 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import edu.uoc.mije.carsharing.business.trip.TripFacadeRemote;
 import edu.uoc.mije.carsharing.business.user.UserFacadeRemote;
 import edu.uoc.mije.carsharing.integration.TripJPA;
+import edu.uoc.mije.carsharing.integration.UserJPA;
 
 @ManagedBean(name = "tripshow")
 @SessionScoped
@@ -17,10 +19,7 @@ public class ShowTripMBean{
 
 	@EJB
 	TripFacadeRemote tripsRemote;
-	
-	@EJB
-	UserFacadeRemote userRemote;
-	
+		
 	//stores TripJPA instance
 	protected TripJPA dataTrip;
 	//stores TripJPA number id
@@ -48,6 +47,11 @@ public class ShowTripMBean{
 		return dataTrip;
 	}	
 	
+	public int getReaminingSeat(){
+		if( dataTrip == null )return 0;
+		return dataTrip.getAvailableSeats() - dataTrip.getPassengers().size();
+	}
+	
 	public void setDataTrip() throws Exception{	
 		//Properties props = System.getProperties();
 		//Context ctx = new InitialContext(props);
@@ -55,17 +59,5 @@ public class ShowTripMBean{
 		dataTrip = (TripJPA) tripsRemote.showTrip(idTrip);
 		//System.out.println("VIAJE: " + dataTrip.getFromPlace());
 	}
-		
-	@SuppressWarnings("unused")
-	public void bookTrip() throws Exception{
-		String passenger = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("passengerId");
-		if(!passenger.isEmpty() || passenger!=null){
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			facesContext.addMessage("error", new FacesMessage("Es necesario identificarse en el sistema antes de reservar."));
-		} else{
-			tripsRemote.registerInTrip(idTrip, passenger);
-		}
-	}
-	
 	
 }

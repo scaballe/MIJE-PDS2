@@ -107,10 +107,10 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 
 	public Collection<TripJPA>findMyTrips(String email){
 		
-	DriverJPA driver = entman.createQuery("FROM DriverJPA d where d.email = :email", DriverJPA.class).
-				setParameter("email", email).getSingleResult();
+		Collection<TripJPA> ret = entman.createQuery("FROM TripJPA d where d.driver.email = :email", TripJPA.class).
+				setParameter("email", email).getResultList();
 		
-	 return driver.getTrips();
+		return ret;
 						
 	}
 	
