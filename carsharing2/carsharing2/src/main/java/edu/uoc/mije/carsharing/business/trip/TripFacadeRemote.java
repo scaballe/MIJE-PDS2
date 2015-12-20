@@ -15,5 +15,6 @@ public interface TripFacadeRemote {
 	public TripJPA showTrip(int tripId);
 	public void registerInTrip(int tripId, String passenger) throws Exception;
 	public void removeFromTrip(int tripId, String passenger) throws Exception;
+	public boolean passengerIsInTrip(int tripId, String passengerEmail) throws Exception;
 
 }

@@ -32,15 +32,6 @@ public class RegisterInTripMBean {
 		this.tripId = tripId;
 	}
 	
-	public String registerInTrip(int tripId) throws Exception{
-		setTripId(tripId);
-		register();
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		facesContext.addMessage("addPassenger", new FacesMessage("Passenger enrolled to trip"));		
-		return "findTrip";
-	}
-
-	
 	@ManagedProperty(value = "#{login.user}")
 	private UserJPA user;
 
@@ -52,9 +43,22 @@ public class RegisterInTripMBean {
 		this.user = user;
 	}
 	
-	public void register() throws Exception{  
+	private void register() throws Exception{
+		System.out.println("TRIP: ID" + tripId + " / USER: " +user.getEmail());
 		tripRemote.registerInTrip(tripId, user.getEmail());
 		
 	}
+	
+	public String registerInTrip(int tripId) throws Exception{
+		
+		setTripId(tripId);
+		register();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		facesContext.addMessage("addPassenger", new FacesMessage("Passenger enrolled to trip"));		
+		return "findTrip";
+	}
+
+	
+	
 	
 }

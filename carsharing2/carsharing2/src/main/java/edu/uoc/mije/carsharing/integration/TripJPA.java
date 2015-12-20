@@ -153,8 +153,7 @@ public class TripJPA implements Serializable {
 	}
 
 	public boolean contains(PassengerJPA passenger) {
-		// TODO Auto-generated method stub
-		return false;
+		return passengers.contains(passenger);
 	}
 
 	@ManyToMany(fetch=FetchType.EAGER)

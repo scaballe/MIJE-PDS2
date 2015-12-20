@@ -33,7 +33,6 @@ public class TripFacadeBean implements TripFacadeRemote {
 					.createQuery("select u from TripJPA u where u.departureDate = :departureDate and u.departureCity.name = :departureCity and u.arrivalCity.name = :arrivalCity");
 			query.setParameter("departureDate", departureDate,
 					TemporalType.DATE);
-			System.out.println("FECHA Facade: " + departureDate);
 		} else {
 			query = entman
 					.createQuery("select u from TripJPA u where u.departureCity.name = :departureCity and u.arrivalCity.name = :arrivalCity");
@@ -43,9 +42,7 @@ public class TripFacadeBean implements TripFacadeRemote {
 
 		@SuppressWarnings("unchecked")
 		List<TripJPA> trips = query.getResultList();
-		if (!trips.isEmpty())
-			System.out.println("Fecha viaje 1: "
-					+ trips.get(0).getDepartureDate());
+
 		return trips;
 
 	}
@@ -63,20 +60,22 @@ public class TripFacadeBean implements TripFacadeRemote {
 			Iterator<TripJPA> iter = trips.iterator();
 			trip = (TripJPA) iter.next();
 		}
-		
+
 		return trip;
 	}
 
-	public void registerInTrip(int tripId, String passengerEmail) throws Exception {
+	public void registerInTrip(int tripId, String passengerEmail)
+			throws Exception {
 		try {
-			
+
 			Query query;
-			
-			//Buscamos el Trip:
+
+			// Buscamos el Trip:
 			TripJPA trip = null;
-			query = entman.createQuery("select u from TripJPA u where u.id = :id");
+			query = entman
+					.createQuery("select u from TripJPA u where u.id = :id");
 			query.setParameter("id", tripId);
-			
+
 			@SuppressWarnings("unchecked")
 			Collection<TripJPA> trips = query.getResultList();
 
@@ -84,12 +83,13 @@ public class TripFacadeBean implements TripFacadeRemote {
 				Iterator<TripJPA> iter = trips.iterator();
 				trip = (TripJPA) iter.next();
 			}
-			
-			//Buscamos el Pasajero:
+
+			// Buscamos el Pasajero:
 			PassengerJPA passenger = null;
-			query = entman.createQuery("select u from PassengerJPA u where u.email = :email");
+			query = entman
+					.createQuery("select u from PassengerJPA u where u.email = :email");
 			query.setParameter("email", passengerEmail);
-			
+
 			@SuppressWarnings("unchecked")
 			Collection<PassengerJPA> passengers = query.getResultList();
 
@@ -97,8 +97,7 @@ public class TripFacadeBean implements TripFacadeRemote {
 				Iterator<PassengerJPA> iter = passengers.iterator();
 				passenger = (PassengerJPA) iter.next();
 			}
-			
-			
+
 			if (trip == null)
 				throw new TripNotFoundException("El viaje con ID " + tripId
 						+ " no existe en la base de datos.");
@@ -108,39 +107,98 @@ public class TripFacadeBean implements TripFacadeRemote {
 			else {
 				trip.addPassenger(passenger);
 				entman.persist(trip);
-				System.out.println("El pasajero "+passengerEmail+" se ha registrado en el viaje "+tripId);
+				System.out.println("El pasajero " + passengerEmail
+						+ " se ha registrado en el viaje " + tripId);
 			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
 
-	public void removeFromTrip(int tripId, String passengerId) {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-
-		TripJPA trip = entman.find(TripJPA.class, tripId);
-		if (trip == null) {
-			facesContext.addMessage("error", new FacesMessage(
-					"El viaje con ID " + tripId
-							+ " no existe en la base de datos."));
-			return;
-		}
-		PassengerJPA passenger = entman.find(PassengerJPA.class, passengerId);
-		if (passenger == null) {
-			facesContext.addMessage("error", new FacesMessage(
-					"El pasajero con ID " + passengerId
-							+ " no existe en la base de datos."));
-			return;
-		}
-
+	public void removeFromTrip(int tripId, String passengerEmail) {
 		try {
-			trip.removePassenger(passenger);
-			entman.persist(trip);
-		} catch (PassengerNotInTripException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			facesContext.addMessage("error", new FacesMessage(e.getMessage()));
+
+			Query query;
+
+			// Buscamos el Trip:
+			TripJPA trip = null;
+			query = entman
+					.createQuery("select u from TripJPA u where u.id = :id");
+			query.setParameter("id", tripId);
+
+			@SuppressWarnings("unchecked")
+			Collection<TripJPA> trips = query.getResultList();
+
+			if (!trips.isEmpty() || trips.size() == 1) {
+				Iterator<TripJPA> iter = trips.iterator();
+				trip = (TripJPA) iter.next();
+			}
+
+			// Buscamos el Pasajero:
+			PassengerJPA passenger = null;
+			query = entman
+					.createQuery("select u from PassengerJPA u where u.email = :email");
+			query.setParameter("email", passengerEmail);
+
+			@SuppressWarnings("unchecked")
+			Collection<PassengerJPA> passengers = query.getResultList();
+
+			if (!passengers.isEmpty() || passengers.size() == 1) {
+				Iterator<PassengerJPA> iter = passengers.iterator();
+				passenger = (PassengerJPA) iter.next();
+			}
+
+			if (trip == null)
+				throw new TripNotFoundException("El viaje con ID " + tripId
+						+ " no existe en la base de datos.");
+			else if (passenger == null)
+				throw new PassengerNotFoundException("El pasajero con e-mail "
+						+ passengerEmail + " no existe en la base de datos.");
+			else {
+				trip.removePassenger(passenger);
+				entman.persist(trip);
+				System.out.println("El pasajero " + passengerEmail
+						+ " se ha borrado del viaje " + tripId);
+			}
+		} catch (Exception e) {
+			System.out.println(e);
 		}
+	}
+
+	public boolean passengerIsInTrip(int tripId, String passengerEmail)
+			throws Exception {
+
+		Query query;
+
+		// Buscamos el Trip:
+		TripJPA trip = null;
+		query = entman.createQuery("select u from TripJPA u where u.id = :id");
+		query.setParameter("id", tripId);
+
+		@SuppressWarnings("unchecked")
+		Collection<TripJPA> trips = query.getResultList();
+
+		if (!trips.isEmpty() || trips.size() == 1) {
+			Iterator<TripJPA> iter = trips.iterator();
+			trip = (TripJPA) iter.next();
+		}
+
+		// Buscamos el Pasajero:
+		PassengerJPA passenger = null;
+		query = entman
+				.createQuery("select u from PassengerJPA u where u.email = :email");
+		query.setParameter("email", passengerEmail);
+
+		@SuppressWarnings("unchecked")
+		Collection<PassengerJPA> passengers = query.getResultList();
+
+		if (!passengers.isEmpty() || passengers.size() == 1) {
+			Iterator<PassengerJPA> iter = passengers.iterator();
+			passenger = (PassengerJPA) iter.next();
+		}
+
+		return trip.contains(passenger);
+
 	}
 
 }

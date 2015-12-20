@@ -150,13 +150,11 @@ public class FindTripMBean {
 	@SuppressWarnings("deprecation")
 	private void getDate() throws WrongDateFormatException {
 		String date_aux = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("date");
-		System.out.println("1. DATE_AUX: " + date_aux);
 		if (date_aux != null && !date_aux.isEmpty()) {
 			Calendar cal = Calendar.getInstance();
 			String[] date_st = date_aux.split("/");
 			if (date_st.length == 3 && date_st[0].length() == 2 && date_st[1].length() == 2 && date_st[2].length() == 4) {
 				try {
-					System.out.println("DATE_ST: " + date_st[0] + "/" + date_st[1] + "/" + date_st[2]);
 					int AAAA = Integer.parseInt(date_st[2]);
 					int DD = Integer.parseInt(date_st[1]);
 					int MM = Integer.parseInt(date_st[0]);

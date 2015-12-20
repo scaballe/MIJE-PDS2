@@ -2,6 +2,7 @@ package edu.uoc.mije.carsharing.jsf.trip;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.el.ELContext;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -15,49 +16,93 @@ import edu.uoc.mije.carsharing.integration.UserJPA;
 
 @ManagedBean(name = "tripshow")
 @SessionScoped
-public class ShowTripMBean{
+public class ShowTripMBean {
 
 	@EJB
 	TripFacadeRemote tripsRemote;
-		
-	//stores TripJPA instance
+
+	// stores TripJPA instance
 	protected TripJPA dataTrip;
-	//stores TripJPA number id
+	// stores TripJPA number id
 	protected int idTrip = 1;
-	
+
+	protected String stringAction;
+
 	public ShowTripMBean() throws Exception {
-		
+
 	}
-	
+
 	@PostConstruct
-	public void init() throws Exception{
-		setDataTrip();
+	public void init() throws Exception {
+		//setDataTrip();
 	}
-	
-	public int getIdTrip(){
+
+	public int getIdTrip() {
 		return idTrip;
 	}
-	
-	public void setIdTrip(int idTrip) throws Exception{
+
+	public void setIdTrip(int idTrip) throws Exception {
 		this.idTrip = idTrip;
 		setDataTrip();
 	}
-	
-	public TripJPA getDataTrip(){
+
+	public TripJPA getDataTrip() {
 		return dataTrip;
-	}	
-	
-	public int getReaminingSeat(){
-		if( dataTrip == null )return 0;
+	}
+
+	public int getReaminingSeat() {
+		if (dataTrip == null)
+			return 0;
 		return dataTrip.getAvailableSeats() - dataTrip.getPassengers().size();
 	}
-	
-	public void setDataTrip() throws Exception{	
-		//Properties props = System.getProperties();
-		//Context ctx = new InitialContext(props);
-		//showTripRemote = (TripFacadeRemote) ctx.lookup("java:app/CarSharingEJB.jar/TripFacadeBean!ejb.TripFacadeRemote");
+
+	public void setStringAction(String stringAction) {
+		this.stringAction = stringAction;
+	}
+
+	public String getStringAction() throws Exception {
+		if (tripsRemote.passengerIsInTrip(dataTrip.getId(), user.getEmail()))
+			stringAction = "Cancelar Plaza";
+		else
+			stringAction = "Reservar Plaza";
+		return stringAction;
+	}
+
+	@ManagedProperty(value = "#{login.user}")
+	private UserJPA user;
+
+	public UserJPA getUser() {
+		return this.user;
+	}
+
+	public void setUser(UserJPA user) {
+		this.user = user;
+	}
+
+	public void setDataTrip() throws Exception {
 		dataTrip = (TripJPA) tripsRemote.showTrip(idTrip);
-		//System.out.println("VIAJE: " + dataTrip.getFromPlace());
+		if (tripsRemote.passengerIsInTrip(dataTrip.getId(), user.getEmail()))
+			stringAction = "Cancelar Plaza";
+		else
+			stringAction = "Reservar Plaza";
 	}
 	
+	public void doAction() throws Exception {
+		
+		ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+		
+		RegisterInTripMBean register = (RegisterInTripMBean) FacesContext.getCurrentInstance().getApplication()
+				.getELResolver().getValue(elContext, null, "addpassenger");
+		RemoveFromTripMBean remove = (RemoveFromTripMBean) FacesContext.getCurrentInstance().getApplication()
+			    .getELResolver().getValue(elContext, null, "removepassenger");
+		
+		
+		register.setTripId(idTrip);
+		remove.setTripId(idTrip);		
+		
+		if(tripsRemote.passengerIsInTrip(dataTrip.getId(), user.getEmail()))
+			remove.removeFromTrip(dataTrip.getId());
+		else
+			register.registerInTrip(dataTrip.getId());
+	}
 }
