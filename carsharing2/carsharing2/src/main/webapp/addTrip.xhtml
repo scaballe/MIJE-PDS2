@@ -10,70 +10,78 @@
 <ui:composition template="./layout.xhtml">
 	<ui:define name="content">
 
-		<table width="100%">
-			<td rowspan="9" colspan="1">
-				<div class="content" align="center">
-					<h1>AddTrip</h1>
+		<c:if test="#{not login.driver}">
+		Solo los conductores pueden crear viajes
+		</c:if>
 
-					<h:form>
-						<p>Formulario para introducir los datos del trip</p>
+		<c:if test="#{login.driver}">
+			<table width="100%">
+				<td rowspan="9" colspan="1">
+					<div class="content" align="center">
+						<h1>AddTrip</h1>
 
-						<input type="hidden" value="#{login.email}" id="driverId"
-							name="driverId" />
+						<h:form>
+							<p>Formulario para introducir los datos del trip</p>
 
-						<p>
-							Introduce Description
-							<h:inputText value="#{addTrip.description}" id="description" />
-						</p>
+							<input type="hidden" value="#{login.email}" id="driverId"
+								name="driverId" />
 
-						<p>
-							Introduce departureCity
-							<h:selectOneListbox value="#{addTrip.departureCity}">
-								<f:selectItems value="#{util.cities}" var="i"
-									itemLabel="#{i.name}" itemValue="#{i.name}"></f:selectItems>
-							</h:selectOneListbox>
-						</p>
+							<p>
+								Introduce Description
+								<h:inputText value="#{addTrip.description}" id="description" />
+							</p>
 
-						<p>
-							Introduce fromPlace
-							<h:inputText value="#{addTrip.fromPlace}" id="fromPlace" />
-						</p>
-						
-						<p>
-							Introduce departureDate  (formato yyyy-MM-dd HH:mm)
-							<h:inputText value="#{addTrip.departureDate}" id="departureDate" title="yyyy-MM-dd HH:mm">
-							<f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>  
-							</h:inputText>
-						</p>
-						
-						<p>
-							Introduce arrivalCity
-							<h:selectOneListbox value="#{addTrip.arrivalCity}">
-								<f:selectItems value="#{util.cities}" var="i"
-									itemLabel="#{i.name}" itemValue="#{i.name}"></f:selectItems>
-							</h:selectOneListbox>
-						</p>
-						<p>
-							Introduce toPlace
-							<h:inputText value="#{addTrip.toPlace}" id="toPlace" />
-						</p>
-						<p>
-							Introduce availableSeats
-							<h:inputText value="#{addTrip.availableSeats}"
-								id="availableSeats" />
-						</p>
-						<p>
-							Introduce price
-							<h:inputText value="#{addTrip.price}" id="price" />
-						</p>
+							<p>
+								Introduce departureCity
+								<h:selectOneListbox value="#{addTrip.departureCity}">
+									<f:selectItems value="#{util.cities}" var="i"
+										itemLabel="#{i.name}" itemValue="#{i.name}"></f:selectItems>
+								</h:selectOneListbox>
+							</p>
 
-						<p>							
-							<h:commandButton action="#{addTrip.addTrip()}" value="Crear Trip" />
-						</p>
-					</h:form>
-				</div>
-			</td>
-		</table>
+							<p>
+								Introduce fromPlace
+								<h:inputText value="#{addTrip.fromPlace}" id="fromPlace" />
+							</p>
+
+							<p>
+								Introduce departureDate (formato yyyy-MM-dd HH:mm)
+								<h:inputText value="#{addTrip.departureDate}" id="departureDate"
+									title="yyyy-MM-dd HH:mm">
+									<f:convertDateTime pattern="yyyy-MM-dd HH:mm" />
+								</h:inputText>
+							</p>
+
+							<p>
+								Introduce arrivalCity
+								<h:selectOneListbox value="#{addTrip.arrivalCity}">
+									<f:selectItems value="#{util.cities}" var="i"
+										itemLabel="#{i.name}" itemValue="#{i.name}"></f:selectItems>
+								</h:selectOneListbox>
+							</p>
+							<p>
+								Introduce toPlace
+								<h:inputText value="#{addTrip.toPlace}" id="toPlace" />
+							</p>
+							<p>
+								Introduce availableSeats
+								<h:inputText value="#{addTrip.availableSeats}"
+									id="availableSeats" />
+							</p>
+							<p>
+								Introduce price
+								<h:inputText value="#{addTrip.price}" id="price" />
+							</p>
+
+							<p>
+								<h:commandButton action="#{addTrip.addTrip()}"
+									value="Crear Trip" />
+							</p>
+						</h:form>
+					</div>
+				</td>
+			</table>
+		</c:if>
 	</ui:define>
 </ui:composition>
 </html>

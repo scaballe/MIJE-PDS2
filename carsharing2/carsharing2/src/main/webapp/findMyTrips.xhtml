@@ -10,7 +10,7 @@
 <ui:composition template="./layout.xhtml">
 	<ui:define name="content">
 
-		<div class="table-responsive">
+		
 			<h:form>
 				<h:dataTable styleClass="table" headerClass="tableHeader"
 					bgcolor="#F1F1F1" border="3" first="0" width="50%" frame="hsides"
@@ -28,14 +28,21 @@
 						<f:facet name="departureCity">
 							<h:outputText align="center" value="Departure City " />
 						</f:facet>
-						<p>#{iterator.departureCity.name}</p>
+						<p>#{iterator.departureCity.name} (#{iterator.fromPlace})</p>
 					</h:column>
 
 					<h:column>
-						<f:facet name="departureCity">
+						<f:facet name="departureDate">
+							<h:outputText align="center" value="Departure Date " />
+						</f:facet>
+						<p>#{iterator.departureDate}</p>
+					</h:column>
+
+					<h:column>
+						<f:facet name="arrivalCity">
 							<h:outputText align="center" value="Arrival City " />
 						</f:facet>
-						<p>#{iterator.arrivalCity.name}</p>
+						<p>#{iterator.arrivalCity.name}  (#{iterator.toPlace})</p>
 					</h:column>
 
 					<h:column>
@@ -79,8 +86,7 @@
 
 				</h:dataTable>
 			</h:form>
-		</div>
-
+		
 		<div class="row">
 			<div class="col-lg-12">
 				<h:form>

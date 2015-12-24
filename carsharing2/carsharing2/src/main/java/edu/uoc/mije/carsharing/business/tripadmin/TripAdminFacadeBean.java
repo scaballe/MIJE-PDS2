@@ -78,25 +78,17 @@ public class TripAdminFacadeBean implements TripAdminFacadeRemote {
 		
 		TripJPA trip = getTrip(idTrip) ;
 		
-		if (trip == null ) return ;
+		CityJPA departure = entman.createQuery("FROM CityJPA d where d.name = :name", CityJPA.class).
+				setParameter("name", departureCity).getSingleResult();
 
-		try{
-			CityJPA departure = entman.createQuery("FROM CityJPA d where d.name = :name", CityJPA.class).
-					setParameter("name", departureCity).getSingleResult();
-
-			CityJPA arrival = entman.createQuery("FROM CityJPA d where d.name = :name", CityJPA.class).
-					setParameter("name", arrivalCity).getSingleResult();
-			
-			trip.setDepartureCity(departure);
-			trip.setArrivalCity(arrival);
-			
-		}catch(NoResultException e){
-			return;
-		}
+		CityJPA arrival = entman.createQuery("FROM CityJPA d where d.name = :name", CityJPA.class).
+				setParameter("name", arrivalCity).getSingleResult();
 		
+		trip.setDepartureCity(departure);
+		trip.setArrivalCity(arrival);			
 		trip.setDescription(description);
 		trip.setFromPlace(fromPlace);
-		trip.setDepartureDate((java.sql.Date) departureDate);
+		trip.setDepartureDateTime(departureDate);
 		trip.setToPlace(toPlace);
 		trip.setAvailableSeats(availableSeats);
 		trip.setPrice(price);

@@ -11,8 +11,10 @@ import java.util.logging.Logger;
 
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
@@ -147,9 +149,33 @@ public class UpdateTripInformationBean {
 	}
 	
 	public String updateTripInformation() throws Exception{  
-	
-		tripadminRemote.updateTripInformation(tripId, description, departureCity, fromPlace, departureDate, arrivalCity, toPlace, availableSeats, price);
 		
+		FacesContext facesContext = FacesContext.getCurrentInstance();		
+		if( description.trim().length() == 0 ){
+			facesContext.addMessage("error", new FacesMessage("Descripcion es necesaria"));
+		}
+		if( departureCity.trim().length() == 0 ){
+			facesContext.addMessage("error", new FacesMessage("Ciudad de partida es necesaria"));
+		}
+		if( fromPlace.trim().length() == 0 ){
+			facesContext.addMessage("error", new FacesMessage("Lugar de partida es necesario"));
+		}
+		if( departureDate == null ){
+			facesContext.addMessage("error", new FacesMessage("Fecha de partida es necesaria"));
+		}
+		if( arrivalCity.trim().length() == 0 ){
+			facesContext.addMessage("error", new FacesMessage("Ciudad de llegada es necesaria"));
+		}
+		if( toPlace.trim().length() == 0 ){
+			facesContext.addMessage("error", new FacesMessage("Lugar de llegada es necesario"));
+		}
+		if( availableSeats == 0 ){
+			facesContext.addMessage("error", new FacesMessage("Asientos disponibles no puede ser cero"));
+		}	
+		if( facesContext.getMessageList().size() != 0){
+			return "updateTrip";
+		}		
+		tripadminRemote.updateTripInformation(tripId, description, departureCity, fromPlace, departureDate, arrivalCity, toPlace, availableSeats, price);
 		return "findMyTrips";
 	}
 			

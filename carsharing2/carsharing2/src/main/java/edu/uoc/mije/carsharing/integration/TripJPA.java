@@ -25,7 +25,7 @@ public class TripJPA implements Serializable {
 
 	public TripJPA(	String description, CityJPA departureCity, String fromPlace,java.util.Date date, CityJPA arrivalCity,String toPlace,int availableSeats, float price){
 		Calendar c = Calendar.getInstance();
-		c.setTime(departureDate);
+		c.setTime(date);
 		java.sql.Date departureDate = new java.sql.Date(c.getTime().getTime());
 		java.sql.Time departureTime = new java.sql.Time(c.getTime().getTime());
 		init(description, departureCity, fromPlace,departureDate, departureTime, arrivalCity,toPlace,availableSeats,price);
@@ -187,5 +187,13 @@ public class TripJPA implements Serializable {
 	public boolean containsPassenger(PassengerJPA pass){
 		return passengers.contains(pass);
 	}
-	
+
+	public void setDepartureDateTime( java.util.Date date){
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		java.sql.Date departureDate = new java.sql.Date(c.getTime().getTime());
+		java.sql.Time departureTime = new java.sql.Time(c.getTime().getTime());
+		setDepartureDate(departureDate);
+		setDepartureTime(departureTime);
+	}
 }
