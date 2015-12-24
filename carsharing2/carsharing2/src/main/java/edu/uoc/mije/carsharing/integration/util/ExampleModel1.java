@@ -58,7 +58,8 @@ public class ExampleModel1 extends BaseExampleModel{
 				
 		// Un conductor con un coche y que ofrece un viaje
 		DriverJPA driver1 = new DriverJPA("111", "name", "surname", "phone", "password", "driver");		
-		driver1.addCar(car1);		
+		driver1.addCar(car1);	
+		driver1.addTrip(trip1);
 		em.persist(driver1);
 		
 		// Un pasejero registrado en el sistema
