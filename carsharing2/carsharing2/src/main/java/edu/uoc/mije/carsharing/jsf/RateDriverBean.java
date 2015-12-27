@@ -74,6 +74,16 @@ public class RateDriverBean {
 		Logger.getLogger("carsharing").info("rateDriver ");
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
+		if( comment.trim().length() == 0 ){
+			facesContext.addMessage("error", new FacesMessage("un comentario es necesario"));
+		}
+		if( rate == null ){
+			facesContext.addMessage("error", new FacesMessage("una valoracion es necesaria"));
+		}		
+		if( facesContext.getMessageList().size() != 0){
+			return "rateDriver";
+		}
+		
 		try {
 			communicationRemote.rateDriver(driverId, user.getEmail(), comment, rate);
 			

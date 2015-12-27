@@ -89,6 +89,17 @@ public class ReplyQuestionBean {
 		Logger.getLogger("carsharing").info("askQuestion ");
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
+		if( subject.trim().length() == 0 ){
+			facesContext.addMessage("error", new FacesMessage("subject es necesario"));
+		}
+		if( body.trim().length() == 0 ){
+			facesContext.addMessage("error", new FacesMessage("body es necesario"));
+		}		
+		if( facesContext.getMessageList().size() != 0){
+			return "replyQuestion";
+		}		
+			
+		
 		try {
 			communicationRemote.replyQuestion(tripId, questionId, user.getEmail(), subject, body);
 			

@@ -82,6 +82,16 @@ public class AskQuestion {
 		Logger.getLogger("carsharing").info("askQuestion ");
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
+		if( subject.trim().length() == 0 ){
+			facesContext.addMessage("error", new FacesMessage("subject es necesario"));
+		}
+		if( body.trim().length() == 0 ){
+			facesContext.addMessage("error", new FacesMessage("body es necesario"));
+		}		
+		if( facesContext.getMessageList().size() != 0){
+			return "askQuestion";
+		}		
+				
 		try {
 			communicationRemote.askQuestion(trip.getId(), user.getEmail(), subject, body);
 			
