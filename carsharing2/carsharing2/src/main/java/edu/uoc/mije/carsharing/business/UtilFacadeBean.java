@@ -23,6 +23,21 @@ public class UtilFacadeBean implements UtilFacadeRemote{
 		// TODO Auto-generated constructor stub
 	}
 	
+	@Override
+	public void bootStrapModel() throws Exception {
+		
+		CityJPA madrid,barcelona,malaga;
+		if( (madrid=entman.find(CityJPA.class, "madrid")) == null){
+			entman.persist(madrid=new CityJPA("madrid"));
+		}
+		if( (barcelona=entman.find(CityJPA.class, "barcelona")) == null){
+			entman.persist(barcelona=new CityJPA("barcelona"));
+		}
+		if( (malaga=entman.find(CityJPA.class, "malaga")) == null){
+			entman.persist(malaga=new CityJPA("malaga"));
+		}	
+	}
+	
 	public void loadModel( int exampleId ) throws Exception{
 		
 		ExampleModel1 model = new ExampleModel1();

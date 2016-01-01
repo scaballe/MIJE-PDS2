@@ -11,6 +11,8 @@ import edu.uoc.mije.carsharing.integration.TripJPA;
 @Remote
 public interface UtilFacadeRemote {
 	
+	public void bootStrapModel() throws Exception;
+	
 	public void loadModel(int exampleId) throws Exception;
 
 	public Collection<CityJPA> listCities();
