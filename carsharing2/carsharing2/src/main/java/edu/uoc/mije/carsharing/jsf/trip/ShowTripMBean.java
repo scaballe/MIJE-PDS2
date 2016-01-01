@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import edu.uoc.mije.carsharing.business.trip.TripFacadeRemote;
 import edu.uoc.mije.carsharing.business.user.UserFacadeRemote;
+import edu.uoc.mije.carsharing.integration.PassengerJPA;
 import edu.uoc.mije.carsharing.integration.TripJPA;
 import edu.uoc.mije.carsharing.integration.UserJPA;
 
@@ -61,7 +62,9 @@ public class ShowTripMBean {
 	}
 
 	public String getStringAction() throws Exception {
-		if (tripsRemote.passengerIsInTrip(dataTrip.getId(), user.getEmail()))
+		if(user == null || !(user instanceof PassengerJPA))
+			stringAction = "";
+		else if (tripsRemote.passengerIsInTrip(dataTrip.getId(), user.getEmail()))
 			stringAction = "Cancelar Plaza";
 		else
 			stringAction = "Reservar Plaza";
@@ -81,7 +84,9 @@ public class ShowTripMBean {
 
 	public void setDataTrip() throws Exception {
 		dataTrip = (TripJPA) tripsRemote.showTrip(idTrip);
-		if (tripsRemote.passengerIsInTrip(dataTrip.getId(), user.getEmail()))
+		if(user == null || !(user instanceof PassengerJPA))
+			stringAction = "";
+		else if (tripsRemote.passengerIsInTrip(dataTrip.getId(), user.getEmail()))
 			stringAction = "Cancelar Plaza";
 		else
 			stringAction = "Reservar Plaza";
@@ -100,9 +105,11 @@ public class ShowTripMBean {
 		register.setTripId(idTrip);
 		remove.setTripId(idTrip);		
 		
-		if(tripsRemote.passengerIsInTrip(dataTrip.getId(), user.getEmail()))
-			remove.removeFromTrip(dataTrip.getId());
-		else
-			register.registerInTrip(dataTrip.getId());
+		if(user != null && user instanceof PassengerJPA){
+			if(tripsRemote.passengerIsInTrip(dataTrip.getId(), user.getEmail()))
+				remove.removeFromTrip(dataTrip.getId());
+			else
+				register.registerInTrip(dataTrip.getId());
+		}
 	}
 }

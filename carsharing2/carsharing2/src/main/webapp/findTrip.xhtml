@@ -96,7 +96,8 @@
 						<f:facet name="header">
 							<h:outputText value="Detalles" />
 						</f:facet>
-						<h:outputText value="#{item.id}"/>
+						<h:outputText value="ID: #{item.id}"/>
+						<br></br>
 						<h:link outcome="showTrip" value="Ver detalles">
 							<f:param name="idTrip" value="#{item.id}" />
 						</h:link>						

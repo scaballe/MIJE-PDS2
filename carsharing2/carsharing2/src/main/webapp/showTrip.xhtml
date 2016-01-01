@@ -15,8 +15,9 @@
 	<ui:define name="content">
 		<br />
 		<h:form>
-			<input type="hidden" value="#{login.email}" id="passengerId" name="passengerId" />
-		
+			<input type="hidden" value="#{login.email}" id="passengerId"
+				name="passengerId" />
+
 			<div align="center">
 				<table border="1" width="50%" id="table1">
 					<tr>
@@ -24,8 +25,7 @@
 							<p align="left" /> <i><b>Origen: </b></i>
 						</td>
 						<td>
-							<p align="left" /> <h:outputText
-								value="#{tripshow.idTrip}" />
+							<p align="left" /> <h:outputText value="#{tripshow.idTrip}" />
 							<p align="left" /> <h:outputText
 								value="#{tripshow.dataTrip.departureCity.name}" />
 						</td>
@@ -45,7 +45,9 @@
 						</td>
 						<td>
 							<p align="left" /> <h:outputText
-								value="#{tripshow.dataTrip.departureDate}" ><f:convertDateTime type="date" pattern="dd/MM/yyyy"/></h:outputText>
+								value="#{tripshow.dataTrip.departureDate}">
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+							</h:outputText>
 						</td>
 					</tr>
 					<tr>
@@ -86,16 +88,17 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-						<div align="center">
-							<h:commandButton align="center" value="#{tripshow.stringAction}" action="#{tripshow.doAction}">							
-							</h:commandButton>
-						</div>
+							<div align="center">
+								<h:commandButton align="center" value="#{tripshow.stringAction}"
+									action="#{tripshow.doAction}">
+								</h:commandButton>
+							</div>
 						</td>
 					</tr>
 				</table>
 			</div>
 			<p align="center">
-				<h:commandLink value="Return" action="tripListView" />
+				<a href="findTrip.xhtml">Return</a>
 			</p>
 		</h:form>
 	</ui:define>

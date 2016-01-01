@@ -43,12 +43,6 @@ public class RegisterInTripMBean {
 		this.user = user;
 	}
 	
-	private void register() throws Exception{
-		System.out.println("TRIP: ID" + tripId + " / USER: " +user.getEmail());
-		tripRemote.registerInTrip(tripId, user.getEmail());
-		
-	}
-	
 	public String registerInTrip(int tripId) throws Exception{
 		
 		setTripId(tripId);
@@ -57,7 +51,11 @@ public class RegisterInTripMBean {
 		facesContext.addMessage("addPassenger", new FacesMessage("Passenger enrolled to trip"));		
 		return "findTrip";
 	}
-
+	
+	private void register() throws Exception{
+		tripRemote.registerInTrip(tripId, user.getEmail());
+		
+	}
 	
 	
 	
