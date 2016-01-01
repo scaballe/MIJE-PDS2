@@ -149,7 +149,9 @@ public class FindTripMBean {
 
 	@SuppressWarnings("deprecation")
 	private void getDate() throws WrongDateFormatException {
+		
 		String date_aux = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("date");
+		
 		if (date_aux != null && !date_aux.isEmpty()) {
 			Calendar cal = Calendar.getInstance();
 			String[] date_st = date_aux.split("/");
@@ -159,10 +161,10 @@ public class FindTripMBean {
 					int DD = Integer.parseInt(date_st[1]);
 					int MM = Integer.parseInt(date_st[0]);
 					cal.clear();
-					cal.set(Calendar.YEAR, AAAA-1);
-					cal.set(Calendar.MONTH, MM);
+					cal.set(Calendar.YEAR, AAAA);
+					cal.set(Calendar.MONTH, MM-1);
 					cal.set(Calendar.DAY_OF_MONTH, DD);
-
+					
 					departureDate = cal.getTime();
 				} catch (Exception e) {
 					FacesContext facesContext = FacesContext.getCurrentInstance();

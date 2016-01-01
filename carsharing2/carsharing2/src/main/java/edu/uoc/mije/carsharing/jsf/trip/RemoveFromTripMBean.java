@@ -55,10 +55,7 @@ public class RemoveFromTripMBean {
 	}
 	
 	private void remove() throws Exception{  
-		//Properties props = System.getProperties();
-		//Context ctx = new InitialContext(props);
-		//showPetRemote = (CatalogFacadeRemote) ctx.lookup("java:app/PracticalCaseStudyJEE.jar/CatalogFacadeBean!ejb.CatalogFacadeRemote");
-		tripRemote.removeFromTrip(tripId, passengerId);
+		tripRemote.removeFromTrip(tripId, user.getEmail());
 		
 	}
 	
