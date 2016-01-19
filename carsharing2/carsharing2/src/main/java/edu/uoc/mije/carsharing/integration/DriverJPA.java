@@ -7,7 +7,7 @@ import java.util.Collection;
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorValue("D")
+@DiscriminatorValue("1")
 public class DriverJPA extends UserJPA{
 	
 	private static final long serialVersionUID = 1L;

@@ -11,6 +11,7 @@
          <property name="hibernate.dialect" 
                   value="org.hibernate.dialect.PostgreSQLDialect"/>
          <property name="hibernate.hbm2ddl.auto" value="update"/>
+         <property name="hibernate.default_schema" value="mije"/>
       </properties> 
    </persistence-unit>
 </persistence>

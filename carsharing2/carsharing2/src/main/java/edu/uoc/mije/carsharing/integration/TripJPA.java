@@ -157,7 +157,9 @@ public class TripJPA implements Serializable {
 	}
 
 	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinColumn(name="passenger_id")
+	@JoinTable(name="trip_passenger",
+			joinColumns={@JoinColumn(name="TRIP_ID", referencedColumnName="ID")},
+		    inverseJoinColumns={@JoinColumn(name="PASSENGER_ID", referencedColumnName="ID")})
 	private Collection<PassengerJPA> passengers = new ArrayList<PassengerJPA>();
 	public Collection<PassengerJPA> getPassengers() {
 		return passengers;

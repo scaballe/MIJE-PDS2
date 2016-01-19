@@ -7,7 +7,7 @@ import java.util.Collection;
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorValue("P")
+@DiscriminatorValue("2")
 public class PassengerJPA extends UserJPA{
 
 
